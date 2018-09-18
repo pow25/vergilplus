@@ -1,2 +1,2 @@
 # vergilplus
-Advanced Software Tea, Project
+Advanced Software Team, Project
