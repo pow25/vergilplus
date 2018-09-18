@@ -1,2 +1,2 @@
 # vergilplus
-Advanced Software Team, Project
+Advanced Software Team Project
