@@ -1,0 +1,165 @@
+﻿TrackID,CourseID,Required
+Computational Biology ,WCOMS4771,1
+Computational Biology ,WCBMF4761,1
+Computational Biology ,WCOMS4111,0
+Computational Biology ,WCOMS4252,0
+Computational Biology ,WCOMS4772,0
+Computational Biology ,ECOMS6111,0
+Computational Biology ,WCOMS4995,0
+Computational Biology ,ECOMS6998,0
+Computational Biology ,ECOMS6901,0
+Computational Biology ,EEECS6720,0
+Computational Biology ,EEECS6894,0
+Computer Security,WCOMS4118,1
+Computer Security,WCOMS4156,1
+Computer Security,WCOMS4181,1
+Computer Security,WCOMS4182,1
+Computer Security,WCOMS4261 OR ECOMS6185,1
+Computer Security,WCOMS4115,0
+Computer Security,WCOMS4119,0
+Computer Security,WCOMS4186,0
+Computer Security,WCOMS4261,0
+Computer Security,WCOMS4995,0
+Computer Security,ECOMS6118,0
+Computer Security,ECOMS6181,0
+Computer Security,ECOMS6183,0
+Computer Security,ECOMS6184,0
+Computer Security,ECOMS6185,0
+Computer Security,ECOMS6261,0
+Computer Security,ECOMS6424,0
+Computer Security,ECOMS6901,0
+Computer Security,ECOMS6998,0
+Computer Security,WCSEE4824,0
+Network Systems ,WCSEE4119,1
+Network Systems ,WCOMS4118,1
+Network Systems ,WCOMS4115,1
+Network Systems ,WCSEE4140,0
+Network Systems ,WCOMS4180,0
+Network Systems ,WCOMS4261,0
+Network Systems ,WCOMS4737,0
+Network Systems ,WCOMS4995,0
+Network Systems ,ECOMS6118,0
+Network Systems ,ECOMS6125,0
+Network Systems ,ECOMS6180,0
+Network Systems ,ECOMS6181,0
+Network Systems ,ECOMS6184,0
+Network Systems ,ECOMS6185,0
+Network Systems ,ECOMS6717,0
+Network Systems ,ECOMS6737,0
+Network Systems ,ECOMS6901,0
+Network Systems ,ECOMS6998,0
+Network Systems ,EEECS4951,0
+Natural Language Processing ,WCOMS4705,1
+Natural Language Processing ,ECOMS6998,1
+Natural Language Processing ,WCOMS4170,0
+Natural Language Processing ,WCOMS4172,0
+Natural Language Processing ,WCOMS4252,0
+Natural Language Processing ,WCOMS4701,0
+Natural Language Processing ,WCOMS4771 OR WCOMS4721,0
+Natural Language Processing ,WCOMS4772,0
+Natural Language Processing ,ECOMS6901,0
+Natural Language Processing ,ECOMS6998,0
+Natural Language Processing ,EEECS6894,0
+Software Systems,WCOMS4115,1
+Software Systems,WCOMS4118,1
+Software Systems,WCOMS4156,1
+Software Systems,WCOMS4111,0
+Software Systems,WCOMS4112,0
+Software Systems,WCOMS4113,0
+Software Systems,WCOMS4186,0
+Software Systems,WCOMS4170,0
+Software Systems,WCOMS4181,0
+Software Systems,WCOMS4187,0
+Software Systems,WCOMS4444,0
+Software Systems,WCOMS4995,0
+Software Systems,ECOMS6111,0
+Software Systems,ECOMS6113,0
+Software Systems,ECOMS6114,0
+Software Systems,ECOMS6117,0
+Software Systems,ECOMS6118,0
+Software Systems,ECOMS6121,0
+Software Systems,ECOMS6156,0
+Software Systems,ECOMS6424,0
+Software Systems,ECOMS6901,0
+Software Systems,ECOMS6998,0
+Foundations of Computer Science ,WCSOR4231,1
+Foundations of Computer Science ,WCOMS4236,1
+Foundations of Computer Science ,WCOMS4203,0
+Foundations of Computer Science ,WCOMS4241,0
+Foundations of Computer Science ,WCOMS4252,0
+Foundations of Computer Science ,WCOMS4261,0
+Foundations of Computer Science ,WCOMS4281,0
+Foundations of Computer Science ,ECSEE6180,0
+Foundations of Computer Science ,WCOMS4995,0
+Foundations of Computer Science ,ECOMS6204,0
+Foundations of Computer Science ,ECOMS6232,0
+Foundations of Computer Science ,ECOMS6261,0
+Foundations of Computer Science ,ECOMS6291,0
+Foundations of Computer Science ,ECOMS6901,0
+Foundations of Computer Science ,ECOMS6998,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4160,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4167,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4170,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4172,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4731,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4733,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4735,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4771 OR WCOMS4721,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4737,1
+"Vision, Graphics, Interaction, and Robotics",WCOMS4160,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4162,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4167,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4170,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4172,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4731,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4733,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4735,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4737,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4771 OR WCOMS4721,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4772,0
+"Vision, Graphics, Interaction, and Robotics",WCOMS4995,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6161,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6174,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6176,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6731,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6732,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6733,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6734,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6735,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6737,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6901,0
+"Vision, Graphics, Interaction, and Robotics",ECOMS6998,0
+Machine Learning ,WCOMS4252,1
+Machine Learning ,WCOMS4771 OR WCOMS4721,1
+Machine Learning ,WCOMS4772,1
+Machine Learning ,GCOMS6509,1
+Machine Learning ,WCOMS4731,1
+Machine Learning ,WCOMS4705,1
+Machine Learning ,WCOMS4733,1
+Machine Learning ,WCOMS4701,1
+Machine Learning ,WCOMS4111,1
+Machine Learning ,WCOMS4252,1
+Machine Learning ,WCSOR4246,1
+Machine Learning ,WCOMS4705,1
+Machine Learning ,WCOMS4731,1
+Machine Learning ,WCOMS4733,1
+Machine Learning ,WCOMS4737,1
+Machine Learning ,WCOMS4761,1
+Machine Learning ,WCOMS4771 OR WCOMS4721,1
+Machine Learning ,WCOMS4772,1
+Machine Learning ,WCOMS4995,1
+Machine Learning ,ECOMS6111,1
+Machine Learning ,ECOMS6232,1
+Machine Learning ,ECOMS6253,1
+Machine Learning ,ECOMS6717,1
+Machine Learning ,ECOMS6735,1
+Machine Learning ,ECOMS6737,1
+Machine Learning ,ECOMS6901,1
+Machine Learning ,ECOMS6998,1
+Machine Learning ,ECSEE6892,1
+Machine Learning ,ECSEE6898,1
+Machine Learning ,EEECS6720,1
+Machine Learning ,EEECS6870,1
+Machine Learning ,EEECS6893,1
+Machine Learning ,EEECS6895,1
+Machine Learning ,EEECS6894,1
