@@ -23,7 +23,7 @@ public class TrackDAO implements ITrackDAO {
 
 	@Override
 	public List<TrackModel> selectAllTrack() {
-		String query = "select * from Track_Course";
+		String query = "select * from track";
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
@@ -57,7 +57,7 @@ public class TrackDAO implements ITrackDAO {
 
 	@Override
 	public TrackModel selectCoursesByTrackId(String id) {
-		String query = "select * from Track_Course where TrackID = ?";
+		String query = "select * from track where TrackID = ?";
 		TrackModel track = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -75,7 +75,7 @@ public class TrackDAO implements ITrackDAO {
 				System.out.println("Track course Found::" + track.getCourseID() + " " + track.getTrackID()
 						+ " is required:" + track.getRequired());
 			} else {
-				System.out.println("No Employee found with id=" + id);
+				System.out.println("No track found with id=" + id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

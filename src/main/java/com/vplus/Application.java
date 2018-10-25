@@ -1,6 +1,7 @@
 package com.vplus;
 
 import com.vplus.service.ITrackService;
+import com.vplus.service.ICourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -16,6 +17,7 @@ public class Application implements CommandLineRunner {
 	// TODO: Figure out how to autowire...
 	@Autowired
 	private ITrackService trackService;
+	private ICourseService courseService;
 	private ClassPathXmlApplicationContext ctx;
 	
 	/**
@@ -35,6 +37,8 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		setContext();
+		System.out.println("output = " + courseService.selectCoursesByNumAndSection("Machine Learning", 1));
+		System.out.println("DONE");
 		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
 		System.out.println("DONE");
 
@@ -54,5 +58,13 @@ public class Application implements CommandLineRunner {
 	
 	public void setTrackService(ITrackService trackService) {
 		this.trackService = trackService;
+	}
+
+	public ICourseService getCourseService() {
+		return this.courseService;
+	}
+	
+	public void setCourseService(ICourseService courseService) {
+		this.courseService = courseService;
 	}
 }
