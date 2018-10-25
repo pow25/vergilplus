@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: danyanghe
+Build-Jdk: 9
+Implementation-Title: vplus
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.vplus.maven
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/vplus
+Created-By: Maven Integration for Eclipse
+
