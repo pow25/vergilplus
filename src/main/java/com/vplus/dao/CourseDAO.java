@@ -34,7 +34,7 @@ public class CourseDAO implements ICourseDAO{
 				while(rs.next()){
 					CourseModel course = new CourseModel();
 					
-					course.setCourseNumber(rs.getString("CourseNumber"));
+					course.setCourseNumber(rs.getString("CourseID"));
 					course.setSectionId(rs.getInt("Section"));
 					course.setCourseTitle(rs.getString("CourseTitle"));
 					course.setWeek(rs.getString("Week"));
@@ -42,9 +42,8 @@ public class CourseDAO implements ICourseDAO{
 					course.setEndTime(rs.getString("End_Time"));
 					course.setInstructor(rs.getString("Instructor"));
 					course.setPrerequisite(rs.getString("Prerequisite"));
-					course.setTerm(rs.getString("Term"));
+					course.setTerm(rs.getInt("Term"));
 					course.setDescription(rs.getString("Description"));
-					
 					courseList.add(course);
 				}
 			}

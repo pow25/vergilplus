@@ -37,7 +37,7 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		setContext();
-		System.out.println("output = " + courseService.selectCoursesByNumAndSection("Machine Learning", 1));
+		System.out.println("output = " + courseService.selectCoursesByNumAndSection("WCOMS4771", 1));
 		System.out.println("DONE");
 		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
 		System.out.println("DONE");

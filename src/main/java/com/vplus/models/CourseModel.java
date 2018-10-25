@@ -17,7 +17,7 @@ public class CourseModel {
 	
 	private String prerequisite;
 	
-	private String term;
+	private int term;
 	
 	private String description;
 	
@@ -85,11 +85,11 @@ public class CourseModel {
 		this.prerequisite = prerequisite;
 	}
 
-	public String getTerm() {
+	public int getTerm() {
 		return term;
 	}
 
-	public void setTerm(String term) {
+	public void setTerm(int term) {
 		this.term = term;
 	}
 
