@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `course` (
-  `﻿CourseNumber` text,
+  `CourseNumber` text,
   `Section` int(11) DEFAULT NULL,
   `CourseTitle` text,
   `Week` text,
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `track`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `track` (
-  `﻿TrackID` text,
+  `TrackID` text,
   `CourseID` text,
   `Required` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
