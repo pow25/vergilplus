@@ -10,24 +10,14 @@ import junit.framework.TestSuite;
 public class AppTest 
     extends TestCase
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-    	 System.out.print( "Runing the test !!!!!!!!!!!!!!!!!!!!!!!!!!" );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
+    public void testApp2()
     {
-        return new TestSuite( AppTest.class );
+    	 System.out.println("TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"); 
+    	 System.out.println("TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"); 
+    	 System.out.println("TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"); 
     }
-
+	
     /**
      * Rigourous Test :-)
      */
