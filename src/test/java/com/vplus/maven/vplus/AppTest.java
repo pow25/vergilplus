@@ -23,7 +23,6 @@ public class AppTest
     		app_test.run("999");
     	}catch(Exception e) { 
     		assertTrue( false );
-    	}
-        
+    	}  
     }
 }
