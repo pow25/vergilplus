@@ -1,5 +1,7 @@
 package com.vplus.maven.vplus;
+
 import com.vplus.*;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 
@@ -9,14 +11,18 @@ import junit.framework.TestCase;
 public class AppTest 
     extends TestCase
 {
-
-    public void testApp2()
+    /**
+     * Rigourous Test :-)
+     */
+	Application app_test;
+    public void testApp1()
     {
     	
-    }
-	
-    public void testApp()
-    {
-        assertTrue( true );
+    	try {
+    		app_test.run("999");
+    	}catch(Exception e) { 
+    		assertTrue( false );
+    	}
+        
     }
 }
