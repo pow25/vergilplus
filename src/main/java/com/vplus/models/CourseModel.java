@@ -1,6 +1,9 @@
 package com.vplus.models;
 
-public class CourseModel {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CourseModel implements Comparable<CourseModel>{
 	private String courseNumber;
 	
 	private int sectionId;
@@ -15,7 +18,14 @@ public class CourseModel {
 	
 	private String instructor;
 	
-	private String prerequisite;
+	/**
+	 * course prerequisites, listed by their courseNumber
+	 */
+	private List<String> coursePreq;
+	
+	private boolean instructorPreq;
+	
+	private String knowledgePreq;
 	
 	private int term;
 	
@@ -77,13 +87,7 @@ public class CourseModel {
 		this.instructor = instructor;
 	}
 
-	public String getPrerequisite() {
-		return prerequisite;
-	}
 
-	public void setPrerequisite(String prerequisite) {
-		this.prerequisite = prerequisite;
-	}
 
 	public int getTerm() {
 		return term;
@@ -101,19 +105,59 @@ public class CourseModel {
 		this.description = description;
 	}
 
+	
+	
+	public List<String> getCoursePreq() {
+		return coursePreq;
+	}
+
+	public void setCoursePreq(List<String> coursePreq) {
+		this.coursePreq = coursePreq;
+	}
+
+	public boolean getInstructorPreq() {
+		return instructorPreq;
+	}
+
+	public void setInstructorPreq(boolean instructorPreq) {
+		this.instructorPreq = instructorPreq;
+	}
+
+	public String getKnowledgePreq() {
+		return knowledgePreq;
+	}
+
+	public void setKnowledgePreq(String knowledgePreq) {
+		this.knowledgePreq = knowledgePreq;
+	}
+
+	@Override
+	public int compareTo(CourseModel c){
+		return this.courseNumber.equals(c.getCourseNumber()) 
+				&& this.sectionId == c.getSectionId()
+				? 0 : -1;
+	}
+	
 	@Override
 	public String toString() {
-		return "{"
-				+ " courseNumber = " + courseNumber
-				+ " sectionId = " + sectionId
-				+ " courseTitle = " + courseTitle
-				+ " week = " + week
-				+ " startTime = " + startTime
-				+ " endTime = " + endTime
-				+ " instructor = " + instructor
-				+ " prerequisite = " + prerequisite
-				+ " term = " + term
-				+ " description = " + description
+		String res =  "{"
+					+ " courseNumber = " + courseNumber
+					+ "\nsectionId = " + sectionId
+					+ "\ncourseTitle = " + courseTitle
+					+ "\nweek = " + week
+					+ "\nstartTime = " + startTime
+					+ "\nendTime = " + endTime
+					+ "\ninstructor = " + instructor
+					+ "\nterm = " + term
+					+ "\ndescription = " + description;
+		
+		List<String> modelStrList = new ArrayList<>();
+		coursePreq.forEach(model -> modelStrList.add(courseNumber + "," + sectionId));
+		String preqs = String.join(",", modelStrList);
+		res += " \ncoursePreq = " + preqs
+				+ "\ninstructorPreq =  " + instructorPreq
+				+ "\nknowledgePreq = " + knowledgePreq
 				+ "}";
+		return res;
 	}
 }

@@ -1,7 +1,19 @@
 package com.vplus;
 
-import com.vplus.service.ITrackService;
-import com.vplus.service.ICourseService;
+import com.vplus.controller.IMasterController;
+import com.vplus.models.CourseModel;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -16,9 +28,10 @@ public class Application implements CommandLineRunner {
 
 	// TODO: Figure out how to autowire...
 	@Autowired
-	private ITrackService trackService;
-	private ICourseService courseService;
+	private IMasterController masterController;
 	private ClassPathXmlApplicationContext ctx;
+	
+	public static final String JSON_PATH = "./data/user_input.json"; 
 	
 	/**
 	 * sets the application context using xml file
@@ -26,7 +39,6 @@ public class Application implements CommandLineRunner {
 	public void setContext() {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Application app  = ctx.getBean("Application", Application.class);
-		this.setTrackService(app.getTrackService());
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
                 AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
 	}
@@ -37,13 +49,44 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		setContext();
-		System.out.println("output = " + courseService.selectCoursesByNumAndSection("WCOMS4771", 1));
-		System.out.println("DONE");
-		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
-		System.out.println("DONE");
+
+		List<String> takenCourses = new ArrayList<>();
+		
+		takenCourses = readTakenCourses();
+		for(String s : takenCourses){
+			System.out.println(s);
+		}
+		
+		List<CourseModel> recommended = new ArrayList<>();
+		recommended = masterController.recommendCourses(takenCourses);
+		recommended.forEach(System.out::println);
+		
+//		System.out.println("output = " + courseService.selectCoursesByNumAndSection("WCOMS4771", 1));
+//		System.out.println("DONE");
+//		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
+//		System.out.println("DONE");
 
 		int exitCode = SpringApplication.exit(ctx, () -> 0);
 		System.exit(exitCode);
+	}
+	
+	public List<String> readTakenCourses() throws FileNotFoundException{
+		InputStream fis = new FileInputStream(JSON_PATH);
+        JsonReader reader = Json.createReader(fis);
+
+        JsonObject personObject = reader.readObject();
+
+        reader.close();
+
+        JsonArray takenCoursesArray = personObject.getJsonArray("takenCourses");
+
+		List<String> takenCourses = new ArrayList<>();
+        
+        for (JsonValue jsonValue : takenCoursesArray) {
+            takenCourses.add(jsonValue.toString().replaceAll("^\"|\"$", ""));
+        }
+		
+		return takenCourses;
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -51,20 +94,31 @@ public class Application implements CommandLineRunner {
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
 	}
-	
-	public ITrackService getTrackService() {
-		return this.trackService;
-	}
-	
-	public void setTrackService(ITrackService trackService) {
-		this.trackService = trackService;
+
+	public IMasterController getMasterController() {
+		return masterController;
 	}
 
-	public ICourseService getCourseService() {
-		return this.courseService;
+	public void setMasterController(IMasterController masterController) {
+		this.masterController = masterController;
 	}
+
+
 	
-	public void setCourseService(ICourseService courseService) {
-		this.courseService = courseService;
-	}
+	
+//	public ITrackService getTrackService() {
+//		return this.trackService;
+//	}
+//	
+//	public void setTrackService(ITrackService trackService) {
+//		this.trackService = trackService;
+//	}
+//
+//	public ICourseService getCourseService() {
+//		return this.courseService;
+//	}
+//	
+//	public void setCourseService(ICourseService courseService) {
+//		this.courseService = courseService;
+//	}
 }
