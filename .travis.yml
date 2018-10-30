@@ -14,4 +14,4 @@ script:
 services:
   - mysql
 before_install:
-  - mysql -u root --password="" < ./data/vergilplus.sql
+  - mysql -u root -p vergilplus < ./data/vergilplus.sql
