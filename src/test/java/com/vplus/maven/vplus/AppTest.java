@@ -1,38 +1,34 @@
 package com.vplus.maven.vplus;
 
+import java.util.*;
+import com.vplus.controller.*;
+import com.vplus.dao.*;
+import com.vplus.models.*;
+import com.vplus.service.*;
 import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest 
     extends TestCase
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+	MasterController controller_test = new MasterController();
+	CourseDAO DAO_test = new CourseDAO();
+	
+	public void test_DAO() {
+		List<CourseModel> res = DAO_test.selectAllCourses();
+		
+		if ( res.isEmpty() ) {
+			assertTrue(true);
+		}
+		
+	}
+	
+    public void test_filterCourses(){
+    	List<String> takenCourses = new ArrayList<String>();
+    	takenCourses.add("WCOMS4771");
+    	List<CourseModel> result = controller_test.filterCourses(takenCourses);
     }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+    
+    
+    
 }

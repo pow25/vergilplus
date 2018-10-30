@@ -1,6 +1,7 @@
 package com.vplus;
 
 import com.vplus.controller.IMasterController;
+import com.vplus.dao.CourseDAO;
 import com.vplus.models.CourseModel;
 
 import java.io.FileInputStream;
