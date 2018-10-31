@@ -13,7 +13,7 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote add origin-pages https://$GITHUB@github.com/pow25/vegilplus.git > /dev/null 2>&1
+  git remote add origin-pages https://$GITHUB@github.com/pow25/vergilplus.git > /dev/null 2>&1
   git push --quiet --set-upstream origin-pages report_files
 }
 
