@@ -2,6 +2,7 @@ package com.vplus.maven.vplus;
 
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
+import javax.sql.DataSource;
 import java.util.*;
 
 import org.junit.Rule;
@@ -37,6 +38,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AppTest 
 extends TestCase
 {
+
 	@Autowired
 	ICourseDAO DAO_test;
 	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -51,15 +53,9 @@ extends TestCase
 		if ( res.isEmpty() ) {
 			assertTrue(false);
 		}
-//	
+
 	}
-//
-//public void test_filterCourses(){
-//	List<String> takenCourses = new ArrayList<String>();
-//	takenCourses.add("WCOMS4771");
-//	List<CourseModel> result = controller_test.filterCourses(takenCourses);
-//}
-	
+
 	
 //	
 //	
@@ -76,5 +72,7 @@ extends TestCase
 	
 
 	
-
+  
+    
 }
+

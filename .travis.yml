@@ -10,3 +10,11 @@ script:
   #- sonar-scanner
   #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
   - mvn clean install sonar:sonar
+  
+services:
+  - mysql
+before_install:
+  - mysql -u root --password="" -e "CREATE DATABASE vergilplus;"
+  - mysql -e "CREATE USER 'dbuser'@'localhsot' IDENTIFIED BY 'dbuser';"
+  - mysql -e "GRANT ALL PRIVILEGES ON vergilplus.* TO 'dbuser'@'localhost' IDENTIFIED BY 'dbuser';"
+  - mysql -e "USE vergilplus;SOURCE ./data/vergilplus.sql;"
