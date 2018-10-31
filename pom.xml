@@ -59,7 +59,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         	<sonar.analysis.mode>preview</sonar.analysis.mode>
          	<sonar.issuesReport.html.enable>true</sonar.issuesReport.html.enable>
-		<sonar.issuesReport.html.location>/home/travis/build/pow25/vergilplus/target/sonar/</sonar.issuesReport.html.location>
 	</properties>
 	
 	<!-- Package as an executable jar -->
