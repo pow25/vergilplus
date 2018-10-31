@@ -52,8 +52,6 @@ public class AppTest
 	private IMasterController masterController;
 	@Autowired
 	private ICourseService courseService;
-//	@Autowired
-//	private CourseModel courseModel;
 	private Application app;
 	private ClassPathXmlApplicationContext ctx;
 	private List<String> testCourses;
@@ -67,13 +65,13 @@ public class AppTest
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
 				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
 
-//		CourseModel c1=new CourseModel();
-//        c1.setCourseNumber("WCOMS4771");
-//        System.out.println(c1);
-//        CourseModel c2=new CourseModel();
-//        c2.setCourseNumber("WCOMS4111");
-//        testCoursesModel.add(c1);
-//        testCoursesModel.add(c2);
+		CourseModel c1=new CourseModel();
+        c1.setCourseNumber("WCOMS4771");
+        System.out.println(c1);
+        CourseModel c2=new CourseModel();
+        c2.setCourseNumber("WCOMS4111");
+        testCoursesModel.add(c1);
+        testCoursesModel.add(c2);
 	}
 
 	@Test
@@ -114,11 +112,11 @@ public class AppTest
 		});
 	}
 
-//	@Test
-//    public void filterByPrerequisites(){
-//		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
-//	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
-//    }
+	@Test
+    public void filterByPrerequisites(){
+		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
+    }
 
 }
 
