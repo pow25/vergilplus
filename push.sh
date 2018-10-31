@@ -1,4 +1,5 @@
 #!/bin/sh
+
 mv -f ./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt ./report
 mv -f ./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml ./report
 setup_git() {
@@ -8,6 +9,7 @@ setup_git() {
 
 commit_website_files() {
   git checkout -b master
+  git add *
   git commit --message "Travis uploading files [ci skip]"
 }
 
