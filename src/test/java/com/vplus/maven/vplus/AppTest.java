@@ -38,28 +38,6 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-//
-//
-//public class AppTest
-//extends TestCase {
-//
-//	@Autowired
-//	ICourseDAO DAO_test;
-//	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-//
-//	//
-//	public void test_DAO() {
-//		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
-//				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-//		List<CourseModel> res = DAO_test.selectAllCourses();
-//		System.out.println(res.size());
-//
-//		if (res.isEmpty()) {
-//			assertTrue(false);
-//		}
-//
-//	}
-//}
 /**
  * Unit test for simple App.
  */
@@ -141,5 +119,8 @@ public class AppTest
 //		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
 //	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
 //    }
+
 }
+
+
 
