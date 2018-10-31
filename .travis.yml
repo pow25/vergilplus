@@ -11,6 +11,7 @@ script:
   #- sonar-scanner
   #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
   - mvn clean install sonar:sonar test surefire-report:report
+  - ls /home/travis/.sonar/cache
 services:
   - mysql
 before_install:
