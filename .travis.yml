@@ -14,4 +14,20 @@ script:
 services:
   - mysql
 before_install:
-  - mysql -u root -p vergilplus < ./data/vergilplus.sql
+  # Enter into MySQL using "root" user identified by password
+  -mysql -u root --password=""
+
+  #Create the database
+  -mysql> CREATE DATABASE vergilplus;
+
+  #Create the user
+  -mysql> CREATE USER 'newuser'@'localhsot' IDENTIFIED BY 'newpass';
+
+  #Grant ALL privileges onthe new database to the new User
+  mysql> GRANT ALL PRIVILEGES ON NEWDB.* TO 'dbuser'@'localhost' IDENTIFIED BY 'dbuser';
+
+  #Switch to the New Database
+  mysql> USE vergilplus;
+
+  #Insert data from source.sql
+  mysql> SOURCE ./data/vergilplus.sql
