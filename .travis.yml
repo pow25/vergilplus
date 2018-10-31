@@ -9,8 +9,10 @@ script:
   # other script steps might be done before running the actual analysis
   #- sonar-scanner
   #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
-  - mvn clean install sonar:sonar
+  - mvn clean install sonar:sonar test surefire-report:report
+  - ls
   - cd target
+  - ls
   - cd sonar
   - ls
 services:
