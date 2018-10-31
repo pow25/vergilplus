@@ -35,8 +35,8 @@
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/vergilplus" />
-		<property name="username" value="root" />
-		<property name="password" value="12345678" />
+		<property name="username" value="dbuser" />
+		<property name="password" value="dbuser" />
 	</bean>
 
 </beans>

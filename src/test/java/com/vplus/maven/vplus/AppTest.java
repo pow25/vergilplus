@@ -41,17 +41,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Unit test for simple App.
  */
-//
-////This function is to test the two functions: recommendCourses and readTakenCourses
-//@Context()//For Every it will give you a random port number
-//@FixMethodOrder(MethodSorters.NAME_ASCENDING)//It will take your test methods in assending order
 public class AppTest
 {
-	//        private CourseService courseService=null;
 	@Autowired
 	private IMasterController masterController;
 	@Autowired
 	private ICourseService courseService;
+	@Autowired
+	private ICourseDAO courseDAO;
 	private Application app;
 	private ClassPathXmlApplicationContext ctx;
 	private List<String> testCourses;
@@ -64,14 +61,7 @@ public class AppTest
 		app  = ctx.getBean("Application", Application.class);
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
 				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-//
-//		CourseModel c1=new CourseModel();
-//        c1.setCourseNumber("WCOMS4771");
-//        System.out.println(c1);
-//        CourseModel c2=new CourseModel();
-//        c2.setCourseNumber("WCOMS4111");
-//        testCoursesModel.add(c1);
-//        testCoursesModel.add(c2);
+
 	}
 
 	@Test
@@ -111,12 +101,12 @@ public class AppTest
 			}
 		});
 	}
-//
-//	@Test
-//    public void filterByPrerequisites(){
-//		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
-//	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
-//    }
+
+	@Test
+    public void filterByPrerequisites(){
+		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
+    }
 
 }
 
