@@ -24,6 +24,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+
+
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
@@ -43,6 +45,9 @@ public class Application implements CommandLineRunner {
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
                 AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
 	}
+	
+
+
 	
 	/**
 	 * Run the application
@@ -66,9 +71,10 @@ public class Application implements CommandLineRunner {
 //		System.out.println("DONE");
 //		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
 //		System.out.println("DONE");
-
+		
 		int exitCode = SpringApplication.exit(ctx, () -> 0);
 		System.exit(exitCode);
+//		return;
 	}
 	
 	public List<String> readTakenCourses() throws FileNotFoundException{
