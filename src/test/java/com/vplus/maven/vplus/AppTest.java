@@ -8,6 +8,8 @@ import java.util.*;
 import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.vplus.controller.*;
@@ -55,24 +57,17 @@ extends TestCase
 		}
 
 	}
-
 	
 //	
 //	
-//	
-//	public void test_app_run() throws Exception {
-//		Application app  = ctx.getBean("Application", Application.class);	    
-//	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
-//	    app.run();
-//        
-//	    assertNotNull(systemOutRule.getLog());
-//	}
-		
-		
 	
-
-	
+	public void testAppRun() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);	    
+	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
+	    app.run();
+        
+	    assertNotNull(systemOutRule.getLog());
+	}
   
-    
 }
 
