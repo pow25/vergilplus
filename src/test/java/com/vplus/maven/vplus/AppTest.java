@@ -60,13 +60,13 @@ extends TestCase
 //	
 //	
 //	
-//	public void test_app_run() throws Exception {
-//		Application app  = ctx.getBean("Application", Application.class);	    
-//	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
-//	    app.run();
-//        
-//	    assertNotNull(systemOutRule.getLog());
-//	}
+	public void test_app_run() throws Exception {
+	    Application app  = ctx.getBean("Application", Application.class);	    
+	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
+	    app.run();
+       
+	    assertNotNull(systemOutRule.getLog());
+	}
 		
 		
 	
