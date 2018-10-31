@@ -72,9 +72,9 @@ public class Application implements CommandLineRunner {
 //		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
 //		System.out.println("DONE");
 		
-		int exitCode = SpringApplication.exit(ctx, () -> 0);
-		System.exit(exitCode);
-//		return;
+//		int exitCode = SpringApplication.exit(ctx, () -> 0);
+//		System.exit(exitCode);
+		return;
 	}
 	
 	public List<String> readTakenCourses() throws FileNotFoundException{
