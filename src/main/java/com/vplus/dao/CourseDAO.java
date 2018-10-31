@@ -30,7 +30,6 @@ public class CourseDAO implements ICourseDAO{
 			con = dataSource.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
-						
 			if(rs != null) {
 				while(rs.next()){
 					CourseModel course = new CourseModel();
