@@ -15,7 +15,8 @@ services:
   - mysql
 before_install:
   - mysql -u root --password=""
-  - mysql show schemas;
+  - show schemas;
+  - exit
   # -mysql CREATE DATABASE vergilplus
   # -mysql CREATE USER 'newuser'@'localhsot' IDENTIFIED BY 'newpass'
   # -mysql GRANT ALL PRIVILEGES ON NEWDB.* TO 'dbuser'@'localhost' IDENTIFIED BY 'dbuser'
