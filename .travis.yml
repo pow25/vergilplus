@@ -10,10 +10,9 @@ script:
   # other script steps might be done before running the actual analysis
   #- sonar-scanner
   #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
-  - mvn clean install sonar:sonar
-  - ls -a ./target
-  - ls -a ./target/sonar
-  - mvn test surefire-report:report
+  - mvn clean install sonar:sonar test surefire-report:report
+  - ls -a /home/travis/build/pow25/vergilplus/target
+  - ls -a /home/travis/build/pow25/vergilplus/target/sonar
   
 services:
   - mysql
