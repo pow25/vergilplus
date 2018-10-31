@@ -5,3 +5,4 @@ bin/
 .project
 /target
 /target/
+.idea
