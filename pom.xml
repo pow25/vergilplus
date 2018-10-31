@@ -59,7 +59,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         	<sonar.analysis.mode>preview</sonar.analysis.mode>
          	<sonar.issuesReport.html.enable>true</sonar.issuesReport.html.enable>
-		<sonar.issuesReport.console.enable>true</sonar.issuesReport.console.enable>
 	</properties>
 	
 	<!-- Package as an executable jar -->
