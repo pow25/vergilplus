@@ -25,7 +25,7 @@ before_install:
   - mysql -e "GRANT ALL PRIVILEGES ON vergilplus.* TO 'dbuser'@'localhost' IDENTIFIED BY 'dbuser';"
   - mysql -e "USE vergilplus;SOURCE ./data/vergilplus.sql;"
 after_success:
-  - ./push.sh
+  - sudo ./push.sh
 
 # before_deploy:
 #   # Set up git user name and tag this commit
