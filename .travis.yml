@@ -26,7 +26,7 @@ before_deploy:
   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
 deploy:
   provider: releases
-  api_key: "d48c3775ada3b26525244d49dfed21865a68c4be"
+  api_key: "4978ab3fbb815de5e3720e291bb3044e7c821d3e"
   file: 
     - "./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt"
     - "./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml"
