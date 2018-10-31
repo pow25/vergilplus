@@ -12,10 +12,8 @@ script:
   #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
   - mvn clean install sonar:sonar test surefire-report:report
   - ls -a 
-  - find /home/travis -name "*.html"
+  - find / -name "issues"
   - ls -a /home/travis/build/pow25/vergilplus/target/sonar/
-  - ls -a /home/travis/build/pow25/vergilplus/target/sonar/ucfg/java
-  - ls -a /home/travis/build/pow25/vergilplus/target/sonar/ucfg2/java
   
 services:
   - mysql
