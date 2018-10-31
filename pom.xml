@@ -57,10 +57,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        	<sonar.analysis.mode>preview</sonar.analysis.mode>
+         	<sonar.issuesReport.html.enable>true</sonar.issuesReport.html.enable>
+		<sonar.issuesReport.html.location>./</sonar.issuesReport.html.location>
 	</properties>
-
-
-
+	
 	<!-- Package as an executable jar -->
 	<build>
 		<plugins>
@@ -70,5 +71,15 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
+	<reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
+        </plugins>
+    </reporting>
+	
 </project>
