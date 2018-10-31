@@ -13,7 +13,7 @@ script:
   - ls
   - cd target
   - ls
-  - cd sonar
+  - cd surefire-reports
   - ls
 services:
   - mysql
