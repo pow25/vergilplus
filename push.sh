@@ -6,7 +6,7 @@ setup_git() {
 }
 
 commit_website_files() {
-  git checkout -b test_files
+  git checkout -b report_files
   git add ./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt
   git add ./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml
   git commit --message "Travis uploading files"
