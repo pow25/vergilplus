@@ -1,7 +1,7 @@
 #!/bin/sh
 
-cp ./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt ./report/Test_report.txt
-cp ./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml ./report/Test_report.xml
+mv -f ./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt ./report/Test_report.txt
+mv -f ./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml ./report/Test_report.xml
 setup_git() {
   git config --global user.email "zhangchi8518@gmail.com"
   git config --global user.name "pow25"
