@@ -1,29 +1,16 @@
 package com.vplus.maven.vplus;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
-import javax.sql.DataSource;
-import java.util.*;
-import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.vplus.controller.*;
 import com.vplus.dao.*;
-import com.vplus.models.*;
 import com.vplus.service.*;
 import org.junit.Test;
-import junit.framework.TestCase;
 import static org.junit.Assert.*;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import java.io.FileNotFoundException;
 import com.vplus.Application;
 import com.vplus.controller.IMasterController;
-import com.vplus.controller.MasterController;
 import com.vplus.models.CourseModel;
-import com.vplus.models.TrackModel;
-import com.vplus.service.CourseService;
-import static org.junit.Assert.*; // Allows you to use directly assert methods, such as assertTrue(...), assertNull(...)
-import org.junit.Test; // for @Test
 import org.junit.Before; // for @Before
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +26,12 @@ public class AppTest
 	private ICourseService courseService;
 	@Autowired
 	private ICourseDAO courseDAO;
-	@Autowired
-	private DataSource ds;
 
 	@Autowired
 	ICourseDAO DAO_test;
 
 	private Application app;
 	private List<String> testCourses;
-	private List<CourseModel> testCoursesModel=new ArrayList<>();
 	private List<CourseModel> totalcourseModel=new ArrayList<>();
 
 	private String testFile="user_input.json";
@@ -57,12 +41,6 @@ public class AppTest
 		app  = ctx.getBean("Application", Application.class);
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
 				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-		CourseModel c=new CourseModel();
-		c.setCourseNumber("WCOMS4771");
-		testCoursesModel.add(c);
-		c=new CourseModel();
-		c.setCourseNumber("WCOMS4111");
-		testCoursesModel.add(c);
 	}
 
 	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -104,7 +82,6 @@ public class AppTest
 	
 	@Test
 	public void recommendCourses() {
-
 		testCourses=new ArrayList<>();
 		testCourses.add("WCOMS4771");
 		testCourses.add("WCOMS4111");
@@ -128,12 +105,21 @@ public class AppTest
 		});
 	}
 
-//	@Test
-//    public void filterByPrerequisites(){
-//		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
-//	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
-//    }
-//
+	@Test
+    public void filterByPrerequisites(){
+		List<CourseModel>testCoursesModel=new ArrayList<>();
+		CourseModel c= new CourseModel();
+		c.setCoursePreq(new ArrayList<>());
+		testCoursesModel.add(c);
+		c= new CourseModel();
+		List<String> clist=new ArrayList<>();
+		clist.add("WCOMS4111");
+		c.setCoursePreq(clist);
+		testCoursesModel.add(c);
+		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
+    }
+
 	@Test
 	public void searchKeywords(){
 		List<String> matchedCourses = app.searchKeywords("machine learning");
