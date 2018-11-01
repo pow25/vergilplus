@@ -135,4 +135,18 @@ public class AppTest
 		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
 	}
 }
+	@Test
+	public void testBreadthCourses() {
+		List<CourseModel> filteredBreadthRequirements = masterController.breadthRequirements();
+		System.out.println(filteredBreadthRequirements);
+		assertTrue(filteredBreadthRequirements.size() == 4);
+	}
+//
+//	@Test
+//    public void filterByPrerequisites(){
+//		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+//	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
+//    }
+
+}
 
