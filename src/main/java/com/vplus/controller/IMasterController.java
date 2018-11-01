@@ -17,5 +17,7 @@ public interface IMasterController{
 	public List<CourseModel> recommendCourses(List<String> takenCourses);
 	
 	public List<CourseModel> filterByTrackRequirements(String trackId, List<CourseModel> courses);
+	
+	public List<CourseModel> breadthRequirements();
 
 }
