@@ -38,6 +38,7 @@ public class MasterController implements IMasterController{
 	// acknowledge taken courses, e.g, make courses available, remove taken courses
 	public List<CourseModel> processTakenCourses(List<String> takenCourses, List<CourseModel> allCourses){
 		List<CourseModel> filteredCourses=new ArrayList<>();
+		if (takenCourses.isEmpty()) return allCourses;
 		for(CourseModel course : allCourses){
 			// if takenCourses and prereqs are not disjoint (i.e., there is overlap),
 			// prereq becomes empty, because all prereqs are joined by OR.
@@ -50,7 +51,6 @@ public class MasterController implements IMasterController{
 				filteredCourses.add(course);
 			}
 		}
-		
 		return filteredCourses;
 	}
 

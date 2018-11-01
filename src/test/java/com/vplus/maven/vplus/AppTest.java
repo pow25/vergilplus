@@ -31,10 +31,7 @@ public class AppTest
 	ICourseDAO DAO_test;
 
 	private Application app;
-	private List<String> testCourses;
-	private List<CourseModel> totalcourseModel=new ArrayList<>();
 
-	private String testFile="user_input.json";
 	@Before
 	public void beforeEachTest() {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -82,12 +79,16 @@ public class AppTest
 	
 	@Test
 	public void recommendCourses() {
-		testCourses=new ArrayList<>();
+		List<String> testCourses = new ArrayList<>();
 		testCourses.add("WCOMS4771");
 		testCourses.add("WCOMS4111");
 		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
 		assertTrue(recommended != null);
+		testCourses=new ArrayList<>();
+		recommended=masterController.recommendCourses(testCourses);
+		assertTrue(recommended != null);
 	}
+
 
 	@Test
 	public void selectAllCourses() {
@@ -97,12 +98,20 @@ public class AppTest
 	
 	@Test
 	public void processTakenCourses() {
+		List<CourseModel> totalcourseModel=new ArrayList<>();
+		totalcourseModel=courseService.selectAllCourses();
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4111");
 		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalcourseModel);
 		filteredCourses.forEach(c-> {
 			if (c.getCourseNumber().equals(testCourses.get(0)) || c.getCourseNumber().equals(testCourses.get(1))) {
 				assertTrue(false);
 			}
 		});
+		List<String> nullCourses=new ArrayList<>();
+		filteredCourses=masterController.processTakenCourses(nullCourses,totalcourseModel);
+		assertTrue(filteredCourses.size()==totalcourseModel.size());
 	}
 
 	@Test
