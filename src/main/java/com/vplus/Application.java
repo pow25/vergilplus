@@ -70,95 +70,36 @@ public class Application implements CommandLineRunner {
 		setContext();
 		//Welcome message
 		System.out.println("Hello, welcome to Vergilplus!");
-		System.out.println("Type \"exit\" to exit the program.\n");
-		System.out.println("Type \"Hi\" to get started.\n");
+		System.out.println("There are several options below, type integer to choose:");
+		System.out.println("1, searchKeywords");
+		System.out.println("2, recommendCourses");
+		
 		//create the buffer read to handle the user input
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-		//build the response tree(it is a binary tree, and left tree is the response for 'yes', 
-		//and the right tree is response for 'no')
-		List<String> responses = new ArrayList<String>();
-		//level 0
-        responses.add("Are you currently a Columbia University Student?(Y/N)");
-		//level 1        
-        responses.add("Have you taken any courses already?(Y/N)");
-        responses.add("Do you want to enter key words to see some related courses?(Y/N)");
-		//level 2
-        responses.add("Please input the taken courses list, seperated by comma\',\'");
-        responses.add("Do you want Vergilplus recommend some courses for you?(Y/N)");
-        responses.add("Please enter the search key words(only one criteria)");
-        responses.add("Bye");
-		//level 3
-        responses.add("Do you want Vergilplus recommend some courses for you?(Y/N)");
-        responses.add("Do you want Vergilplus recommend some courses for you?(Y/N)");
-        responses.add("recommendCourses");
-        responses.add("Bye");
-        responses.add("searchKeywords");
-        responses.add("searchKeywords");
-        responses.add("Bye");
-        responses.add("Bye");
-		//level 4
-        responses.add("recommendCourses");
-        responses.add("Bye");
-        responses.add("recommendCourses");
-        responses.add("Bye");
-        responses.add("Bye");
-        responses.add("Bye");
-        
-        //main program to handle, and exit whenever user type "exit"
-		String input_current = null;
-		String input_prev = null;
-		int i = 0;
-		while( i < responses.size() ){
-			
-			input_current = br.readLine();
-        	if ( input_current.equals("exit") ) {
-        		break;
-			}
-
-        	System.out.print("The prev input:");
-        	System.out.println(input_prev);
-        	String output = null;
-        	output = responses.get(i);
-        	if (output.equals("Bye"))
-        		break;
-        	
-        	if ( output.equals("recommendCourses") ) {
-        		List<String> takenCourses = new ArrayList<String>();
-        		
-                String[] buff = input_prev.split(",");
-                for( int j = 0; j<buff.length; ++j ){
-                	takenCourses.add(buff[j]);
-                }
-                
-        		List<CourseModel> recommended = recommendCourses(takenCourses);
-        		recommended.forEach(System.out::println);
-        	}
-        	else if ( output.equals("searchKeywords") ) {
-//        		List<String> res = searchKeywords(input_prev);
-//        		res.forEach(System.out::println);
-        		System.out.println("call searchKeywords");
-        	}
-        	else {
-        		System.out.println(output);
-        	}
-        	
-        	
-        	if ( input_current.equals("Y") || input_current.equals("y") ) {
-        		i = 2*i + 1;
-        	}
-        	else if ( input_current.equals("N") || input_current.equals("n") ) {
-                i = 2*i + 2;
-        	}
-        	else {
-        		i = 2*i + 2; // if the input_current is something useful, then no matter which tree next,
-        					 // it will be fine
-        	}
-        	
-            input_prev = input_current;
-        }
-		System.out.println("Thank you for using Vergilplus, wish you a good day");
-
+		String input = br.readLine();
+		int result = Integer.parseInt(input);
+		if ( result == 1 ) {
+			System.out.println("Please enter key words:");
+			input = br.readLine();
+			List<String> res = searchKeywords(input);
+			for ( int i = 0; i < res.size(); ++i )
+				System.out.println(res.get(i));
+		}
+		else {
+			System.out.println("Please enter taken courses, seperated by \",\"");
+			input = br.readLine();
+			String[] buff = input.split(",");
+			List<String> takenCourses = new ArrayList<String>();
+	        for(int i=0;i<buff.length;++i){
+	        	takenCourses.add(buff[i]);
+	        }
+	        List<CourseModel> res = recommendCourses(takenCourses);
+	        res.forEach(System.out::println);
+		}
+		
+		System.out.println("Thank you for using Vergilplus, wish you a good day :)");
+		int exitCode = SpringApplication.exit(ctx, () -> 0);
+		System.exit(exitCode);
 		return;
 	}
 
