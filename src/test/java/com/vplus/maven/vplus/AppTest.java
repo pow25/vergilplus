@@ -89,14 +89,14 @@ public class AppTest
 
 	}
 	
-	@Test
-	public void testAppRun() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);	    
-	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
-	    app.run();
-        
-	    assertNotNull(systemOutRule.getLog());
-	}
+//	@Test
+//	public void testAppRun() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);	    
+//	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
+//	    app.run();
+//        
+//	    assertNotNull(systemOutRule.getLog());
+//	}
 	
 
 	@Test
