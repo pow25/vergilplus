@@ -6,15 +6,16 @@ setup_git() {
 }
 
 commit_website_files() {
-  git checkout -b report_files
-  git add ./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt
-  git add ./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml
-  git commit --message "Travis uploading files"
+  git checkout master
+  mv -f ./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt ./report/Test_report.txt
+  mv -f ./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml ./report/Test_report.xml
+  git add *
+  git commit -am "Travis uploading files [ci skip]"
 }
 
 upload_files() {
-  git remote add origin-pages https://${GITHUB}@github.com/pow25/vegilplus.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin-pages gh-pages 
+  git remote add origin-pages https://$GITHUB@github.com/pow25/vergilplus.git > /dev/null 2>&1
+  git push --quiet --set-upstream origin-pages master
 }
 
 setup_git

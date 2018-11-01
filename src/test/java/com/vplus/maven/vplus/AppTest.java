@@ -11,7 +11,6 @@ import com.vplus.controller.*;
 import com.vplus.dao.*;
 import com.vplus.models.*;
 import com.vplus.service.*;
-import com.vplus.*;
 import org.junit.Test;
 import junit.framework.TestCase;
 import static org.junit.Assert.*;
