@@ -4,9 +4,11 @@ import com.vplus.controller.IMasterController;
 import com.vplus.dao.CourseDAO;
 import com.vplus.models.CourseModel;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,28 +47,13 @@ public class Application implements CommandLineRunner {
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
                 AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
 	}
-	
 
-
-	
-	/**
-	 * Run the application
-	 */
-	@Override
-	public void run(String... args) throws Exception {
-		setContext();
-
-		List<String> takenCourses = new ArrayList<>();
-		
-		takenCourses = readTakenCourses();
-		for(String s : takenCourses){
-			System.out.println(s);
-		}
+	//recommend courses based on taken course
+	public List<CourseModel> recommendCourses(List<String> takenCourses ) {
 		
 		List<CourseModel> recommended = new ArrayList<>();
 		recommended = masterController.recommendCourses(takenCourses);
-		recommended.forEach(System.out::println);
-		
+		return recommended;
 //		System.out.println("output = " + courseService.selectCoursesByNumAndSection("WCOMS4771", 1));
 //		System.out.println("DONE");
 //		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
@@ -74,6 +61,105 @@ public class Application implements CommandLineRunner {
 		
 //		int exitCode = SpringApplication.exit(ctx, () -> 0);
 //		System.exit(exitCode);
+	}
+	
+	/**
+	 * Run the application
+	 */
+	@Override
+	public void run(String... args) throws Exception {
+		setContext();
+		//Welcome message
+		System.out.println("Hello, welcome to Vergilplus!");
+		System.out.println("Type \"exit\" to exit the program.\n");
+		System.out.println("Type \"Hi\" to get started.\n");
+		//create the buffer read to handle the user input
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+		//build the response tree(it is a binary tree, and left tree is the response for 'yes', 
+		//and the right tree is response for 'no')
+		List<String> responses = new ArrayList<String>();
+		//level 0
+        responses.add("Are you currently a Columbia University Student?(Y/N)");
+		//level 1        
+        responses.add("Have you taken any courses already?(Y/N)");
+        responses.add("Do you want to enter key words to see some related courses?(Y/N)");
+		//level 2
+        responses.add("Please input the taken courses list, seperated by comma\',\'");
+        responses.add("Do you want Vergilplus recommend some courses for you?(Y/N)");
+        responses.add("Please enter the search key words(only one criteria)");
+        responses.add("Bye");
+		//level 3
+        responses.add("Do you want Vergilplus recommend some courses for you?(Y/N)");
+        responses.add("Do you want Vergilplus recommend some courses for you?(Y/N)");
+        responses.add("recommendCourses");
+        responses.add("Bye");
+        responses.add("searchKeywords");
+        responses.add("searchKeywords");
+        responses.add("Bye");
+        responses.add("Bye");
+		//level 4
+        responses.add("recommendCourses");
+        responses.add("Bye");
+        responses.add("recommendCourses");
+        responses.add("Bye");
+        responses.add("Bye");
+        responses.add("Bye");
+        
+        //main program to handle, and exit whenever user type "exit"
+		String input_current = null;
+		String input_prev = null;
+		int i = 0;
+		while( i < responses.size() ){
+			
+			input_current = br.readLine();
+        	if ( input_current.equals("exit") ) {
+        		break;
+			}
+
+        	System.out.print("The prev input:");
+        	System.out.println(input_prev);
+        	String output = null;
+        	output = responses.get(i);
+        	if (output.equals("Bye"))
+        		break;
+        	
+        	if ( output.equals("recommendCourses") ) {
+        		List<String> takenCourses = new ArrayList<String>();
+        		
+                String[] buff = input_prev.split(",");
+                for( int j = 0; j<buff.length; ++j ){
+                	takenCourses.add(buff[j]);
+                }
+                
+        		List<CourseModel> recommended = recommendCourses(takenCourses);
+        		recommended.forEach(System.out::println);
+        	}
+        	else if ( output.equals("searchKeywords") ) {
+//        		List<String> res = searchKeywords(input_prev);
+//        		res.forEach(System.out::println);
+        		System.out.println("call searchKeywords");
+        	}
+        	else {
+        		System.out.println(output);
+        	}
+        	
+        	
+        	if ( input_current.equals("Y") || input_current.equals("y") ) {
+        		i = 2*i + 1;
+        	}
+        	else if ( input_current.equals("N") || input_current.equals("n") ) {
+                i = 2*i + 2;
+        	}
+        	else {
+        		i = 2*i + 2; // if the input_current is something useful, then no matter which tree next,
+        					 // it will be fine
+        	}
+        	
+            input_prev = input_current;
+        }
+		System.out.println("Thank you for using Vergilplus, wish you a good day");
+
 		return;
 	}
 	
@@ -100,6 +186,7 @@ public class Application implements CommandLineRunner {
 		SpringApplication app = new SpringApplication(Application.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
+		return;
 	}
 
 	public IMasterController getMasterController() {
