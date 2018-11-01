@@ -13,6 +13,7 @@ import com.vplus.controller.IMasterController;
 import com.vplus.models.CourseModel;
 import org.junit.Before; // for @Before
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -131,7 +132,7 @@ public class AppTest
 
 	@Test
 	public void searchKeywords(){
-		List<String> matchedCourses = app.searchKeywords("machine learning");
+		HashSet<String> matchedCourses = app.searchKeywords("machine learning");
 		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
 	}
 

@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.json.Json;
@@ -81,9 +82,8 @@ public class Application implements CommandLineRunner {
 		if ( result == 1 ) {
 			System.out.println("Please enter key words:");
 			input = br.readLine();
-			List<String> res = searchKeywords(input);
-			for ( int i = 0; i < res.size(); ++i )
-				System.out.println(res.get(i));
+			HashSet<String> res = searchKeywords(input);
+			res.forEach(System.out::println);
 		}
 		else {
 			System.out.println("Please enter taken courses, seperated by \",\"");
@@ -123,8 +123,8 @@ public class Application implements CommandLineRunner {
 	}
 
 
-	public List<String> searchKeywords(String keyword){
-		List<String> matchedCourses = new ArrayList<>();
+	public HashSet<String> searchKeywords(String keyword){
+		HashSet<String> matchedCourses = new HashSet<>();
 		List<CourseModel> allCourses = masterController.fetchAllCourses();
 		for(CourseModel c: allCourses){
 			if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())||c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
