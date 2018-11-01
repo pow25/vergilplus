@@ -1,37 +1,16 @@
-
 package com.vplus.maven.vplus;
-
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
-import javax.sql.DataSource;
-import java.util.*;
-
-import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.vplus.controller.*;
 import com.vplus.dao.*;
-import com.vplus.models.*;
 import com.vplus.service.*;
 import org.junit.Test;
-import junit.framework.TestCase;
 import static org.junit.Assert.*;
-
 import org.junit.contrib.java.lang.system.SystemOutRule;
-
-
-
 import java.io.FileNotFoundException;
 import com.vplus.Application;
 import com.vplus.controller.IMasterController;
-import com.vplus.controller.MasterController;
 import com.vplus.models.CourseModel;
-import com.vplus.models.TrackModel;
-import com.vplus.service.CourseService;
-import static org.junit.Assert.*; // Allows you to use directly assert methods, such as assertTrue(...), assertNull(...)
-import org.junit.Test; // for @Test
 import org.junit.Before; // for @Before
 import java.util.ArrayList;
 import java.util.List;
@@ -39,51 +18,37 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
-//
-////This function is to test the two functions: recommendCourses and readTakenCourses
-//@Context()//For Every it will give you a random port number
-//@FixMethodOrder(MethodSorters.NAME_ASCENDING)//It will take your test methods in assending order
 public class AppTest
 {
-	//        private CourseService courseService=null;
 	@Autowired
 	private IMasterController masterController;
 	@Autowired
 	private ICourseService courseService;
 	@Autowired
-	ICourseDAO DAO_test;
-	private Application app;
-	private List<String> testCourses;
-	private List<CourseModel> testCoursesModel=new ArrayList<>();
-	private List<CourseModel> totalcourseModel=new ArrayList<>();
-	private String testFile="user_input.json";
-	
+	private ICourseDAO courseDAO;
 
-	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+	@Autowired
+	ICourseDAO DAO_test;
+
+	private Application app;
 
 	@Before
 	public void beforeEachTest() {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		app  = ctx.getBean("Application", Application.class);
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
 				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-//
-//		CourseModel c1=new CourseModel();
-//        c1.setCourseNumber("WCOMS4771");
-//        System.out.println(c1);
-//        CourseModel c2=new CourseModel();
-//        c2.setCourseNumber("WCOMS4111");
-//        testCoursesModel.add(c1);
-//        testCoursesModel.add(c2);
 	}
+
+	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 	
 	@Test
 	public void test_DAO() {
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
 	            AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
 		List<CourseModel> res = DAO_test.selectAllCourses();
-		System.out.println(res.size());
 		
-		if ( res.isEmpty() ) {
+		if (res.isEmpty() ) {
 			assertTrue(false);
 		}
 
@@ -114,14 +79,16 @@ public class AppTest
 	
 	@Test
 	public void recommendCourses() {
-
-		testCourses=new ArrayList<>();
+		List<String> testCourses = new ArrayList<>();
 		testCourses.add("WCOMS4771");
 		testCourses.add("WCOMS4111");
 		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
-		System.out.println(recommended);
+		assertTrue(recommended != null);
+		testCourses=new ArrayList<>();
+		recommended=masterController.recommendCourses(testCourses);
 		assertTrue(recommended != null);
 	}
+
 
 	@Test
 	public void selectAllCourses() {
@@ -131,18 +98,46 @@ public class AppTest
 	
 	@Test
 	public void processTakenCourses() {
+		List<CourseModel> totalcourseModel=new ArrayList<>();
+		totalcourseModel=courseService.selectAllCourses();
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4111");
 		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalcourseModel);
 		filteredCourses.forEach(c-> {
 			if (c.getCourseNumber().equals(testCourses.get(0)) || c.getCourseNumber().equals(testCourses.get(1))) {
 				assertTrue(false);
 			}
 		});
+		List<String> nullCourses=new ArrayList<>();
+		filteredCourses=masterController.processTakenCourses(nullCourses,totalcourseModel);
+		assertTrue(filteredCourses.size()==totalcourseModel.size());
 	}
-	
+
+	@Test
+    public void filterByPrerequisites(){
+		List<CourseModel>testCoursesModel=new ArrayList<>();
+		CourseModel c= new CourseModel();
+		c.setCoursePreq(new ArrayList<>());
+		testCoursesModel.add(c);
+		c= new CourseModel();
+		List<String> clist=new ArrayList<>();
+		clist.add("WCOMS4111");
+		c.setCoursePreq(clist);
+		testCoursesModel.add(c);
+		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
+    }
+
+	@Test
+	public void searchKeywords(){
+		List<String> matchedCourses = app.searchKeywords("machine learning");
+		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
+	}
+
 	@Test
 	public void testBreadthCourses() {
 		List<CourseModel> filteredBreadthRequirements = masterController.breadthRequirements();
-		System.out.println(filteredBreadthRequirements);
 		assertTrue(filteredBreadthRequirements.size() == 4);
 	}
 //

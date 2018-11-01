@@ -1,7 +1,6 @@
 package com.vplus;
 
 import com.vplus.controller.IMasterController;
-import com.vplus.dao.CourseDAO;
 import com.vplus.models.CourseModel;
 
 import java.io.BufferedReader;
@@ -162,7 +161,7 @@ public class Application implements CommandLineRunner {
 
 		return;
 	}
-	
+
 	public List<String> readTakenCourses() throws FileNotFoundException{
 		InputStream fis = new FileInputStream(JSON_PATH);
         JsonReader reader = Json.createReader(fis);
@@ -174,15 +173,27 @@ public class Application implements CommandLineRunner {
         JsonArray takenCoursesArray = personObject.getJsonArray("takenCourses");
 
 		List<String> takenCourses = new ArrayList<>();
-        
+
         for (JsonValue jsonValue : takenCoursesArray) {
             takenCourses.add(jsonValue.toString().replaceAll("^\"|\"$", ""));
         }
-		
+
 		return takenCourses;
 	}
-	
-	public static void main(String[] args) throws Exception {
+
+
+	public List<String> searchKeywords(String keyword){
+		List<String> matchedCourses = new ArrayList<>();
+		List<CourseModel> allCourses = masterController.fetchAllCourses();
+		for(CourseModel c: allCourses){
+			if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())||c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
+				matchedCourses.add(c.getCourseTitle()+" "+c.getCourseNumber());
+			}
+		}
+		return matchedCourses;
+	}
+
+	public static void main(String[] args){
 		SpringApplication app = new SpringApplication(Application.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);

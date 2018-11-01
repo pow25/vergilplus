@@ -45,9 +45,11 @@ public class CourseDAO implements ICourseDAO{
 					// set the three prerequisites
 					String[] preqs = rs.getString("Prerequisite").split(";",-1);
 					List<String> coursePreq = Arrays.asList(preqs[0].split(" "));
-					if(preqs.length < 3) {
-						Arrays.asList(preqs).forEach(System.out::println);
+
+					if (coursePreq.get(0).length()==0){
+						coursePreq = new ArrayList<>();
 					}
+
 					String knowledgePreq = preqs[1];
 					boolean instructorPreq = preqs[2].length() > 0;
 					

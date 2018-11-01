@@ -20,4 +20,6 @@ public interface IMasterController{
 	
 	public List<CourseModel> breadthRequirements();
 
+	public List<CourseModel> fetchAllCourses();
+
 }
