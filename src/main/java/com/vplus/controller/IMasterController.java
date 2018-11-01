@@ -18,4 +18,6 @@ public interface IMasterController{
 	
 	public List<CourseModel> filterByTrackRequirements(String trackId, List<CourseModel> courses);
 
+	public List<CourseModel> fetchAllCourses();
+
 }

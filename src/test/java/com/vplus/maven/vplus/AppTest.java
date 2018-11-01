@@ -128,11 +128,16 @@ public class AppTest
 		});
 	}
 
+//	@Test
+//    public void filterByPrerequisites(){
+//		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+//	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
+//    }
+//
 	@Test
-    public void filterByPrerequisites(){
-		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
-	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
-    }
-
+	public void searchKeywords(){
+		List<String> matchedCourses = app.searchKeywords("machine learning");
+		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
+	}
 }
 

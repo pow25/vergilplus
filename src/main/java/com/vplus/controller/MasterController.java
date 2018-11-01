@@ -64,7 +64,12 @@ public class MasterController implements IMasterController{
 			}
 			return filteredCourses;
 	}
-	
+
+	public List<CourseModel> fetchAllCourses(){
+		List<CourseModel> allCourses = courseService.selectAllCourses();
+		return allCourses;
+	}
+
 	// TODO: clean up track table and implement this
 	public List<CourseModel> filterByTrackRequirements(String trackId, List<CourseModel> courses){
 		return null;
@@ -77,6 +82,5 @@ public class MasterController implements IMasterController{
 	public void setCourseService(ICourseService courseService) {
 		this.courseService = courseService;
 	}
-	
-	
+
 }
