@@ -134,11 +134,10 @@ public class AppTest
 		List<String> matchedCourses = app.searchKeywords("machine learning");
 		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
 	}
-}
+
 	@Test
 	public void testBreadthCourses() {
 		List<CourseModel> filteredBreadthRequirements = masterController.breadthRequirements();
-		System.out.println(filteredBreadthRequirements);
 		assertTrue(filteredBreadthRequirements.size() == 4);
 	}
 //
