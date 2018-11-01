@@ -138,6 +138,13 @@ public class AppTest
 			}
 		});
 	}
+	
+	@Test
+	public void testBreadthCourses() {
+		List<CourseModel> filteredBreadthRequirements = masterController.breadthRequirements();
+		System.out.println(filteredBreadthRequirements);
+		assertTrue(filteredBreadthRequirements.size() == 4);
+	}
 //
 //	@Test
 //    public void filterByPrerequisites(){
