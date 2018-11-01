@@ -11,8 +11,11 @@ script:
   #- sonar-scanner
   #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
   - mvn clean install sonar:sonar test surefire-report:report
-  - ls -a /home/travis/build/pow25/vergilplus/target
-  - ls -a /home/travis/build/pow25/vergilplus/target/sonar
+  - ls -a 
+  - find /home/travis -name "*.html"
+  - ls -a /home/travis/build/pow25/vergilplus/target/sonar/
+  - ls -a /home/travis/build/pow25/vergilplus/target/sonar/ucfg/java
+  - ls -a /home/travis/build/pow25/vergilplus/target/sonar/ucfg2/java
   
 services:
   - mysql
@@ -21,16 +24,18 @@ before_install:
   - mysql -e "CREATE USER 'dbuser'@'localhsot' IDENTIFIED BY 'dbuser';"
   - mysql -e "GRANT ALL PRIVILEGES ON vergilplus.* TO 'dbuser'@'localhost' IDENTIFIED BY 'dbuser';"
   - mysql -e "USE vergilplus;SOURCE ./data/vergilplus.sql;"
+after_success:
+  - sudo ./push.sh
 
-before_deploy:
-  # Set up git user name and tag this commit
-  - git config --local user.name "pow25"
-  - git config --local user.email "zhangchi8518@gmial.com"
-  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-deploy:
-  provider: releases
-  api_key: $GITHUB
-  file: 
-    - "./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt"
-    - "./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml"
-  skip_cleanup: true
+# before_deploy:
+#   # Set up git user name and tag this commit
+#   - git config --local user.name "pow25"
+#   - git config --local user.email "zhangchi8518@gmial.com"
+#   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+# deploy:
+#   provider: releases
+#   api_key: $GITHUB
+#   file: 
+#     - "./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt"
+#     - "./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml"
+#   skip_cleanup: true

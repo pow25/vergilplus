@@ -57,7 +57,7 @@ public class MasterController implements IMasterController{
 	// remove courses for which prerequisites are not fulfilled
 	public List<CourseModel> filterByPrerequisites(List<CourseModel> courses){
 			List<CourseModel> filteredCourses = new ArrayList<>();
-
+			System.out.println("sdf sd"+courses.size());
 			for (CourseModel course : courses) {
 				if (course.getCoursePreq().isEmpty()) {
 					filteredCourses.add(course);

@@ -1,30 +1,12 @@
 package com.vplus.maven.vplus;
-import java.io.FileNotFoundException;
-import com.vplus.Application;
-import com.vplus.controller.IMasterController;
-import com.vplus.controller.MasterController;
-import com.vplus.models.CourseModel;
-import com.vplus.models.TrackModel;
-import com.vplus.service.CourseService;
-import junit.framework.TestCase;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import static org.junit.Assert.*; // Allows you to use directly assert methods, such as assertTrue(...), assertNull(...)
-import org.junit.Test; // for @Test
-import org.junit.Before; // for @Before
-import java.util.ArrayList;
-import java.util.List;
-
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import javax.sql.DataSource;
 import java.util.*;
-
 import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.vplus.controller.*;
 import com.vplus.dao.*;
 import com.vplus.models.*;
@@ -33,10 +15,19 @@ import com.vplus.*;
 import org.junit.Test;
 import junit.framework.TestCase;
 import static org.junit.Assert.*;
-
 import org.junit.contrib.java.lang.system.SystemOutRule;
-
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.io.FileNotFoundException;
+import com.vplus.Application;
+import com.vplus.controller.IMasterController;
+import com.vplus.controller.MasterController;
+import com.vplus.models.CourseModel;
+import com.vplus.models.TrackModel;
+import com.vplus.service.CourseService;
+import static org.junit.Assert.*; // Allows you to use directly assert methods, such as assertTrue(...), assertNull(...)
+import org.junit.Test; // for @Test
+import org.junit.Before; // for @Before
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -49,11 +40,17 @@ public class AppTest
 	private ICourseService courseService;
 	@Autowired
 	private ICourseDAO courseDAO;
+	@Autowired
+	private DataSource ds;
+
+	@Autowired
+	ICourseDAO DAO_test;
+
 	private Application app;
-	private ClassPathXmlApplicationContext ctx;
 	private List<String> testCourses;
 	private List<CourseModel> testCoursesModel=new ArrayList<>();
 	private List<CourseModel> totalcourseModel=new ArrayList<>();
+
 	private String testFile="user_input.json";
 	@Before
 	public void beforeEachTest() {
@@ -61,7 +58,35 @@ public class AppTest
 		app  = ctx.getBean("Application", Application.class);
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
 				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
+		CourseModel c=new CourseModel();
+		c.setCourseNumber("WCOMS4771");
+		testCoursesModel.add(c);
+		c=new CourseModel();
+		c.setCourseNumber("WCOMS4111");
+		testCoursesModel.add(c);
+	}
 
+	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+	
+	@Test
+	public void test_DAO() {
+		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
+	            AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
+		List<CourseModel> res = DAO_test.selectAllCourses();
+		
+		if (res.isEmpty() ) {
+			assertTrue(false);
+		}
+
+	}
+	
+	@Test
+	public void testAppRun() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);	    
+	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
+	    app.run();
+        
+	    assertNotNull(systemOutRule.getLog());
 	}
 
 	@Test
@@ -73,9 +98,11 @@ public class AppTest
 			System.out.println("File not found");
 			assertTrue( true );
 		}
+
 		assertTrue(courses!=null);
 
 	}
+	
 	@Test
 	public void recommendCourses() {
 
@@ -83,7 +110,6 @@ public class AppTest
 		testCourses.add("WCOMS4771");
 		testCourses.add("WCOMS4111");
 		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
-		System.out.println(recommended);
 		assertTrue(recommended != null);
 	}
 
@@ -92,6 +118,7 @@ public class AppTest
 		List<CourseModel> totalcourseModel=courseService.selectAllCourses();
 		assertTrue(totalcourseModel.size()==93);
 	}
+	
 	@Test
 	public void processTakenCourses() {
 		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalcourseModel);
@@ -109,6 +136,4 @@ public class AppTest
     }
 
 }
-
-
 
