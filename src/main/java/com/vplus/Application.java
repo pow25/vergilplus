@@ -43,7 +43,7 @@ public class Application implements CommandLineRunner {
 	 */
 	public void setContext() {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		Application app  = ctx.getBean("Application", Application.class);
+		ctx.getBean("Application", Application.class);
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
                 AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
 	}
