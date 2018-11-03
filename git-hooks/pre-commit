@@ -1,0 +1,3 @@
+#!/bin/bash
+D:/pmd-bin-6.8.0/bin/pmd.bat -d D:/Courses/AdvancedSoftwareEngineering/project/src/ -R rulesets/java/quickstart.xml -f html
+
