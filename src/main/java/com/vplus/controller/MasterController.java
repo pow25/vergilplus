@@ -65,8 +65,13 @@ public class MasterController implements IMasterController{
 			}
 			return filteredCourses;
 	}
-	
-	//return courses according to breadth requirements
+
+    public List<CourseModel> fetchAllCourses(){
+        List<CourseModel> allCourses = courseService.selectAllCourses();
+        return allCourses;
+    }
+
+    //return courses according to breadth requirements
 	public List<CourseModel> breadthRequirements(){
 		List<CourseModel> filteredBreadthRequirements = new ArrayList<>();
 		List<CourseModel> breadthTheory = new ArrayList<>();

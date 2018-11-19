@@ -95,6 +95,18 @@ public class Application implements CommandLineRunner {
 		
 		return takenCourses;
 	}
+
+
+	public List<String> searchKeywords(String keyword){
+		List<String> matchedCourses = new ArrayList<>();
+		List<CourseModel> allCourses = masterController.fetchAllCourses();
+		for(CourseModel c: allCourses){
+			if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())||c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
+				matchedCourses.add(c.getCourseTitle()+" "+c.getCourseNumber());
+			}
+		}
+		return matchedCourses;
+	}
 	
 	public static void main(String[] args) throws Exception {
 		SpringApplication app = new SpringApplication(Application.class);
