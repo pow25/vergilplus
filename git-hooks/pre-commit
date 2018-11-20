@@ -1,2 +1,3 @@
 #!/bin/bash
+echo -e "\e[1;31mThis is red text\e[0m"
 pmd -d /Users/zhuangyuren/Documents/GitHub/vergilplus/src -R rulesets/java/quickstart.xml -f html -r /Users/zhuangyuren/Documents/GitHub/vergilplus/report/pmd_report.html -failOnViolation false
