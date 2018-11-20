@@ -1,3 +1,2 @@
 #!/bin/bash
-pmd -d /Users/zhuangyuren/Documents/GitHub/vergilplus/src -R rulesets/java/quickstart.xml -f html -r ./report/pmd_report.html -failOnViolation false
-
+pmd -d /Users/zhuangyuren/Documents/GitHub/vergilplus/src -R rulesets/java/quickstart.xml -f html -r /Users/zhuangyuren/Documents/GitHub/vergilplus/report/pmd_report.html -failOnViolation false
