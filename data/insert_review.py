@@ -17,7 +17,8 @@ q = "CREATE TABLE `vergilplus`.`sentiment` (\
   `review` TEXT NOT NULL,\
   `score` TEXT NOT NULL,\
   `magnitude` TEXT NOT NULL);"
-
+cursor.execute(q)
+cnx.commit()
 
 with open("sentiments.csv", "r",encoding='UTF-8') as csvfile:
     reader = csv.DictReader(csvfile, delimiter=",")
