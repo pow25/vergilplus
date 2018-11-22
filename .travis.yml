@@ -23,6 +23,7 @@ before_install:
 
 after_success:
   - ./push.sh
+  - bash <(curl -s https://codecov.io/bash)
 # before_deploy:
 #   # Set up git user name and tag this commit
 #   - git config --local user.name "pow25"
