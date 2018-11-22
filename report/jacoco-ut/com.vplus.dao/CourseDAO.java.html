@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CourseDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">vplus</a> &gt; <a href="index.source.html" class="el_package">com.vplus.dao</a> &gt; <span class="el_source">CourseDAO.java</span></div><h1>CourseDAO.java</h1><pre class="source lang-java linenums">package com.vplus.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.stereotype.Repository;
+
+import com.vplus.models.CourseModel;
+
+@Repository(&quot;courseDAO&quot;)
+<span class="fc" id="L18">public class CourseDAO implements ICourseDAO{</span>
+	
+	private DataSource dataSource;
+	
+	@Override
+	public List&lt;CourseModel&gt; selectAllCourses(){
+<span class="fc" id="L24">		String query = &quot;SELECT * FROM course&quot;;</span>
+<span class="fc" id="L25">		List&lt;CourseModel&gt; courseList = new ArrayList&lt;CourseModel&gt;();</span>
+<span class="fc" id="L26">		Connection con = null;</span>
+<span class="fc" id="L27">		PreparedStatement ps = null;</span>
+<span class="fc" id="L28">		ResultSet rs = null;</span>
+		try{
+<span class="fc" id="L30">			con = dataSource.getConnection();</span>
+<span class="fc" id="L31">			ps = con.prepareStatement(query);</span>
+<span class="fc" id="L32">			rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">			if(rs != null) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">				while(rs.next()){</span>
+<span class="fc" id="L35">					CourseModel course = new CourseModel();</span>
+					
+<span class="fc" id="L37">					course.setCourseNumber(rs.getString(&quot;CourseNumber&quot;));</span>
+<span class="fc" id="L38">					course.setSectionId(rs.getInt(&quot;Section&quot;));</span>
+<span class="fc" id="L39">					course.setCourseTitle(rs.getString(&quot;CourseTitle&quot;));</span>
+<span class="fc" id="L40">					course.setWeek(rs.getString(&quot;Week&quot;));</span>
+<span class="fc" id="L41">					course.setStartTime(rs.getString(&quot;Start_Time&quot;));</span>
+<span class="fc" id="L42">					course.setEndTime(rs.getString(&quot;End_Time&quot;));</span>
+<span class="fc" id="L43">					course.setInstructor(rs.getString(&quot;Instructor&quot;));</span>
+					
+					// set the three prerequisites
+<span class="fc" id="L46">					String[] preqs = rs.getString(&quot;Prerequisite&quot;).split(&quot;;&quot;,-1);</span>
+<span class="fc" id="L47">					List&lt;String&gt; coursePreq = Arrays.asList(preqs[0].split(&quot; &quot;));</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">					if (coursePreq.get(0).length()==0){</span>
+<span class="fc" id="L50">						coursePreq = new ArrayList&lt;&gt;();</span>
+					}
+
+<span class="fc" id="L53">					String knowledgePreq = preqs[1];</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">					boolean instructorPreq = preqs[2].length() &gt; 0;</span>
+					
+<span class="fc" id="L56">					course.setCoursePreq(coursePreq);</span>
+<span class="fc" id="L57">					course.setKnowledgePreq(knowledgePreq);</span>
+<span class="fc" id="L58">					course.setInstructorPreq(instructorPreq);</span>
+					
+					
+<span class="fc" id="L61">					course.setTerm(rs.getInt(&quot;Term&quot;));</span>
+<span class="fc" id="L62">					course.setDescription(rs.getString(&quot;Description&quot;));</span>
+<span class="fc" id="L63">					courseList.add(course);</span>
+				}
+			}
+<span class="pc" id="L66">		}catch(SQLException e){</span>
+<span class="nc" id="L67">			System.err.println(e);</span>
+<span class="nc" id="L68">			System.err.println(&quot;An SQLException occured!&quot;);</span>
+<span class="nc" id="L69">		}finally{</span>
+			try {
+<span class="pc" id="L71">				rs.close();</span>
+<span class="pc" id="L72">				ps.close();</span>
+<span class="pc" id="L73">				con.close();</span>
+<span class="pc" id="L74">			} catch (Exception e) {</span>
+<span class="nc" id="L75">				System.err.println(&quot;An Exception occured in selectAllCourses!&quot;);</span>
+			}
+<span class="nc" id="L77">		}</span>
+<span class="fc" id="L78">		return courseList;</span>
+	}	
+	
+	public void setDataSource(DataSource dataSource) {
+<span class="fc" id="L82">		this.dataSource = dataSource;</span>
+<span class="fc" id="L83">	}</span>
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

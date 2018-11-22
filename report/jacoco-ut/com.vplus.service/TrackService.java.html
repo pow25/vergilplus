@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TrackService.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">vplus</a> &gt; <a href="index.source.html" class="el_package">com.vplus.service</a> &gt; <span class="el_source">TrackService.java</span></div><h1>TrackService.java</h1><pre class="source lang-java linenums">package com.vplus.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.vplus.dao.ITrackDAO;
+import com.vplus.models.TrackModel;
+
+@Service
+<span class="fc" id="L13">public class TrackService implements ITrackService{</span>
+	//@Autowired
+	private ITrackDAO trackDAO;
+	
+	public List&lt;TrackModel&gt; selectAllTrack(){
+<span class="nc" id="L18">		return trackDAO.selectAllTrack();</span>
+	}
+	
+//	
+//	public List&lt;String&gt; selectRequiredCoursesByTrackId(String id) {		
+//		List&lt;String&gt; res = new ArrayList&lt;&gt;();
+//		
+//		List&lt;TrackModel&gt; track = trackDAO.selectAllTrack();
+//		
+//		for(TrackModel model : track){
+//			if(id.equals(model.getTrackID())){
+//				res.add(model.getCourseID());
+//			}
+//		}
+//		
+//		return res;
+//	}
+
+	public ITrackDAO getTrackDAO() {
+<span class="nc" id="L37">		return trackDAO;</span>
+	}
+
+	public void setTrackDAO(ITrackDAO trackDAO) {
+<span class="fc" id="L41">		this.trackDAO = trackDAO;</span>
+<span class="fc" id="L42">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
