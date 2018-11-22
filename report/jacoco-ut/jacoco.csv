@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+vplus,com.vplus.controller,MasterController,84,315,10,50,21,64,10,31,2,9
+vplus,com.vplus.models,CourseModel,144,63,4,0,16,29,13,17,11,17
+vplus,com.vplus.models,TrackModel,46,0,0,0,11,0,8,0,8,0
+vplus,com.vplus.dao,CourseDAO,38,144,1,7,7,39,1,6,0,3
+vplus,com.vplus.dao,TrackDAO,91,7,4,0,27,3,3,2,1,2
+vplus,com.vplus,Application,158,99,5,7,38,20,9,7,6,4
+vplus,com.vplus.service,TrackService,7,7,0,0,2,3,2,2,2,2
+vplus,com.vplus.service,CourseService,37,11,6,0,9,4,5,3,2,3

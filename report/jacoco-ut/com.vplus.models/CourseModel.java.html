@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CourseModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">vplus</a> &gt; <a href="index.source.html" class="el_package">com.vplus.models</a> &gt; <span class="el_source">CourseModel.java</span></div><h1>CourseModel.java</h1><pre class="source lang-java linenums">package com.vplus.models;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="fc" id="L6">public class CourseModel implements Comparable&lt;CourseModel&gt;{</span>
+	private String courseNumber;
+	
+	private int sectionId;
+	
+	private String courseTitle;
+	
+	private String week;
+	
+	private String startTime;
+	
+	private String endTime;
+	
+	private String instructor;
+	
+	/**
+	 * course prerequisites, listed by their courseNumber
+	 */
+	private List&lt;String&gt; coursePreq;
+	
+	private boolean instructorPreq;
+	
+	private String knowledgePreq;
+	
+	private int term;
+	
+	private String description;
+	
+	public String getCourseNumber() {
+<span class="fc" id="L35">		return courseNumber;</span>
+	}
+
+	public void setCourseNumber(String courseNumber) {
+<span class="fc" id="L39">		this.courseNumber = courseNumber;</span>
+<span class="fc" id="L40">	}</span>
+
+	public int getSectionId() {
+<span class="nc" id="L43">		return sectionId;</span>
+	}
+
+	public void setSectionId(int sectionId) {
+<span class="fc" id="L47">		this.sectionId = sectionId;</span>
+<span class="fc" id="L48">	}</span>
+
+	public String getCourseTitle() {
+<span class="fc" id="L51">		return courseTitle;</span>
+	}
+
+	public void setCourseTitle(String courseTitle) {
+<span class="fc" id="L55">		this.courseTitle = courseTitle;</span>
+<span class="fc" id="L56">	}</span>
+
+	public String getWeek() {
+<span class="nc" id="L59">		return week;</span>
+	}
+
+	public void setWeek(String week) {
+<span class="fc" id="L63">		this.week = week;</span>
+<span class="fc" id="L64">	}</span>
+
+	public String getStartTime() {
+<span class="nc" id="L67">		return startTime;</span>
+	}
+
+	public void setStartTime(String startTime) {
+<span class="fc" id="L71">		this.startTime = startTime;</span>
+<span class="fc" id="L72">	}</span>
+
+	public String getEndTime() {
+<span class="nc" id="L75">		return endTime;</span>
+	}
+
+	public void setEndTime(String endTime) {
+<span class="fc" id="L79">		this.endTime = endTime;</span>
+<span class="fc" id="L80">	}</span>
+
+	public String getInstructor() {
+<span class="nc" id="L83">		return instructor;</span>
+	}
+
+	public void setInstructor(String instructor) {
+<span class="fc" id="L87">		this.instructor = instructor;</span>
+<span class="fc" id="L88">	}</span>
+
+
+
+	public int getTerm() {
+<span class="nc" id="L93">		return term;</span>
+	}
+
+	public void setTerm(int term) {
+<span class="fc" id="L97">		this.term = term;</span>
+<span class="fc" id="L98">	}</span>
+
+	public String getDescription() {
+<span class="fc" id="L101">		return description;</span>
+	}
+
+	public void setDescription(String description) {
+<span class="fc" id="L105">		this.description = description;</span>
+<span class="fc" id="L106">	}</span>
+
+	
+	
+	public List&lt;String&gt; getCoursePreq() {
+<span class="fc" id="L111">		return coursePreq;</span>
+	}
+
+	public void setCoursePreq(List&lt;String&gt; coursePreq) {
+<span class="fc" id="L115">		this.coursePreq = coursePreq;</span>
+<span class="fc" id="L116">	}</span>
+
+	public boolean getInstructorPreq() {
+<span class="nc" id="L119">		return instructorPreq;</span>
+	}
+
+	public void setInstructorPreq(boolean instructorPreq) {
+<span class="fc" id="L123">		this.instructorPreq = instructorPreq;</span>
+<span class="fc" id="L124">	}</span>
+
+	public String getKnowledgePreq() {
+<span class="nc" id="L127">		return knowledgePreq;</span>
+	}
+
+	public void setKnowledgePreq(String knowledgePreq) {
+<span class="fc" id="L131">		this.knowledgePreq = knowledgePreq;</span>
+<span class="fc" id="L132">	}</span>
+
+	@Override
+	public int compareTo(CourseModel c){
+<span class="nc bnc" id="L136" title="All 2 branches missed.">		return this.courseNumber.equals(c.getCourseNumber()) </span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">				&amp;&amp; this.sectionId == c.getSectionId()</span>
+				? 0 : -1;
+	}
+	
+	@Override
+	public String toString() {
+<span class="nc" id="L143">		String res =  &quot;{&quot;</span>
+					+ &quot; courseNumber = &quot; + courseNumber
+					+ &quot;\nsectionId = &quot; + sectionId
+					+ &quot;\ncourseTitle = &quot; + courseTitle
+					+ &quot;\nweek = &quot; + week
+					+ &quot;\nstartTime = &quot; + startTime
+					+ &quot;\nendTime = &quot; + endTime
+					+ &quot;\ninstructor = &quot; + instructor
+					+ &quot;\nterm = &quot; + term
+					+ &quot;\ndescription = &quot; + description;
+		
+<span class="nc" id="L154">		List&lt;String&gt; modelStrList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L155">		coursePreq.forEach(model -&gt; modelStrList.add(courseNumber + &quot;,&quot; + sectionId));</span>
+<span class="nc" id="L156">		String preqs = String.join(&quot;,&quot;, modelStrList);</span>
+<span class="nc" id="L157">		res += &quot; \ncoursePreq = &quot; + preqs</span>
+				+ &quot;\ninstructorPreq =  &quot; + instructorPreq
+				+ &quot;\nknowledgePreq = &quot; + knowledgePreq
+				+ &quot;}&quot;;
+<span class="nc" id="L161">		return res;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
