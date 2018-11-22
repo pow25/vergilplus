@@ -107,7 +107,7 @@ import com.vplus.service.ICourseService;
 <span class="fc" id="L107">		Collections.shuffle(breadthAI, rnd);</span>
 <span class="fc" id="L108">		Random random = new Random();</span>
 <span class="fc" id="L109">		int randomnum = random.nextInt(3);</span>
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">		if(randomnum == 0) {</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">		if(randomnum == 0) {</span>
 <span class="fc" id="L111">			CourseModel courseTmp = breadthTheory.get(0);</span>
 <span class="fc" id="L112">			filteredBreadthRequirements.add(courseTmp);</span>
 <span class="fc" id="L113">			courseTmp = breadthTheory.get(1);</span>
@@ -117,16 +117,16 @@ import com.vplus.service.ICourseService;
 <span class="fc" id="L117">			courseTmp = breadthAI.get(0);</span>
 <span class="fc" id="L118">			filteredBreadthRequirements.add(courseTmp);</span>
 <span class="fc" id="L119">		}</span>
-<span class="nc bnc" id="L120" title="All 2 branches missed.">		else if(randomnum == 1) {</span>
-<span class="nc" id="L121">			CourseModel courseTmp = breadthSystems.get(0);</span>
-<span class="nc" id="L122">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="nc" id="L123">			courseTmp = breadthSystems.get(1);</span>
-<span class="nc" id="L124">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="nc" id="L125">			courseTmp = breadthTheory.get(0);</span>
-<span class="nc" id="L126">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="nc" id="L127">			courseTmp = breadthAI.get(0);</span>
-<span class="nc" id="L128">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="nc" id="L129">		}</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">		else if(randomnum == 1) {</span>
+<span class="fc" id="L121">			CourseModel courseTmp = breadthSystems.get(0);</span>
+<span class="fc" id="L122">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L123">			courseTmp = breadthSystems.get(1);</span>
+<span class="fc" id="L124">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L125">			courseTmp = breadthTheory.get(0);</span>
+<span class="fc" id="L126">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L127">			courseTmp = breadthAI.get(0);</span>
+<span class="fc" id="L128">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L129">		}</span>
 <span class="nc bnc" id="L130" title="All 2 branches missed.">		else if(randomnum == 2) {</span>
 <span class="nc" id="L131">			CourseModel courseTmp = breadthAI.get(0);</span>
 <span class="nc" id="L132">			filteredBreadthRequirements.add(courseTmp);</span>
