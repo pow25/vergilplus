@@ -6,3 +6,5 @@ bin/
 /target
 /target/
 .idea
+git-hooks/
+data/key.json
