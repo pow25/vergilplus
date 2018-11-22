@@ -45,7 +45,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 <span class="nc" id="L45">		ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span>
 <span class="nc" id="L46">		ctx.getBean(&quot;Application&quot;, Application.class);</span>
 <span class="nc" id="L47">		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,</span>
-<span class="nc" id="L48">                AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); </span>
+                AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
 <span class="nc" id="L49">	}</span>
 
 	//recommend courses based on taken course
@@ -117,7 +117,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 <span class="fc bfc" id="L118" title="All 2 branches covered.">        for (JsonValue jsonValue : takenCoursesArray) {</span>
 <span class="fc" id="L119">            takenCourses.add(jsonValue.toString().replaceAll(&quot;^\&quot;|\&quot;$&quot;, &quot;&quot;));</span>
-        }
+<span class="fc" id="L120">        }</span>
 
 <span class="fc" id="L122">		return takenCourses;</span>
 	}
@@ -130,7 +130,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 <span class="pc bpc" id="L130" title="1 of 4 branches missed.">			if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())||c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){</span>
 <span class="fc" id="L131">				matchedCourses.add(c.getCourseTitle()+&quot; &quot;+c.getCourseNumber());</span>
 			}
-		}
+<span class="fc" id="L133">		}</span>
 <span class="fc" id="L134">		return matchedCourses;</span>
 	}
 
