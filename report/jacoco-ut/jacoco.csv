@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-vplus,com.vplus.controller,MasterController,42,357,7,53,11,74,9,32,2,9
+vplus,com.vplus.controller,MasterController,44,355,8,52,11,74,9,32,2,9
 vplus,com.vplus.models,CourseModel,144,63,4,0,16,29,13,17,11,17
 vplus,com.vplus.models,TrackModel,46,0,0,0,11,0,8,0,8,0
 vplus,com.vplus.dao,CourseDAO,38,144,1,7,7,39,1,6,0,3
