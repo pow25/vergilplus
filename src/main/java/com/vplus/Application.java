@@ -96,7 +96,7 @@ public class Application implements CommandLineRunner {
 				String response = new String(result.getPayload().array());
 				JSONObject jsonObj = new JSONObject(response);
 				String toS = jsonObj.get("greeting").toString();
-				
+				System.out.println("hahahahah");
 				if(toS.contains("Hi")){
 					System.out.println(toS);
 				}

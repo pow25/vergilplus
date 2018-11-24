@@ -130,11 +130,11 @@ public class AppTest
 	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
     }
 
-	@Test
-	public void searchKeywords(){
-		HashSet<String> matchedCourses = app.searchKeywords("machine learning");
-		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
-	}
+//	@Test
+//	public void searchKeywords(){
+//		HashSet<String> matchedCourses = app.searchKeywords("machine learning");
+//		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
+//	}
 
 	@Test
 	public void testBreadthCourses() {
