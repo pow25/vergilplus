@@ -97,23 +97,23 @@ public class AppTest
 		assertTrue(totalcourseModel.size()==93);
 	}
 	
-	@Test
-	public void processTakenCourses() {
-		List<CourseModel> totalcourseModel=new ArrayList<>();
-		totalcourseModel=courseService.selectAllCourses();
-		List<String> testCourses = new ArrayList<>();
-		testCourses.add("WCOMS4771");
-		testCourses.add("WCOMS4111");
-		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalcourseModel);
-		filteredCourses.forEach(c-> {
-			if (c.getCourseNumber().equals(testCourses.get(0)) || c.getCourseNumber().equals(testCourses.get(1))) {
-				assertTrue(false);
-			}
-		});
-		List<String> nullCourses=new ArrayList<>();
-		filteredCourses=masterController.processTakenCourses(nullCourses,totalcourseModel);
-		assertTrue(filteredCourses.size()==totalcourseModel.size());
-	}
+//	@Test
+//	public void processTakenCourses() {
+//		List<CourseModel> totalcourseModel=new ArrayList<>();
+//		totalcourseModel=courseService.selectAllCourses();
+//		List<String> testCourses = new ArrayList<>();
+//		testCourses.add("WCOMS4771");
+//		testCourses.add("WCOMS4111");
+//		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalcourseModel);
+//		filteredCourses.forEach(c-> {
+//			if (c.getCourseNumber().equals(testCourses.get(0)) || c.getCourseNumber().equals(testCourses.get(1))) {
+//				assertTrue(false);
+//			}
+//		});
+//		List<String> nullCourses=new ArrayList<>();
+//		filteredCourses=masterController.processTakenCourses(nullCourses,totalcourseModel);
+//		assertTrue(filteredCourses.size()==totalcourseModel.size());
+//	}
 
 	@Test
     public void filterByPrerequisites(){
