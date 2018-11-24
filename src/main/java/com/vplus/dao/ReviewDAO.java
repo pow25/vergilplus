@@ -1,0 +1,100 @@
+package com.vplus.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.sql.DataSource;
+
+import org.springframework.stereotype.Repository;
+import com.vplus.models.ReviewModel;
+import com.vplus.dao.IReviewDAO;
+
+@Repository("reviewDAO")
+public class ReviewDAO implements IReviewDAO{
+	
+	private DataSource dataSource;
+	
+	@Override
+	public List<ReviewModel> selectAllReviews(){
+		String query = "SELECT * FROM vergilplus.review";
+		List<ReviewModel> reviewList = new ArrayList<ReviewModel>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			con = dataSource.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs != null) {
+				while(rs.next()){
+					ReviewModel review = new ReviewModel();
+					
+					review.setCourseID(rs.getString("number"));
+					review.setProf(rs.getString("professor"));
+					review.setmagnitude(Float.parseFloat(rs.getString("magnitude")));
+					review.setscore(Float.parseFloat(rs.getString("score")));
+					review.setReview(rs.getString("review"));
+					reviewList.add(review);
+				}
+			}
+		}catch(SQLException e){
+			System.err.println(e);
+			System.err.println("An SQLException occured!");
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+				con.close();
+			} catch (Exception e) {
+				System.err.println("An Exception occured in selectAllReviews!");
+			}
+		}
+		return reviewList;
+	}	
+	
+	@Override
+	public float get_course_rating( String courseID ){
+		float res = 0f;
+		String query = "SELECT * FROM vergilplus.sentiment where number=\'"
+					   +courseID+"';";
+		int count = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			con = dataSource.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs != null) {
+				while(rs.next()){
+					++count;
+					float magnitude = Float.parseFloat(rs.getString("magnitude"));
+					float score = Float.parseFloat(rs.getString("score"));
+					res += magnitude * score;
+				}
+			}
+		}catch(SQLException e){
+			System.err.println(e);
+			System.err.println("An SQLException occured!");
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+				con.close();
+			} catch (Exception e) {
+				System.err.println("An Exception occured in get_course_rating!");
+			}
+		}
+		if ( count != 0 )
+			return res/count;
+		else
+			return 0f;
+	}
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+}

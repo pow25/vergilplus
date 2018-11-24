@@ -9,27 +9,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.vplus.models.CourseModel;
+import com.vplus.models.ReviewModel;
 import com.vplus.service.ICourseService;
 //import com.vplus.service.ITrackService;
+import com.vplus.service.IReviewService;
+
+import javafx.util.Pair;
 
 @Controller("masterController")
 public class MasterController implements IMasterController{
 	@Autowired
 	private ICourseService courseService;
+	private IReviewService reviewService;
 	//private ITrackService trackService;
 	
 	public static final int NUM_REC = 4;
 	public static final int SEED = 1;
 	public static final Random rnd = new Random(SEED);
-	
+
 	public List<CourseModel> recommendCourses(List<String> takenCourses){
 		List<CourseModel> filteredCourses = filterCourses(takenCourses);
-		Collections.shuffle(filteredCourses, rnd);
-		return filteredCourses.subList(0, NUM_REC);
+		List<Pair<String, Float>> result = reviewService.sort_base_on_reviews(filteredCourses);
+		result.subList(0, NUM_REC);
+		List<CourseModel> res = new ArrayList<CourseModel>();
+		for ( int i = 0; i < result.size(); ++i ) {
+			res.add( courseService.search_couse(result.get(i).getKey()) );
+		}
+		return res;
 	}
 	
 	public List<CourseModel> filterCourses(List<String> takenCourses){
-		List<CourseModel> allCourses = courseService.selectAllCourses();
+		List<CourseModel> allCourses = fetchAllCourses();
 		List<CourseModel> filteredCourses = processTakenCourses(takenCourses, allCourses);
 		filteredCourses = filterByPrerequisites(filteredCourses);
 		return filteredCourses;
@@ -50,6 +60,10 @@ public class MasterController implements IMasterController{
 			if(!takenCourses.contains(course.getCourseNumber())) {
 				filteredCourses.add(course);
 			}
+
+			if(!takenCourses.contains(course.getCourseTitle())) {
+				filteredCourses.add(course);
+			}
 		}
 		return filteredCourses;
 	}
@@ -64,18 +78,26 @@ public class MasterController implements IMasterController{
 			}
 			return filteredCourses;
 	}
+
+    //return courses according to breadth requirements
 	public List<CourseModel> fetchAllCourses(){
 		List<CourseModel> allCourses = courseService.selectAllCourses();
 		return allCourses;
 	}
-
+	
+	//convert course name to course number
+	public List<String> convertCourseForm(List<String> takenCourses){
+		List<String> converted = courseService.findCourseNumber(takenCourses);
+		return converted;
+	}
+	
 	//return courses according to breadth requirements
 	public List<CourseModel> breadthRequirements(){
 		List<CourseModel> filteredBreadthRequirements = new ArrayList<>();
 		List<CourseModel> breadthTheory = new ArrayList<>();
 		List<CourseModel> breadthSystems = new ArrayList<>();
 		List<CourseModel> breadthAI = new ArrayList<>();
-		List<CourseModel> allCourses = courseService.selectAllCourses();
+		List<CourseModel> allCourses = fetchAllCourses();
 		for(CourseModel course : allCourses) {
 			//if COMS 42xx and COMS W4995 and CSOR 4231
 			//belongs to theory

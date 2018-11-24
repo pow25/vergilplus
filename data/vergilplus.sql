@@ -33,7 +33,8 @@ CREATE TABLE `course` (
   `Prerequisite` text,
   `Term` int(11) DEFAULT NULL,
   `Description` text,
-  PRIMARY KEY (`CourseNumber`,`Section`)
+  PRIMARY KEY (`CourseNumber`,`Section`),
+  KEY `coursenumber` (`CourseNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,8 +60,9 @@ CREATE TABLE `sentiment` (
   `professor` text NOT NULL,
   `review` text NOT NULL,
   `score` text NOT NULL,
-  `magnitude` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `magnitude` text NOT NULL,
+  KEY `coursenumber` (`number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-22 15:46:00
+-- Dump completed on 2018-11-24 15:52:36
