@@ -76,7 +76,7 @@ public class ReviewDAO implements IReviewDAO{
 					res += magnitude * score;
 				}
 			}
-		}catch(SQLException e){
+		}catch(Exception e){
 			System.err.println(e);
 			System.err.println("An SQLException occured!");
 		}finally{

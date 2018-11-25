@@ -24,10 +24,13 @@
 		<property name="courseDAO" ref="courseDAO" /><!-- 
         <property name="CourseDAO" ref="CourseDAO" /> -->
 	</bean>
-	<bean id="lexService"  abstract="true" class="com.vplus.service.ILexService"><!--
-        <property name="CourseDAO" ref="CourseDAO" /> -->
-</bean>
+	<bean id="reviewService" class="com.vplus.service.ReviewService">
+		<property name="reviewDAO" ref="reviewDAO" />
+	</bean>
 
+	<bean id="reviewDAO" class="com.vplus.dao.ReviewDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	<bean id="trackDAO" class="com.vplus.dao.TrackDAO">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

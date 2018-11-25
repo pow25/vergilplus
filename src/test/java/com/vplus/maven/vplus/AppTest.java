@@ -108,20 +108,19 @@ public class AppTest
 
 	@Test
 	public void processTakenCourses() {
-		List<CourseModel> totalcourseModel=new ArrayList<>();
-		totalcourseModel=courseService.selectAllCourses();
+		List<CourseModel> totalCourse = courseService.selectAllCourses();
 		List<String> testCourses = new ArrayList<>();
 		testCourses.add("WCOMS4771");
 		testCourses.add("WCOMS4111");
-		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalcourseModel);
+		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalCourse);
 		filteredCourses.forEach(c-> {
 			if (c.getCourseNumber().equals(testCourses.get(0)) || c.getCourseNumber().equals(testCourses.get(1))) {
 				assertTrue(false);
 			}
 		});
 		List<String> nullCourses=new ArrayList<>();
-		filteredCourses=masterController.processTakenCourses(nullCourses,totalcourseModel);
-		assertTrue(filteredCourses.size()==totalcourseModel.size());
+		filteredCourses=masterController.processTakenCourses(nullCourses,totalCourse);
+		assertTrue(filteredCourses.size()==totalCourse.size());
 	}
 
 	@Test
@@ -141,14 +140,9 @@ public class AppTest
 
 	@Test
 	public void searchKeywords(){
-		HashSet<String> matchedCourses = app.searchKeywords("machine learning", null);
-		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
+		HashSet<String> matchedCourses = app.searchKeywords("machine learning", masterController.fetchAllCourses());
+		assertTrue(matchedCourses.contains("Artificial Intelligence WCOMS4701")&& matchedCourses.size()==6);
 	}
-//	@Test
-//	public void searchKeywords(){
-//		HashSet<String> matchedCourses = app.searchKeywords("machine learning");
-//		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
-//	}
 
 	@Test
 	public void testBreadthCourses() {

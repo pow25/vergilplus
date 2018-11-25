@@ -88,59 +88,57 @@ import java.util.List;
 <span class="fc" id="L88">	}</span>
 
 
-
 	public int getTerm() {
-<span class="nc" id="L93">		return term;</span>
+<span class="nc" id="L92">		return term;</span>
 	}
 
 	public void setTerm(int term) {
-<span class="fc" id="L97">		this.term = term;</span>
-<span class="fc" id="L98">	}</span>
+<span class="fc" id="L96">		this.term = term;</span>
+<span class="fc" id="L97">	}</span>
 
 	public String getDescription() {
-<span class="fc" id="L101">		return description;</span>
+<span class="fc" id="L100">		return description;</span>
 	}
 
 	public void setDescription(String description) {
-<span class="fc" id="L105">		this.description = description;</span>
-<span class="fc" id="L106">	}</span>
+<span class="fc" id="L104">		this.description = description;</span>
+<span class="fc" id="L105">	}</span>
 
 	
-	
 	public List&lt;String&gt; getCoursePreq() {
-<span class="fc" id="L111">		return coursePreq;</span>
+<span class="fc" id="L109">		return coursePreq;</span>
 	}
 
 	public void setCoursePreq(List&lt;String&gt; coursePreq) {
-<span class="fc" id="L115">		this.coursePreq = coursePreq;</span>
-<span class="fc" id="L116">	}</span>
+<span class="fc" id="L113">		this.coursePreq = coursePreq;</span>
+<span class="fc" id="L114">	}</span>
 
 	public boolean getInstructorPreq() {
-<span class="nc" id="L119">		return instructorPreq;</span>
+<span class="nc" id="L117">		return instructorPreq;</span>
 	}
 
 	public void setInstructorPreq(boolean instructorPreq) {
-<span class="fc" id="L123">		this.instructorPreq = instructorPreq;</span>
-<span class="fc" id="L124">	}</span>
+<span class="fc" id="L121">		this.instructorPreq = instructorPreq;</span>
+<span class="fc" id="L122">	}</span>
 
 	public String getKnowledgePreq() {
-<span class="nc" id="L127">		return knowledgePreq;</span>
+<span class="nc" id="L125">		return knowledgePreq;</span>
 	}
 
 	public void setKnowledgePreq(String knowledgePreq) {
-<span class="fc" id="L131">		this.knowledgePreq = knowledgePreq;</span>
-<span class="fc" id="L132">	}</span>
+<span class="fc" id="L129">		this.knowledgePreq = knowledgePreq;</span>
+<span class="fc" id="L130">	}</span>
 
 	@Override
 	public int compareTo(CourseModel c){
-<span class="nc bnc" id="L136" title="All 2 branches missed.">		return this.courseNumber.equals(c.getCourseNumber()) </span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">				&amp;&amp; this.sectionId == c.getSectionId()</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">		return this.courseNumber.equals(c.getCourseNumber()) </span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">				&amp;&amp; this.sectionId == c.getSectionId()</span>
 				? 0 : -1;
 	}
 	
 	@Override
 	public String toString() {
-<span class="nc" id="L143">		String res =  &quot;{&quot;</span>
+<span class="nc" id="L141">		String res =  &quot;{&quot;</span>
 					+ &quot; courseNumber = &quot; + courseNumber
 					+ &quot;\nsectionId = &quot; + sectionId
 					+ &quot;\ncourseTitle = &quot; + courseTitle
@@ -151,14 +149,14 @@ import java.util.List;
 					+ &quot;\nterm = &quot; + term
 					+ &quot;\ndescription = &quot; + description;
 		
-<span class="nc" id="L154">		List&lt;String&gt; modelStrList = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L155">		coursePreq.forEach(model -&gt; modelStrList.add(courseNumber + &quot;,&quot; + sectionId));</span>
-<span class="nc" id="L156">		String preqs = String.join(&quot;,&quot;, modelStrList);</span>
-<span class="nc" id="L157">		res += &quot; \ncoursePreq = &quot; + preqs</span>
+<span class="nc" id="L152">		List&lt;String&gt; modelStrList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L153">		coursePreq.forEach(model -&gt; modelStrList.add(courseNumber + &quot;,&quot; + sectionId));</span>
+<span class="nc" id="L154">		String preqs = String.join(&quot;,&quot;, modelStrList);</span>
+<span class="nc" id="L155">		res += &quot; \ncoursePreq = &quot; + preqs</span>
 				+ &quot;\ninstructorPreq =  &quot; + instructorPreq
 				+ &quot;\nknowledgePreq = &quot; + knowledgePreq
 				+ &quot;}&quot;;
-<span class="nc" id="L161">		return res;</span>
+<span class="nc" id="L159">		return res;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

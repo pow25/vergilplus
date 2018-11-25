@@ -133,19 +133,20 @@ public class Application implements CommandLineRunner {
 				meg = br.readLine();
 			}
 			System.out.println("Here is our recomendation for you!");
-			if (topic !=null) {
+			if (!topic.isEmpty()) {
 				List<String> converted = getTakenCourses(takenCourses);
 				List<CourseModel> rest = processTakenCourses(converted);
-				HashSet<String> res2 = searchKeywords(instructor, rest);
 				for(int i=0;i<topic.size();i++) {
 					HashSet<String> res = searchKeywords(topic.get(i), rest);
 					res.forEach(System.out::println);
 				}
-				if(instructor!="") {
-					System.out.println("These courses are delivered by Prof. " + instructor + ":");
-					res2.forEach(System.out::println);
-				}
-			}else{
+			}if(instructor!=""){
+                HashSet<String> res2 = searchKeywords(instructor, masterController.fetchAllCourses());
+                if(instructor!="") {
+                    System.out.println("These courses are delivered by Prof. " + instructor + ":");
+                    res2.forEach(System.out::println);
+                }
+            }if(topic.isEmpty() && instructor==""){
 				List<String> converted = getTakenCourses(takenCourses);
 				List<CourseModel> res = recommendCourses(converted);
 				res.forEach(System.out::println);

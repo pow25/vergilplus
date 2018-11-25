@@ -22,21 +22,6 @@ public class CourseService implements ICourseService{
 		return courseDAO.search_course(courseID);
 	}
 	
-	public List<String> findCourseNumber(List<String> course_names) {
-		List<CourseModel> allCourses = courseDAO.selectAllCourses();
-		List<String> res = new ArrayList<String>();
-		
-		for(CourseModel course : allCourses) {
-			for ( String course_name:course_names ) {
-				if(course_name.equals( course.getCourseTitle() )){
-					res.add(course.getCourseNumber());
-				}
-			}
-		}
-		
-		return res;
-	}
-	
 	public List<CourseModel> selectCoursesByNumAndSection(String courseNum, int sectionId){
 		List<CourseModel> allCourses = courseDAO.selectAllCourses();
 		
@@ -54,7 +39,7 @@ public class CourseService implements ICourseService{
 	public List<String> findCourseNumber(List<String> takenCourses){
 		List<CourseModel> allCourses = courseDAO.selectAllCourses();
 		for(int i =0 ; i< takenCourses.size() ; i++){
-			for(int j =0;j<takenCourses.size();j++){
+			for(int j =0; j<takenCourses.size();j++){
 				if(allCourses.get(j).getCourseTitle().equals(takenCourses.get(i))){
 					takenCourses.set(i, allCourses.get(j).getCourseNumber());
 				}

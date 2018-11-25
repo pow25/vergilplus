@@ -20,6 +20,8 @@ import javafx.util.Pair;
 public class MasterController implements IMasterController{
 	@Autowired
 	private ICourseService courseService;
+
+    @Autowired
 	private IReviewService reviewService;
 
 	//private ITrackService trackService;
@@ -48,6 +50,7 @@ public class MasterController implements IMasterController{
 	
 	// acknowledge taken courses, e.g, make courses available, remove taken courses
 	public List<CourseModel> processTakenCourses(List<String> takenCourses, List<CourseModel> allCourses){
+		takenCourses = convertCourseForm(takenCourses);
 		List<CourseModel> filteredCourses=new ArrayList<>();
 		if (takenCourses.isEmpty()) return allCourses;
 		for(CourseModel course : allCourses){
@@ -56,13 +59,9 @@ public class MasterController implements IMasterController{
 			if(!Collections.disjoint(takenCourses, course.getCoursePreq())){
 				course.setCoursePreq(new ArrayList<>());
 			}
-			
+
 			// remove course from all courses if that course is already taken.
 			if(!takenCourses.contains(course.getCourseNumber())) {
-				filteredCourses.add(course);
-			}
-
-			if(!takenCourses.contains(course.getCourseTitle())) {
 				filteredCourses.add(course);
 			}
 		}
