@@ -7,4 +7,6 @@ public interface ICourseService {
 	public List<CourseModel> selectAllCourses();
 	
 	public List<CourseModel> selectCoursesByNumAndSection(String courseNum, int sectionId);
+
+	public List<String> findCourseNumber(List<String> takenCourses);
 }

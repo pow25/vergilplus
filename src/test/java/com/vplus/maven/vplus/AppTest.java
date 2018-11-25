@@ -13,6 +13,7 @@ import com.vplus.controller.IMasterController;
 import com.vplus.models.CourseModel;
 import org.junit.Before; // for @Before
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -41,27 +42,36 @@ public class AppTest
 	}
 
 	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-
 	@Test
 	public void test_DAO() {
 		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
 				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
 		List<CourseModel> res = DAO_test.selectAllCourses();
-
 		if (res.isEmpty() ) {
 			assertTrue(false);
 		}
 
 	}
+//
+//	@Test
+//	public void testAppRun() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);
+//		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+//		app.run();
+//
+//		assertNotNull(systemOutRule.getLog());
+//	}
 
-	@Test
-	public void testAppRun() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);
-		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-		app.run();
-
-		assertNotNull(systemOutRule.getLog());
-	}
+	
+//	@Test
+//	public void testAppRun() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);	    
+//	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
+//	    app.run();
+//        
+//	    assertNotNull(systemOutRule.getLog());
+//	}
+	
 
 	@Test
 	public void readCourses() {
@@ -131,7 +141,7 @@ public class AppTest
 
 	@Test
 	public void searchKeywords(){
-		List<String> matchedCourses = app.searchKeywords("machine learning");
+		HashSet<String> matchedCourses = app.searchKeywords("machine learning", null);
 		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
 	}
 
@@ -140,5 +150,11 @@ public class AppTest
 		List<CourseModel> filteredBreadthRequirements = masterController.breadthRequirements();
 		assertTrue(filteredBreadthRequirements.size() == 4);
 	}
+//
+//	@Test
+//    public void filterByPrerequisites(){
+//		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+//	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
+//    }
 
 }
