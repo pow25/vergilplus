@@ -130,16 +130,16 @@ import javafx.util.Pair;
 <span class="fc" id="L130">		Random random = new Random();</span>
 <span class="fc" id="L131">		int randomnum = random.nextInt(3);</span>
 <span class="pc bpc" id="L132" title="1 of 2 branches missed.">		if(randomnum == 0) {</span>
-<span class="fc" id="L133">			CourseModel courseTmp = breadthTheory.get(0);</span>
-<span class="fc" id="L134">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="fc" id="L135">			courseTmp = breadthTheory.get(1);</span>
-<span class="fc" id="L136">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="fc" id="L137">			courseTmp = breadthSystems.get(0);</span>
-<span class="fc" id="L138">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="fc" id="L139">			courseTmp = breadthAI.get(0);</span>
-<span class="fc" id="L140">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="fc" id="L141">		}</span>
-<span class="nc bnc" id="L142" title="All 2 branches missed.">		else if(randomnum == 1) {</span>
+<span class="nc" id="L133">			CourseModel courseTmp = breadthTheory.get(0);</span>
+<span class="nc" id="L134">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="nc" id="L135">			courseTmp = breadthTheory.get(1);</span>
+<span class="nc" id="L136">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="nc" id="L137">			courseTmp = breadthSystems.get(0);</span>
+<span class="nc" id="L138">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="nc" id="L139">			courseTmp = breadthAI.get(0);</span>
+<span class="nc" id="L140">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="nc" id="L141">		}</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">		else if(randomnum == 1) {</span>
 <span class="nc" id="L143">			CourseModel courseTmp = breadthSystems.get(0);</span>
 <span class="nc" id="L144">			filteredBreadthRequirements.add(courseTmp);</span>
 <span class="nc" id="L145">			courseTmp = breadthSystems.get(1);</span>
@@ -149,15 +149,15 @@ import javafx.util.Pair;
 <span class="nc" id="L149">			courseTmp = breadthAI.get(0);</span>
 <span class="nc" id="L150">			filteredBreadthRequirements.add(courseTmp);</span>
 <span class="nc" id="L151">		}</span>
-<span class="nc bnc" id="L152" title="All 2 branches missed.">		else if(randomnum == 2) {</span>
-<span class="nc" id="L153">			CourseModel courseTmp = breadthAI.get(0);</span>
-<span class="nc" id="L154">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="nc" id="L155">			courseTmp = breadthAI.get(1);</span>
-<span class="nc" id="L156">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="nc" id="L157">			courseTmp = breadthTheory.get(0);</span>
-<span class="nc" id="L158">			filteredBreadthRequirements.add(courseTmp);</span>
-<span class="nc" id="L159">			courseTmp = breadthSystems.get(0);</span>
-<span class="nc" id="L160">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">		else if(randomnum == 2) {</span>
+<span class="fc" id="L153">			CourseModel courseTmp = breadthAI.get(0);</span>
+<span class="fc" id="L154">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L155">			courseTmp = breadthAI.get(1);</span>
+<span class="fc" id="L156">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L157">			courseTmp = breadthTheory.get(0);</span>
+<span class="fc" id="L158">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L159">			courseTmp = breadthSystems.get(0);</span>
+<span class="fc" id="L160">			filteredBreadthRequirements.add(courseTmp);</span>
 		}
 <span class="fc" id="L162">		return filteredBreadthRequirements;</span>
 	}
