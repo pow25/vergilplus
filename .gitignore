@@ -7,4 +7,5 @@ bin/
 /target/
 .idea
 src/.DS_Store
+git-hooks/
 data/key.json
