@@ -18,6 +18,25 @@ public class CourseService implements ICourseService{
 		return courseDAO.selectAllCourses();
 	}
 	
+	public CourseModel search_couse(String courseID) {
+		return courseDAO.search_course(courseID);
+	}
+	
+	public List<String> findCourseNumber(List<String> course_names) {
+		List<CourseModel> allCourses = courseDAO.selectAllCourses();
+		List<String> res = new ArrayList<String>();
+		
+		for(CourseModel course : allCourses) {
+			for ( String course_name:course_names ) {
+				if(course_name.equals( course.getCourseTitle() )){
+					res.add(course.getCourseNumber());
+				}
+			}
+		}
+		
+		return res;
+	}
+	
 	public List<CourseModel> selectCoursesByNumAndSection(String courseNum, int sectionId){
 		List<CourseModel> allCourses = courseDAO.selectAllCourses();
 		

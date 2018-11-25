@@ -62,7 +62,7 @@ public class AppTest
 //		assertNotNull(systemOutRule.getLog());
 //	}
 
-	
+
 //	@Test
 //	public void testAppRun() throws Exception {
 //		Application app  = ctx.getBean("Application", Application.class);	    
@@ -144,6 +144,11 @@ public class AppTest
 		HashSet<String> matchedCourses = app.searchKeywords("machine learning", null);
 		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
 	}
+//	@Test
+//	public void searchKeywords(){
+//		HashSet<String> matchedCourses = app.searchKeywords("machine learning");
+//		assertTrue(matchedCourses.contains("Machine Learning WCOMS4771"));
+//	}
 
 	@Test
 	public void testBreadthCourses() {
@@ -158,3 +163,4 @@ public class AppTest
 //    }
 
 }
+

@@ -88,7 +88,6 @@ public class CourseModel implements Comparable<CourseModel>{
 	}
 
 
-
 	public int getTerm() {
 		return term;
 	}
@@ -105,7 +104,6 @@ public class CourseModel implements Comparable<CourseModel>{
 		this.description = description;
 	}
 
-	
 	
 	public List<String> getCoursePreq() {
 		return coursePreq;

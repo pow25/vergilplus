@@ -21,7 +21,7 @@ public class CourseDAO implements ICourseDAO{
 	
 	@Override
 	public List<CourseModel> selectAllCourses(){
-		String query = "SELECT * FROM course";
+		String query = "SELECT * FROM vergilplus.course;";
 		List<CourseModel> courseList = new ArrayList<CourseModel>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -77,6 +77,63 @@ public class CourseDAO implements ICourseDAO{
 		}
 		return courseList;
 	}	
+	
+	public CourseModel search_course(String courseID) {
+		CourseModel course = new CourseModel();
+		String query = "SELECT * FROM vergilplus.course where CourseNumber=\'" + courseID + "';";
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			con = dataSource.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs != null) {
+				while(rs.next()){
+					
+					course.setCourseNumber(rs.getString("CourseNumber"));
+					course.setSectionId(rs.getInt("Section"));
+					course.setCourseTitle(rs.getString("CourseTitle"));
+					course.setWeek(rs.getString("Week"));
+					course.setStartTime(rs.getString("Start_Time"));
+					course.setEndTime(rs.getString("End_Time"));
+					course.setInstructor(rs.getString("Instructor"));
+					
+					// set the three prerequisites
+					String[] preqs = rs.getString("Prerequisite").split(";",-1);
+					List<String> coursePreq = Arrays.asList(preqs[0].split(" "));
+
+					if (coursePreq.get(0).length()==0){
+						coursePreq = new ArrayList<>();
+					}
+
+					String knowledgePreq = preqs[1];
+					boolean instructorPreq = preqs[2].length() > 0;
+					
+					course.setCoursePreq(coursePreq);
+					course.setKnowledgePreq(knowledgePreq);
+					course.setInstructorPreq(instructorPreq);
+					
+					
+					course.setTerm(rs.getInt("Term"));
+					course.setDescription(rs.getString("Description"));
+					break;
+				}
+			}
+		}catch(SQLException e){
+			System.err.println(e);
+			System.err.println("An SQLException occured!");
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+				con.close();
+			} catch (Exception e) {
+				System.err.println("An Exception occured in search_course!");
+			}
+		}
+		return course;
+	}
 	
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;

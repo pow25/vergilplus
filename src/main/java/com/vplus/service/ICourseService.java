@@ -9,4 +9,5 @@ public interface ICourseService {
 	public List<CourseModel> selectCoursesByNumAndSection(String courseNum, int sectionId);
 
 	public List<String> findCourseNumber(List<String> takenCourses);
+	public CourseModel search_couse(String courseID);
 }

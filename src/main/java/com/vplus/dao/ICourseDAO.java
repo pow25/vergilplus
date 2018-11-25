@@ -6,4 +6,5 @@ import com.vplus.models.CourseModel;
 
 public interface ICourseDAO {
 	public List<CourseModel> selectAllCourses();
+	public CourseModel search_course(String courseID);
 }

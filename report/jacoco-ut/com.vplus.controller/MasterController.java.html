@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MasterController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">vplus</a> &gt; <a href="index.source.html" class="el_package">com.vplus.controller</a> &gt; <span class="el_source">MasterController.java</span></div><h1>MasterController.java</h1><pre class="source lang-java linenums">package com.vplus.controller;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.vplus.models.CourseModel;
+import com.vplus.service.ICourseService;
+//import com.vplus.service.ITrackService;
+
+@Controller(&quot;masterController&quot;)
+<span class="fc" id="L16">public class MasterController implements IMasterController{</span>
+	@Autowired
+	private ICourseService courseService;
+	//private ITrackService trackService;
+	
+	public static final int NUM_REC = 4;
+	public static final int SEED = 1;
+<span class="fc" id="L23">	public static final Random rnd = new Random(SEED);</span>
+	
+	public List&lt;CourseModel&gt; recommendCourses(List&lt;String&gt; takenCourses){
+<span class="fc" id="L26">		List&lt;CourseModel&gt; filteredCourses = filterCourses(takenCourses);</span>
+<span class="fc" id="L27">		Collections.shuffle(filteredCourses, rnd);</span>
+<span class="fc" id="L28">		return filteredCourses.subList(0, NUM_REC);</span>
+	}
+	
+	public List&lt;CourseModel&gt; filterCourses(List&lt;String&gt; takenCourses){
+<span class="fc" id="L32">		List&lt;CourseModel&gt; allCourses = courseService.selectAllCourses();</span>
+<span class="fc" id="L33">		List&lt;CourseModel&gt; filteredCourses = processTakenCourses(takenCourses, allCourses);</span>
+<span class="fc" id="L34">		filteredCourses = filterByPrerequisites(filteredCourses);</span>
+<span class="fc" id="L35">		return filteredCourses;</span>
+	}
+	
+	// acknowledge taken courses, e.g, make courses available, remove taken courses
+	public List&lt;CourseModel&gt; processTakenCourses(List&lt;String&gt; takenCourses, List&lt;CourseModel&gt; allCourses){
+<span class="fc" id="L40">		List&lt;CourseModel&gt; filteredCourses=new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">		if (takenCourses.isEmpty()) return allCourses;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">		for(CourseModel course : allCourses){</span>
+			// if takenCourses and prereqs are not disjoint (i.e., there is overlap),
+			// prereq becomes empty, because all prereqs are joined by OR.
+<span class="fc bfc" id="L45" title="All 2 branches covered.">			if(!Collections.disjoint(takenCourses, course.getCoursePreq())){</span>
+<span class="fc" id="L46">				course.setCoursePreq(new ArrayList&lt;&gt;());</span>
+			}
+			
+			// remove course from all courses if that course is already taken.
+<span class="fc bfc" id="L50" title="All 2 branches covered.">			if(!takenCourses.contains(course.getCourseNumber())) {</span>
+<span class="fc" id="L51">				filteredCourses.add(course);</span>
+			}
+<span class="fc" id="L53">		}</span>
+<span class="fc" id="L54">		return filteredCourses;</span>
+	}
+
+	// remove courses for which prerequisites are not fulfilled
+	public List&lt;CourseModel&gt; filterByPrerequisites(List&lt;CourseModel&gt; courses){
+<span class="fc" id="L59">			List&lt;CourseModel&gt; filteredCourses = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">			for (CourseModel course : courses) {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">				if (course.getCoursePreq().isEmpty()) {</span>
+<span class="fc" id="L62">					filteredCourses.add(course);</span>
+				}
+<span class="fc" id="L64">			}</span>
+<span class="fc" id="L65">			return filteredCourses;</span>
+	}
+	public List&lt;CourseModel&gt; fetchAllCourses(){
+<span class="fc" id="L68">		List&lt;CourseModel&gt; allCourses = courseService.selectAllCourses();</span>
+<span class="fc" id="L69">		return allCourses;</span>
+	}
+
+	//return courses according to breadth requirements
+	public List&lt;CourseModel&gt; breadthRequirements(){
+<span class="fc" id="L74">		List&lt;CourseModel&gt; filteredBreadthRequirements = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L75">		List&lt;CourseModel&gt; breadthTheory = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L76">		List&lt;CourseModel&gt; breadthSystems = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L77">		List&lt;CourseModel&gt; breadthAI = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L78">		List&lt;CourseModel&gt; allCourses = courseService.selectAllCourses();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">		for(CourseModel course : allCourses) {</span>
+			//if COMS 42xx and COMS W4995 and CSOR 4231
+			//belongs to theory
+<span class="fc bfc" id="L82" title="All 4 branches covered.">			if(course.getCourseNumber().contains(&quot;COMS42&quot;) || course.getCourseNumber().contains(&quot;CSOR4231&quot;)) {</span>
+<span class="fc" id="L83">				breadthTheory.add(course);</span>
+			}
+			//if COMS 41xx courses except COMS 4121, COMS 416x and COMS 417x; 
+			//COMS 4444; CSEE 4119, EECS 4340, CSEE 4823, CSEE 4824, CSEE 4840, CSEE 4868; All COMS 48xx courses;
+			//belongs to systems
+<span class="fc bfc" id="L88" title="All 4 branches covered.">			else if((course.getCourseNumber().contains(&quot;COMS41&quot;) &amp;&amp; !course.getCourseNumber().contains(&quot;COMS4121&quot;) &amp;&amp;</span>
+<span class="fc bfc" id="L89" title="All 4 branches covered.">					!course.getCourseNumber().contains(&quot;COMS416&quot;) &amp;&amp; !course.getCourseNumber().contains(&quot;COMS417&quot;)) ||</span>
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;COMS48&quot;) || course.getCourseNumber().contains(&quot;COMS4444&quot;) ||</span>
+<span class="pc bpc" id="L91" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;CSEE4119&quot;) || course.getCourseNumber().contains(&quot;EECS4340&quot;) ||</span>
+<span class="fc bfc" id="L92" title="All 4 branches covered.">					course.getCourseNumber().contains(&quot;CSEE4823&quot;) || course.getCourseNumber().contains(&quot;CSEE4824&quot;) ||</span>
+<span class="pc bpc" id="L93" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;CSEE4840&quot;) || course.getCourseNumber().contains(&quot;CSEE4868&quot;)) {</span>
+<span class="fc" id="L94">				breadthSystems.add(course);</span>
+			}
+			//if COMS 47xx courses except COMS 4721 and COMS 4776
+			//All COMS 416x and COMS 417x; CBMF 4761
+			//belongs to AI &amp; Applications
+<span class="fc bfc" id="L99" title="All 4 branches covered.">			else if((course.getCourseNumber().contains(&quot;COMS47&quot;) &amp;&amp; !course.getCourseNumber().contains(&quot;COMS4721&quot;) &amp;&amp;</span>
+<span class="pc bpc" id="L100" title="1 of 4 branches missed.">					!course.getCourseNumber().contains(&quot;COMS4776&quot;)) || course.getCourseNumber().contains(&quot;COMS416&quot;) ||</span>
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;COMS417&quot;) || course.getCourseNumber().contains(&quot;COMS4761&quot;)) {</span>
+<span class="fc" id="L102">				breadthAI.add(course);</span>
+			}
+<span class="fc" id="L104">		}</span>
+<span class="fc" id="L105">		Collections.shuffle(breadthTheory, rnd);</span>
+<span class="fc" id="L106">		Collections.shuffle(breadthSystems, rnd);</span>
+<span class="fc" id="L107">		Collections.shuffle(breadthAI, rnd);</span>
+<span class="fc" id="L108">		Random random = new Random();</span>
+<span class="fc" id="L109">		int randomnum = random.nextInt(3);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">		if(randomnum == 0) {</span>
+<span class="fc" id="L111">			CourseModel courseTmp = breadthTheory.get(0);</span>
+<span class="fc" id="L112">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L113">			courseTmp = breadthTheory.get(1);</span>
+<span class="fc" id="L114">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L115">			courseTmp = breadthSystems.get(0);</span>
+<span class="fc" id="L116">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L117">			courseTmp = breadthAI.get(0);</span>
+<span class="fc" id="L118">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L119">		}</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">		else if(randomnum == 1) {</span>
+<span class="fc" id="L121">			CourseModel courseTmp = breadthSystems.get(0);</span>
+<span class="fc" id="L122">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L123">			courseTmp = breadthSystems.get(1);</span>
+<span class="fc" id="L124">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L125">			courseTmp = breadthTheory.get(0);</span>
+<span class="fc" id="L126">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L127">			courseTmp = breadthAI.get(0);</span>
+<span class="fc" id="L128">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="fc" id="L129">		}</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">		else if(randomnum == 2) {</span>
+<span class="nc" id="L131">			CourseModel courseTmp = breadthAI.get(0);</span>
+<span class="nc" id="L132">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="nc" id="L133">			courseTmp = breadthAI.get(1);</span>
+<span class="nc" id="L134">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="nc" id="L135">			courseTmp = breadthTheory.get(0);</span>
+<span class="nc" id="L136">			filteredBreadthRequirements.add(courseTmp);</span>
+<span class="nc" id="L137">			courseTmp = breadthSystems.get(0);</span>
+<span class="nc" id="L138">			filteredBreadthRequirements.add(courseTmp);</span>
+		}
+<span class="fc" id="L140">		return filteredBreadthRequirements;</span>
+	}
+
+	// TODO: clean up track table and implement this
+	public List&lt;CourseModel&gt; filterByTrackRequirements(String trackId, List&lt;CourseModel&gt; courses){
+<span class="nc" id="L145">		return null;</span>
+	}
+
+	public ICourseService getCourseService() {
+<span class="nc" id="L149">		return courseService;</span>
+	}
+
+	public void setCourseService(ICourseService courseService) {
+<span class="fc" id="L153">		this.courseService = courseService;</span>
+<span class="fc" id="L154">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

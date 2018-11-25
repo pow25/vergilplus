@@ -187,7 +187,7 @@ public class Application implements CommandLineRunner {
 		}
 		return matchedCourses;
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		SpringApplication app = new SpringApplication(Application.class);
 		app.setBannerMode(Banner.Mode.OFF);

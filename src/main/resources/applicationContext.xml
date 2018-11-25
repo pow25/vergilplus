@@ -24,15 +24,21 @@
 		<property name="courseDAO" ref="courseDAO" /><!-- 
         <property name="CourseDAO" ref="CourseDAO" /> -->
 	</bean>
-
+	<bean id="reviewService" class="com.vplus.service.ReviewService">
+		<property name="reviewDAO" ref="reviewDAO" />
+	</bean>
+	
+	<bean id="reviewDAO" class="com.vplus.dao.ReviewDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	<bean id="trackDAO" class="com.vplus.dao.TrackDAO">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean id="courseDAO" class="com.vplus.dao.CourseDAO">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/vergilplus" />
 		<property name="username" value="dbuser" />
