@@ -32,8 +32,6 @@ import com.amazonaws.services.lambda.AWSLambda;
 import com.amazonaws.services.lambda.model.InvokeRequest;
 import com.amazonaws.services.lambda.model.InvokeResult;
 import com.amazonaws.regions.Regions;
-
-
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
@@ -105,7 +103,6 @@ public class Application implements CommandLineRunner {
 		List<CourseModel> recommended = masterController.recommendCourses(takenCourses);
 		return recommended;
 	}
-	
 	/**
 	 * Run the application
 	 */
@@ -165,18 +162,16 @@ public class Application implements CommandLineRunner {
 					String[] pieces = toS.split(";");
 					detect = pieces[pieces.length-1];
 					String output = pieces[0];
+					if(toS.contains("What is the exact")){
+						output = output.replace('\'', ' ');
+					}
 					System.out.println(output);
 					if(pieces.length>1) {
 						for (int i = 0; i < pieces[1].split(" ").length; ++i) {
-							takenCourses.add(pieces[1].split(" ")[i]);
+							takenCourses.add(pieces[1].split(", ")[i]);
 						}
 					}
-					if(pieces.length>2){
-						String[] names = pieces[2].split(" ");
-						for(int i=0;i<names.length;i++){
-							takenCourses.add(names[i]);
-						}
-					}
+
 				}
 				meg = br.readLine();
 			}
