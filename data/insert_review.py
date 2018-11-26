@@ -11,7 +11,7 @@ def change_quote(string):
 
 def del_braket(string):
     if len(string) <= 3:
-        return None
+        return ""
     else:
         string = string.replace("'","")
         return string[1:-1]
