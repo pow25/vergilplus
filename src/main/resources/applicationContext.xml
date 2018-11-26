@@ -15,11 +15,6 @@
 	<bean id="masterController" class="com.vplus.controller.MasterController">
 		<property name="courseService" ref="courseService" />
 	</bean>
-	
-	<bean id="trackService" class="com.vplus.service.TrackService">
-		<property name="trackDAO" ref="trackDAO" /><!-- 
-        <property name="CourseDAO" ref="CourseDAO" /> -->
-	</bean>
 	<bean id="courseService" class="com.vplus.service.CourseService">
 		<property name="courseDAO" ref="courseDAO" /><!-- 
         <property name="CourseDAO" ref="CourseDAO" /> -->
@@ -29,9 +24,6 @@
 	</bean>
 	
 	<bean id="reviewDAO" class="com.vplus.dao.ReviewDAO">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	<bean id="trackDAO" class="com.vplus.dao.TrackDAO">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean id="courseDAO" class="com.vplus.dao.CourseDAO">

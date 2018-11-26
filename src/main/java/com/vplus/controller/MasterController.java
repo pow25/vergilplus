@@ -127,44 +127,15 @@ public class MasterController implements IMasterController{
 		Collections.shuffle(breadthTheory, rnd);
 		Collections.shuffle(breadthSystems, rnd);
 		Collections.shuffle(breadthAI, rnd);
-		Random random = new Random();
-		int randomnum = random.nextInt(3);
-		if(randomnum == 0) {
-			CourseModel courseTmp = breadthTheory.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthTheory.get(1);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthSystems.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthAI.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-		}
-		else if(randomnum == 1) {
-			CourseModel courseTmp = breadthSystems.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthSystems.get(1);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthTheory.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthAI.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-		}
-		else if(randomnum == 2) {
-			CourseModel courseTmp = breadthAI.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthAI.get(1);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthTheory.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-			courseTmp = breadthSystems.get(0);
-			filteredBreadthRequirements.add(courseTmp);
-		}
+		CourseModel courseTmp = breadthTheory.get(0);
+		filteredBreadthRequirements.add(courseTmp);
+		courseTmp = breadthTheory.get(1);
+		filteredBreadthRequirements.add(courseTmp);
+		courseTmp = breadthSystems.get(0);
+		filteredBreadthRequirements.add(courseTmp);
+		courseTmp = breadthAI.get(0);
+		filteredBreadthRequirements.add(courseTmp);
 		return filteredBreadthRequirements;
-	}
-
-	// TODO: clean up track table and implement this
-	public List<CourseModel> filterByTrackRequirements(String trackId, List<CourseModel> courses){
-		return null;
 	}
 
 	public ICourseService getCourseService() {

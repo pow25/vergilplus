@@ -19,7 +19,7 @@ public class ReviewDAO implements IReviewDAO{
 	
 	@Override
 	public List<ReviewModel> selectAllReviews(){
-		String query = "SELECT * FROM vergilplus.review";
+		String query = "SELECT * FROM vergilplus.sentiment";
 		List<ReviewModel> reviewList = new ArrayList<ReviewModel>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -40,9 +40,9 @@ public class ReviewDAO implements IReviewDAO{
 					reviewList.add(review);
 				}
 			}
-		}catch(SQLException e){
+		}catch(Exception e){
 			System.err.println(e);
-			System.err.println("An SQLException occured!");
+			System.err.println("An Exception occured!");
 		}finally{
 			try {
 				rs.close();

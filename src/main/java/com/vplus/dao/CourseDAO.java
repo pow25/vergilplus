@@ -63,9 +63,9 @@ public class CourseDAO implements ICourseDAO{
 					courseList.add(course);
 				}
 			}
-		}catch(SQLException e){
+		}catch(Exception e){
 			System.err.println(e);
-			System.err.println("An SQLException occured!");
+			System.err.println("An Exception occured!");
 		}finally{
 			try {
 				rs.close();
@@ -120,9 +120,9 @@ public class CourseDAO implements ICourseDAO{
 					break;
 				}
 			}
-		}catch(SQLException e){
+		}catch(Exception e){
 			System.err.println(e);
-			System.err.println("An SQLException occured!");
+			System.err.println("An Exception occured!");
 		}finally{
 			try {
 				rs.close();
