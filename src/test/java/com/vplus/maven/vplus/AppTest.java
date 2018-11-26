@@ -1,4 +1,6 @@
 package com.vplus.maven.vplus;
+import com.amazonaws.services.lambda.AWSLambda;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,12 +17,19 @@ import com.vplus.models.CourseModel;
 import com.vplus.models.ReviewModel;
 
 import org.junit.Before; // for @Before
+
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.amazonaws.services.lambda.model.InvokeRequest;
+import com.amazonaws.services.lambda.model.InvokeResult;
+
+import java.io.ByteArrayInputStream;
+import java.io.PrintStream;
 /**
  * Unit test for simple App.
  */
@@ -71,25 +80,19 @@ public class AppTest
 	}
 
 	@Test
-	public void testAppRun() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);
-		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-		app.run();
-		assertNotNull(systemOutRule.getLog());
-	}
-
-	@Test
 	public void findAllInstructors(){
 		List<String> instructors = masterController.findAllInstructors();
 		assertTrue(instructors.size()==93);
 	}
 
 	@Test
-	public void run() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);
-		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-		app.run();
-		assertNotNull(systemOutRule.getLog());
+	public void getInstructorsExp(){
+		courseDAO.setDataSource(null);
+		try {
+			List<String> instructors = courseDAO.getInstructors();
+		}catch(Exception e){
+			assertTrue(true);
+		}
 	}
 
 	@Test
@@ -118,6 +121,23 @@ public class AppTest
 		assertTrue(recommended != null);
 	}
 
+	@Test
+	public void recommendCoursesApp() {
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4111");
+		List<CourseModel> recommended =  app.recommendCourses(testCourses);
+		assertTrue(recommended != null);
+		testCourses=new ArrayList<>();
+		recommended=app.recommendCourses(testCourses);
+		assertTrue(recommended.size()==4);
+	}
+
+	@Test
+	public void getMasterController() {
+		IMasterController master =app.getMasterController();
+		assertNotNull(master);
+	}
 
 	@Test
 	public void selectAllCourses() {
@@ -126,12 +146,21 @@ public class AppTest
 	}
 
 	@Test
+	public void getTakenCourses() {
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4111");
+		List<String> courses = app.getTakenCourses(testCourses);
+		assertTrue(courses.size()==2);
+	}
+
+	@Test
 	public void processTakenCourses() {
 		List<CourseModel> totalCourse = courseService.selectAllCourses();
 		List<String> testCourses = new ArrayList<>();
 		testCourses.add("WCOMS4771");
 		testCourses.add("WCOMS4111");
-		List<CourseModel> filteredCourses=masterController.processTakenCourses(testCourses,totalCourse);
+		List<CourseModel> filteredCourses = masterController.processTakenCourses(testCourses,totalCourse);
 		filteredCourses.forEach(c-> {
 			if (c.getCourseNumber().equals(testCourses.get(0)) || c.getCourseNumber().equals(testCourses.get(1))) {
 				assertTrue(false);
@@ -140,6 +169,22 @@ public class AppTest
 		List<String> nullCourses=new ArrayList<>();
 		filteredCourses=masterController.processTakenCourses(nullCourses,totalCourse);
 		assertTrue(filteredCourses.size()==totalCourse.size());
+	}
+
+	@Test
+	public void processTakenCoursesApp() {
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4156");
+		List<CourseModel> filteredCourses=app.processTakenCourses(testCourses);
+		filteredCourses.forEach(c-> {
+			if (c.getCourseNumber().equals(testCourses.get(0)) || c.getCourseNumber().equals(testCourses.get(1))) {
+				assertTrue(false);
+			}
+		});
+		List<String> nullCourses=new ArrayList<>();
+		filteredCourses=app.processTakenCourses(nullCourses);
+		assertTrue(filteredCourses.size()==93);
 	}
 
 	@Test
@@ -160,7 +205,20 @@ public class AppTest
 	@Test
 	public void searchKeywords(){
 		HashSet<CourseModel> matchedCourses = app.searchKeywords("machine learning", masterController.fetchAllCourses());
-		assertTrue(matchedCourses.size()==6);
+		assertTrue(matchedCourses.size()==9);
+	}
+
+
+	@Test
+	public void searchKeywordsDes(){
+		HashSet<CourseModel> matchedCourses = app.searchKeywords("efficient sorting and searching", masterController.fetchAllCourses());
+		assertTrue(matchedCourses.size()>0);
+	}
+
+	@Test
+	public void searchKeywordsProf(){
+		HashSet<CourseModel> matchedCourses = app.searchKeywords("Drinea, Eleni", masterController.fetchAllCourses());
+		assertTrue(matchedCourses.size()>0);
 	}
 
 	@Test
@@ -190,7 +248,7 @@ public class AppTest
 
 
 	@Test
-	public void SelectByNumSec() {
+	public void selectByNumSec() {
 		List<CourseModel> allMatchingCourses = courseService.selectCoursesByNumAndSection("WCOMS4771",1);
 		List<CourseModel> totalcourseModel=new ArrayList<>();
 		totalcourseModel = courseService.selectAllCourses();
@@ -204,13 +262,80 @@ public class AppTest
 	}
 
 	@Test
-	public void SelectAllReviews() {
+	public void selectAllReviews() {
 		List<ReviewModel> allreviews = reviewDAO.selectAllReviews();
 		assertTrue(allreviews.size() > 0);
 	}
 
 	@Test
-	public void GetCourseRate() {
+	public void getReviewWords() {
+		String professor = "Yemini, Yechiam";
+		List<String> words = reviewDAO.getWords(professor);
+		assertTrue(words.size() > 0);
+	}
+
+	@Test
+	public void getReviewWordsExp() {
+		String professor = "Yemini, Yechiam";
+		DataSource ds = null;
+		reviewDAO.setDataSource(ds);
+		try {
+			List<String> words = reviewDAO.getWords(professor);
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+	}
+
+	@Test
+	public void getReviewNull() {
+		String professor = "";
+		String courseId = "";
+		List<String> result = reviewDAO.getReview(courseId, professor);
+		assertNull(result);
+	}
+
+
+	@Test
+	public void getReviewProfNotNull() {
+		String professor = "Paisley, John";
+		String courseId = "";
+		List<String> result = reviewDAO.getReview(courseId, professor);
+		assertNotNull(result);
+	}
+
+
+	@Test
+	public void getReviewCourseNotNull() {
+		String professor = "";
+		String courseId = "WCOMS4771";
+		List<String> result = reviewDAO.getReview(courseId, professor);
+		assertNotNull(result);
+	}
+
+	@Test
+	public void getReviewCourseProfNotNull() {
+		String professor = "Verma, Nakul";
+		String courseId = "WCOMS4771";
+		List<String> result = reviewDAO.getReview(courseId, professor);
+		assertNotNull(result);
+	}
+
+	@Test
+	public void getReviewExp() {
+		String professor = "Verma, Nakul";
+		String courseId = "WCOMS4771";
+		reviewDAO.setDataSource(null);
+		try {
+			List<String> result = reviewDAO.getReview(courseId, professor);
+		}
+		catch (Exception e){
+			assertTrue(true);
+		}
+	}
+
+	@Test
+	public void getCourseRate() {
 		float rating = reviewDAO.get_course_rating("WCOMS4771");
 		assertNotNull(rating);
 		try {
@@ -222,7 +347,7 @@ public class AppTest
 	}
 
 	@Test
-	public void SelectAllCoursesExp() {
+	public void selectAllCoursesExp() {
 		DataSource newdata = null;
 		courseDao.setDataSource(newdata);
 		try {
@@ -233,7 +358,7 @@ public class AppTest
 	}
 
 	@Test
-	public void SearchCoursesExp() {
+	public void searchCoursesExp() {
 		javax.sql.DataSource newdata = null;
 		courseDao.setDataSource(newdata);
 		try {
@@ -244,7 +369,7 @@ public class AppTest
 	}
 
 	@Test
-	public void SelectAllReviewsExp() {
+	public void selectAllReviewsExp() {
 		DataSource newdata = null;
 		reviewDao.setDataSource(newdata);
 		try {
@@ -304,7 +429,7 @@ public class AppTest
 	}
 
 	@Test
-	public void ReviewServiceTest() {
+	public void reviewServiceTest() {
 		assertNotNull(reviewservice.selectAllReviews());
 		assertNotNull(reviewservice.getReviewDAO());
 	}
@@ -315,7 +440,7 @@ public class AppTest
 	}
 
 	@Test
-	public void SearchCourseExp() {
+	public void searchCourseExp() {
 		try{
 			courseDAO.search_course("WCOOO");
 		}catch (Exception e) {
@@ -334,7 +459,6 @@ public class AppTest
 //
 //	}
 
-
 //
 //	@Test
 //    public void filterByPrerequisites(){
@@ -342,5 +466,71 @@ public class AppTest
 //	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
 //    }
 
+	@Test
+	public void setContext() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+		app.setContext();
+		assertNotNull(systemOutRule.getLog());
+	}
+
+	@Test
+	public void setContextExp() throws Exception {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		try {
+			Application app  = ctx.getBean("Applications", Application.class);
+			app.setContext();
+		}
+		catch(Exception e){
+			assertTrue(true);
+		}
+	}
+
+	@Test
+	public void getAllTopics() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		List<String> topics = app.getAllTopics();
+		assertTrue(topics.size()==14);
+	}
+
+	@Test
+	public void createLambda() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		AWSLambda client = app.createLambda();
+		assertTrue(!client.toString().isEmpty());
+	}
+
+	@Test
+	public void parseResponse() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		String body = "{\"userId\": \"dh2914\", \"message\": {\"word\":"+ "\"Hi;false\"}}";
+		InvokeRequest req = new InvokeRequest().withFunctionName("Chatbot").withPayload(body); // optional
+		AWSLambda client = app.createLambda();
+		InvokeResult result = client.invoke(req);
+		String output = app.parseResponse(result);
+		assertTrue(!output.isEmpty());
+	}
+//
+//	@Test
+//	public void testAppRun() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);
+//		ByteArrayInputStream in = new ByteArrayInputStream("Hi".getBytes());
+//		PrintStream out = new PrintStream(System.out);
+//		System.setIn(in);
+//
+//		in = new ByteArrayInputStream("yea I am interested in machine learning".getBytes());
+//		System.setIn(in);
+//
+//		in = new ByteArrayInputStream("COMS4771".getBytes());
+//		System.setIn(in);
+//
+//		in = new ByteArrayInputStream("yea".getBytes());
+//		System.setIn(in);
+//
+//		in = new ByteArrayInputStream("ok".getBytes());
+//		System.setIn(in);
+//		app.run();
+//		assertTrue(true);
+//	}
 }
 

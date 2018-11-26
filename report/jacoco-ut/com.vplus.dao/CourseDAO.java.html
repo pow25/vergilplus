@@ -129,15 +129,47 @@ import com.vplus.models.CourseModel;
 <span class="pc" id="L129">				ps.close();</span>
 <span class="pc" id="L130">				con.close();</span>
 <span class="pc" id="L131">			} catch (Exception e) {</span>
-<span class="pc" id="L132">				System.err.println(&quot;An Exception occured in search_course!&quot;);</span>
+<span class="pc" id="L132">				System.err.println(&quot;An Exception occured in search_course function!&quot;);</span>
 <span class="pc" id="L133">			}</span>
 <span class="pc" id="L134">		}</span>
 <span class="fc" id="L135">		return course;</span>
 	}
-	
+
+
+	public ArrayList&lt;String&gt; getInstructors() {
+<span class="fc" id="L140">		CourseModel course = new CourseModel();</span>
+<span class="fc" id="L141">		String query = &quot;SELECT Instructor FROM vergilplus.course;&quot;;</span>
+<span class="fc" id="L142">		Connection con = null;</span>
+<span class="fc" id="L143">		PreparedStatement ps = null;</span>
+<span class="fc" id="L144">		ResultSet rs = null;</span>
+<span class="fc" id="L145">		ArrayList&lt;String&gt; instructors = new ArrayList&lt;&gt;();</span>
+		try{
+<span class="fc" id="L147">			con = dataSource.getConnection();</span>
+<span class="fc" id="L148">			ps = con.prepareStatement(query);</span>
+<span class="fc" id="L149">			rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">			if(rs != null) {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">				while(rs.next()){</span>
+<span class="fc" id="L152">					instructors.add(rs.getString(&quot;Instructor&quot;).toUpperCase());</span>
+				}
+			}
+<span class="nc" id="L155">		}catch(SQLException e){</span>
+<span class="nc" id="L156">			System.err.println(e);</span>
+<span class="nc" id="L157">			System.err.println(&quot;An SQLException occured!&quot;);</span>
+		}finally{
+<span class="fc" id="L159">			try {</span>
+<span class="pc" id="L160">				rs.close();</span>
+<span class="pc" id="L161">				ps.close();</span>
+<span class="pc" id="L162">				con.close();</span>
+<span class="pc" id="L163">			} catch (Exception e) {</span>
+<span class="pc" id="L164">				System.err.println(&quot;An Exception occured in instructor collection!&quot;);</span>
+<span class="pc" id="L165">			}</span>
+<span class="pc" id="L166">		}</span>
+<span class="fc" id="L167">		return instructors;</span>
+	}
+
 	public void setDataSource(DataSource dataSource) {
-<span class="fc" id="L139">		this.dataSource = dataSource;</span>
-<span class="fc" id="L140">	}</span>
+<span class="fc" id="L171">		this.dataSource = dataSource;</span>
+<span class="fc" id="L172">	}</span>
 }
 
 

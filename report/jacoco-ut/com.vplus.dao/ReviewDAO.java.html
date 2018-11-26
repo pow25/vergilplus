@@ -57,79 +57,79 @@ import com.vplus.dao.IReviewDAO;
 	
 	public List&lt;String&gt; getWords( String Professor ) {
 
-<span class="nc" id="L60">		String query = &quot;SELECT words FROM vergilplus.sentiment where professor=\'&quot;;</span>
-<span class="nc" id="L61">		query += Professor + &quot;\';&quot;;</span>
+<span class="fc" id="L60">		String query = &quot;SELECT words FROM vergilplus.sentiment where professor=\'&quot;;</span>
+<span class="fc" id="L61">		query += Professor + &quot;\';&quot;;</span>
 		
-<span class="nc" id="L63">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();</span>
-<span class="nc" id="L64">		Connection con = null;</span>
-<span class="nc" id="L65">		PreparedStatement ps = null;</span>
-<span class="nc" id="L66">		ResultSet rs = null;</span>
+<span class="fc" id="L63">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L64">		Connection con = null;</span>
+<span class="fc" id="L65">		PreparedStatement ps = null;</span>
+<span class="fc" id="L66">		ResultSet rs = null;</span>
 		try{
-<span class="nc" id="L68">			con = dataSource.getConnection();</span>
-<span class="nc" id="L69">			ps = con.prepareStatement(query);</span>
-<span class="nc" id="L70">			rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">			if(rs != null) {</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">				while(rs.next()){</span>
-<span class="nc" id="L73">					res.add(rs.getString(&quot;words&quot;));</span>
+<span class="fc" id="L68">			con = dataSource.getConnection();</span>
+<span class="fc" id="L69">			ps = con.prepareStatement(query);</span>
+<span class="fc" id="L70">			rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">			if(rs != null) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">				while(rs.next()){</span>
+<span class="fc" id="L73">					res.add(rs.getString(&quot;words&quot;));</span>
 				}
 			}
-<span class="nc" id="L76">		}catch(Exception e){</span>
-<span class="nc" id="L77">			System.err.println(e);</span>
-<span class="nc" id="L78">			System.err.println(&quot;An SQLException occured!&quot;);</span>
+<span class="fc" id="L76">		}catch(Exception e){</span>
+<span class="fc" id="L77">			System.err.println(e);</span>
+<span class="fc" id="L78">			System.err.println(&quot;An SQLException occured!&quot;);</span>
 		}finally{
 <span class="nc" id="L80">			try {</span>
-<span class="nc" id="L81">				rs.close();</span>
-<span class="nc" id="L82">				ps.close();</span>
-<span class="nc" id="L83">				con.close();</span>
-<span class="nc" id="L84">			} catch (Exception e) {</span>
-<span class="nc" id="L85">				System.err.println(&quot;An Exception occured in getAdj!&quot;);</span>
-<span class="nc" id="L86">			}</span>
-<span class="nc" id="L87">		}</span>
+<span class="pc" id="L81">				rs.close();</span>
+<span class="pc" id="L82">				ps.close();</span>
+<span class="pc" id="L83">				con.close();</span>
+<span class="pc" id="L84">			} catch (Exception e) {</span>
+<span class="pc" id="L85">				System.err.println(&quot;An Exception occured in getAdj!&quot;);</span>
+<span class="pc" id="L86">			}</span>
+<span class="pc" id="L87">		}</span>
 		
-<span class="nc" id="L89">		return res;</span>
+<span class="fc" id="L89">		return res;</span>
 	}
 	
 	public List&lt;String&gt; getReview(String courseID, String Prof) {
 		
-<span class="nc bnc" id="L94" title="All 4 branches missed.">		if ( Prof.isEmpty() &amp;&amp; courseID.isEmpty() )</span>
-<span class="nc" id="L95">			return null;</span>
+<span class="fc bfc" id="L94" title="All 4 branches covered.">		if ( Prof.isEmpty() &amp;&amp; courseID.isEmpty() )</span>
+<span class="fc" id="L95">			return null;</span>
 		
-<span class="nc" id="L97">		String query = &quot;SELECT review FROM vergilplus.sentiment where &quot;;</span>
+<span class="fc" id="L97">		String query = &quot;SELECT review FROM vergilplus.sentiment where &quot;;</span>
 		
-<span class="nc bnc" id="L99" title="All 2 branches missed.">		if ( Prof.isEmpty() )</span>
-<span class="nc" id="L100">			query += &quot;number= \'&quot; + courseID + &quot;\';&quot; ;</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">		else if ( courseID.isEmpty() )</span>
-<span class="nc" id="L102">			query += &quot;professor= \'&quot; + Prof + &quot;\';&quot; ;</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">		if ( Prof.isEmpty() )</span>
+<span class="fc" id="L100">			query += &quot;number= \'&quot; + courseID + &quot;\';&quot; ;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">		else if ( courseID.isEmpty() )</span>
+<span class="fc" id="L102">			query += &quot;professor= \'&quot; + Prof + &quot;\';&quot; ;</span>
 		else
-<span class="nc" id="L104">			query += &quot;number= \'&quot; + courseID + &quot;\' AND professor= \'&quot; + Prof + &quot;\';&quot; ;</span>
+<span class="fc" id="L104">			query += &quot;number= \'&quot; + courseID + &quot;\' AND professor= \'&quot; + Prof + &quot;\';&quot; ;</span>
 		
-<span class="nc" id="L106">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();		</span>
-<span class="nc" id="L107">		Connection con = null;</span>
-<span class="nc" id="L108">		PreparedStatement ps = null;</span>
-<span class="nc" id="L109">		ResultSet rs = null;</span>
+<span class="fc" id="L106">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();		</span>
+<span class="fc" id="L107">		Connection con = null;</span>
+<span class="fc" id="L108">		PreparedStatement ps = null;</span>
+<span class="fc" id="L109">		ResultSet rs = null;</span>
 		try{
-<span class="nc" id="L111">			con = dataSource.getConnection();</span>
-<span class="nc" id="L112">			ps = con.prepareStatement(query);</span>
-<span class="nc" id="L113">			rs = ps.executeQuery();</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">			if(rs != null) {</span>
-<span class="nc bnc" id="L115" title="All 2 branches missed.">				while(rs.next()){</span>
-<span class="nc" id="L116">					res.add(rs.getString(&quot;review&quot;));</span>
+<span class="fc" id="L111">			con = dataSource.getConnection();</span>
+<span class="fc" id="L112">			ps = con.prepareStatement(query);</span>
+<span class="fc" id="L113">			rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">			if(rs != null) {</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">				while(rs.next()){</span>
+<span class="fc" id="L116">					res.add(rs.getString(&quot;review&quot;));</span>
 				}
 			}
-<span class="nc" id="L119">		}catch(Exception e){</span>
-<span class="nc" id="L120">			System.err.println(e);</span>
-<span class="nc" id="L121">			System.err.println(&quot;An SQLException occured!&quot;);</span>
+<span class="fc" id="L119">		}catch(Exception e){</span>
+<span class="fc" id="L120">			System.err.println(e);</span>
+<span class="fc" id="L121">			System.err.println(&quot;An SQLException occured!&quot;);</span>
 		}finally{
 <span class="nc" id="L123">			try {</span>
-<span class="nc" id="L124">				rs.close();</span>
-<span class="nc" id="L125">				ps.close();</span>
-<span class="nc" id="L126">				con.close();</span>
-<span class="nc" id="L127">			} catch (Exception e) {</span>
-<span class="nc" id="L128">				System.err.println(&quot;An Exception occured in getReview!&quot;);</span>
-<span class="nc" id="L129">			}</span>
-<span class="nc" id="L130">		}</span>
+<span class="pc" id="L124">				rs.close();</span>
+<span class="pc" id="L125">				ps.close();</span>
+<span class="pc" id="L126">				con.close();</span>
+<span class="pc" id="L127">			} catch (Exception e) {</span>
+<span class="pc" id="L128">				System.err.println(&quot;An Exception occured in getReview!&quot;);</span>
+<span class="pc" id="L129">			}</span>
+<span class="pc" id="L130">		}</span>
 		
-<span class="nc" id="L132">		return res;</span>
+<span class="fc" id="L132">		return res;</span>
 	}
 	
 	@Override

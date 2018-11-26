@@ -1,3 +1,3 @@
 #!/bin/bash
-D:/pmd-bin-6.8.0/bin/pmd.bat -d D:/Courses/AdvancedSoftwareEngineering/project/src/ -R rulesets/java/quickstart.xml -f html -r ./report/pmd_report.html -failOnViolation false
+$HOME/pmd-bin-6.9.0/bin/run.sh -d /Users/danyanghe/eclipse-workspace/vplus -R rulesets/java/quickstart.xml -f html -r ./report/pmd_report.html -failOnViolation false
 

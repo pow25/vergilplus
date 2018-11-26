@@ -44,6 +44,7 @@ public class Application implements CommandLineRunner {
 
 	public static final String JSON_PATH = "./data/user_input.json";
 	private String[] args;
+	public List<String> allTopics = new ArrayList<>();
 
 	/**
 	 * sets the application context using xml file
@@ -59,6 +60,40 @@ public class Application implements CommandLineRunner {
 		}
 	}
 
+	//set up the topic set
+    public List<String> getAllTopics(){
+        ArrayList<String> aLLTopics = new ArrayList<>();
+        aLLTopics.add("computer\'vision");
+        aLLTopics.add("operating\'system");
+        aLLTopics.add("machine\'learning");
+        aLLTopics.add("robotics");
+        aLLTopics.add("natural\'language\'processing");
+        aLLTopics.add("graphics");
+        aLLTopics.add("networks");
+        aLLTopics.add("artificial\'intelligence");
+        aLLTopics.add("database");
+        aLLTopics.add("bioinformatics");
+        aLLTopics.add("system");
+        aLLTopics.add("theory");
+        aLLTopics.add("computational\'biology");
+        aLLTopics.add("algorithm");
+        return aLLTopics;
+    }
+    public AWSLambda createLambda(){
+        Regions region = Regions.fromName("us-east-1");
+        AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()
+                .withRegion(region);
+        AWSLambda client = builder.build();
+	    return client;
+    }
+
+    public String parseResponse(InvokeResult result){
+        String response = new String(result.getPayload().array());
+        JSONObject jsonObj = new JSONObject(response);
+        String toS = jsonObj.get("greeting").toString();
+        return toS;
+    }
+
 	public List<CourseModel> processTakenCourses(List<String> takenCourses){
 		List<CourseModel> allCourses = masterController.fetchAllCourses();
 		List<CourseModel> recommended = masterController.processTakenCourses(takenCourses, allCourses);
@@ -69,13 +104,6 @@ public class Application implements CommandLineRunner {
 		
 		List<CourseModel> recommended = masterController.recommendCourses(takenCourses);
 		return recommended;
-//		System.out.println("output = " + courseService.selectCoursesByNumAndSection("WCOMS4771", 1));
-//		System.out.println("DONE");
-//		System.out.println("output = " + trackService.selectCoursesByTrackId("Computational Biology").getCourseID());
-//		System.out.println("DONE");
-		
-//		int exitCode = SpringApplication.exit(ctx, () -> 0);
-//		System.exit(exitCode);
 	}
 	
 	/**
@@ -84,39 +112,20 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 			setContext();
-			Regions region = Regions.fromName("us-east-1");
-			AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()
-					.withRegion(region);
-			AWSLambda client = builder.build();
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			String meg = br.readLine();
 			List<String> takenCourses = new ArrayList<>();
 			List<String> topic = new ArrayList<>();
 			List<String> instructors = new ArrayList<>();
 			String detect="false";
-			ArrayList<String> aLLTopics = new ArrayList<>();
-			aLLTopics.add("computer\'vision");
-			aLLTopics.add("operating\'system");
-			aLLTopics.add("machine\'learning");
-			aLLTopics.add("robotics");
-			aLLTopics.add("natural\'language\'processing");
-			aLLTopics.add("graphics");
-			aLLTopics.add("networks");
-			aLLTopics.add("artificial\'intelligence");
-			aLLTopics.add("database");
-			aLLTopics.add("bioinformatics");
-			aLLTopics.add("system");
-			aLLTopics.add("theory");
-			aLLTopics.add("computational\'biology");
-			aLLTopics.add("algorithm");
+			allTopics = getAllTopics();
 			List<String> allInstructors = masterController.findAllInstructors();
 			while(!meg.toUpperCase().equals("OK")) {
 				String body = "{\"userId\": \"dh2914\", \"message\": {\"word\":"+ "\""+meg +";"+detect+"\"" +"}}";
 				InvokeRequest req = new InvokeRequest().withFunctionName("Chatbot").withPayload(body); // optional
+                AWSLambda client = createLambda();
 				InvokeResult result = client.invoke(req);
-				String response = new String(result.getPayload().array());
-				JSONObject jsonObj = new JSONObject(response);
-				String toS = jsonObj.get("greeting").toString();
+				String toS = parseResponse(result);
 				if(toS.contains("Hi")){
 					String[] pieces = toS.split(";");
 					String output = pieces[0];
@@ -134,7 +143,7 @@ public class Application implements CommandLineRunner {
 						if(pieces.length>2) {
 							for(int j =1; j < pieces.length-1;j++) {
 								String keyword = pieces[j];
-								if (aLLTopics.contains(keyword)) {
+								if (allTopics.contains(keyword)) {
 									topic.add(keyword.replace('\'', ' '));
 								}
 								if(keyword.contains(" "))
@@ -195,9 +204,11 @@ public class Application implements CommandLineRunner {
 		System.exit(exitCode);
 		return;
 	}
+
 	public List<String> getTakenCourses(List<String> takenCourses){
 		return masterController.convertCourseForm(takenCourses);
 	}
+
 	public List<String> readTakenCourses() throws FileNotFoundException{
 		InputStream fis = new FileInputStream(JSON_PATH);
         JsonReader reader = Json.createReader(fis);
@@ -221,13 +232,16 @@ public class Application implements CommandLineRunner {
 	public HashSet<CourseModel> searchKeywords(String keyword, List<CourseModel> courses){
 		HashSet<CourseModel> matchedCourses = new HashSet<>();
 		for(CourseModel c: courses){
-			if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())||c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
+			if(c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
+				matchedCourses.add(c);
+			}
+			else if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())){
 				matchedCourses.add(c);
 			}
 		}
 		if(matchedCourses.size()==0) {
 			for (CourseModel c : courses) {
-				if (c.getInstructor().toUpperCase().contains(keyword.split(" ")[0].toUpperCase())||c.getInstructor().toUpperCase().contains(keyword.split(" ")[1].toUpperCase())) {
+				if (c.getInstructor().toUpperCase().contains(keyword.split(" ")[1].toUpperCase())) {
 					matchedCourses.add(c);
 				}
 			}

@@ -44,38 +44,66 @@ import com.amazonaws.regions.Regions;
 
 	public static final String JSON_PATH = &quot;./data/user_input.json&quot;;
 	private String[] args;
+<span class="fc" id="L47">	public List&lt;String&gt; allTopics = new ArrayList&lt;&gt;();</span>
 
 	/**
 	 * sets the application context using xml file
 	 */
 	public void setContext() {
 		try {
-<span class="nc" id="L53">			ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span>
-<span class="nc" id="L54">				ctx.getBean(&quot;Application&quot;, Application.class);</span>
-<span class="nc" id="L55">				ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,</span>
+<span class="fc" id="L54">			ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span>
+<span class="fc" id="L55">				ctx.getBean(&quot;Application&quot;, Application.class);</span>
+<span class="fc" id="L56">				ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,</span>
 						AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
-<span class="nc" id="L57">		}catch(Exception e) {</span>
-<span class="nc" id="L58">			System.err.println(e);</span>
-<span class="nc" id="L59">		}</span>
-<span class="nc" id="L60">	}</span>
+<span class="nc" id="L58">		}catch(Exception e) {</span>
+<span class="nc" id="L59">			System.err.println(e);</span>
+<span class="fc" id="L60">		}</span>
+<span class="fc" id="L61">	}</span>
+
+	//set up the topic set
+    public List&lt;String&gt; getAllTopics(){
+<span class="fc" id="L65">        ArrayList&lt;String&gt; aLLTopics = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L66">        aLLTopics.add(&quot;computer\'vision&quot;);</span>
+<span class="fc" id="L67">        aLLTopics.add(&quot;operating\'system&quot;);</span>
+<span class="fc" id="L68">        aLLTopics.add(&quot;machine\'learning&quot;);</span>
+<span class="fc" id="L69">        aLLTopics.add(&quot;robotics&quot;);</span>
+<span class="fc" id="L70">        aLLTopics.add(&quot;natural\'language\'processing&quot;);</span>
+<span class="fc" id="L71">        aLLTopics.add(&quot;graphics&quot;);</span>
+<span class="fc" id="L72">        aLLTopics.add(&quot;networks&quot;);</span>
+<span class="fc" id="L73">        aLLTopics.add(&quot;artificial\'intelligence&quot;);</span>
+<span class="fc" id="L74">        aLLTopics.add(&quot;database&quot;);</span>
+<span class="fc" id="L75">        aLLTopics.add(&quot;bioinformatics&quot;);</span>
+<span class="fc" id="L76">        aLLTopics.add(&quot;system&quot;);</span>
+<span class="fc" id="L77">        aLLTopics.add(&quot;theory&quot;);</span>
+<span class="fc" id="L78">        aLLTopics.add(&quot;computational\'biology&quot;);</span>
+<span class="fc" id="L79">        aLLTopics.add(&quot;algorithm&quot;);</span>
+<span class="fc" id="L80">        return aLLTopics;</span>
+    }
+    public AWSLambda createLambda(){
+<span class="fc" id="L83">        Regions region = Regions.fromName(&quot;us-east-1&quot;);</span>
+<span class="fc" id="L84">        AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()</span>
+<span class="fc" id="L85">                .withRegion(region);</span>
+<span class="fc" id="L86">        AWSLambda client = builder.build();</span>
+<span class="fc" id="L87">	    return client;</span>
+    }
+
+    public String parseResponse(InvokeResult result){
+<span class="fc" id="L91">        String response = new String(result.getPayload().array());</span>
+<span class="fc" id="L92">        JSONObject jsonObj = new JSONObject(response);</span>
+<span class="fc" id="L93">        String toS = jsonObj.get(&quot;greeting&quot;).toString();</span>
+<span class="fc" id="L94">        return toS;</span>
+    }
 
 	public List&lt;CourseModel&gt; processTakenCourses(List&lt;String&gt; takenCourses){
-<span class="nc" id="L63">		List&lt;CourseModel&gt; allCourses = masterController.fetchAllCourses();</span>
-<span class="nc" id="L64">		List&lt;CourseModel&gt; recommended = masterController.processTakenCourses(takenCourses, allCourses);</span>
-<span class="nc" id="L65">		return recommended;</span>
+<span class="fc" id="L98">		List&lt;CourseModel&gt; allCourses = masterController.fetchAllCourses();</span>
+<span class="fc" id="L99">		List&lt;CourseModel&gt; recommended = masterController.processTakenCourses(takenCourses, allCourses);</span>
+<span class="fc" id="L100">		return recommended;</span>
 	}
 	//recommend courses based on taken course
 	public List&lt;CourseModel&gt; recommendCourses(List&lt;String&gt; takenCourses ) {
 		
-<span class="nc" id="L70">		List&lt;CourseModel&gt; recommended = masterController.recommendCourses(takenCourses);</span>
-<span class="nc" id="L71">		return recommended;</span>
-//		System.out.println(&quot;output = &quot; + courseService.selectCoursesByNumAndSection(&quot;WCOMS4771&quot;, 1));
-//		System.out.println(&quot;DONE&quot;);
-//		System.out.println(&quot;output = &quot; + trackService.selectCoursesByTrackId(&quot;Computational Biology&quot;).getCourseID());
-//		System.out.println(&quot;DONE&quot;);
-		
-//		int exitCode = SpringApplication.exit(ctx, () -&gt; 0);
-//		System.exit(exitCode);
+<span class="fc" id="L105">		List&lt;CourseModel&gt; recommended = masterController.recommendCourses(takenCourses);</span>
+<span class="fc" id="L106">		return recommended;</span>
 	}
 	
 	/**
@@ -83,130 +111,158 @@ import com.amazonaws.regions.Regions;
 	 */
 	@Override
 	public void run(String... args) throws Exception {
-<span class="nc" id="L86">		    setContext();</span>
-<span class="nc" id="L87">			Regions region = Regions.fromName(&quot;us-east-1&quot;);</span>
-<span class="nc" id="L88">			AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()</span>
-<span class="nc" id="L89">					.withRegion(region);</span>
-<span class="nc" id="L90">			AWSLambda client = builder.build();</span>
-<span class="nc" id="L91">			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</span>
-<span class="nc" id="L92">			String meg = br.readLine();</span>
-<span class="nc" id="L93">			List&lt;String&gt; takenCourses = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L94">			List&lt;String&gt; topic = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L95">			String instructor = &quot;&quot;;</span>
-<span class="nc bnc" id="L96" title="All 2 branches missed.">			while(!meg.toUpperCase().equals(&quot;OK&quot;)) {</span>
-<span class="nc" id="L97">				String body = &quot;{\&quot;userId\&quot;: \&quot;dh2914\&quot;, \&quot;message\&quot;: {\&quot;word\&quot;:&quot;+ &quot;\&quot;&quot;+meg +&quot;\&quot;&quot; +&quot;}}&quot;;</span>
-<span class="nc" id="L98">				InvokeRequest req = new InvokeRequest().withFunctionName(&quot;Chatbot&quot;).withPayload(body); // optional</span>
-<span class="nc" id="L99">				InvokeResult result = client.invoke(req);</span>
-<span class="nc" id="L100">				String response = new String(result.getPayload().array());</span>
-<span class="nc" id="L101">				JSONObject jsonObj = new JSONObject(response);</span>
-<span class="nc" id="L102">				String toS = jsonObj.get(&quot;greeting&quot;).toString();</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">				if(toS.contains(&quot;Hi&quot;)){</span>
-<span class="nc" id="L104">					System.out.println(toS);</span>
-				}
-<span class="nc bnc" id="L106" title="All 2 branches missed.">				else if(!toS.contains(&quot;COMS&quot;)) {</span>
-<span class="nc" id="L107">					String[] pieces = toS.split(&quot;;&quot;);</span>
-<span class="nc" id="L108">					String output = pieces[0];</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">					if(pieces.length&gt;1) {</span>
-<span class="nc" id="L110">						String[] topics = pieces[1].split(&quot; &quot;);</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">						for(int i=0;i&lt;topics.length;i++){</span>
-<span class="nc" id="L112">							topic.add(topics[i].replace('\'', ' '));</span>
+<span class="nc" id="L114">			setContext();</span>
+<span class="nc" id="L115">			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</span>
+<span class="nc" id="L116">			String meg = br.readLine();</span>
+<span class="nc" id="L117">			List&lt;String&gt; takenCourses = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L118">			List&lt;String&gt; topic = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L119">			List&lt;String&gt; instructors = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L120">			String detect=&quot;false&quot;;</span>
+<span class="nc" id="L121">			allTopics = getAllTopics();</span>
+<span class="nc" id="L122">			List&lt;String&gt; allInstructors = masterController.findAllInstructors();</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">			while(!meg.toUpperCase().equals(&quot;OK&quot;)) {</span>
+<span class="nc" id="L124">				String body = &quot;{\&quot;userId\&quot;: \&quot;dh2914\&quot;, \&quot;message\&quot;: {\&quot;word\&quot;:&quot;+ &quot;\&quot;&quot;+meg +&quot;;&quot;+detect+&quot;\&quot;&quot; +&quot;}}&quot;;</span>
+<span class="nc" id="L125">				InvokeRequest req = new InvokeRequest().withFunctionName(&quot;Chatbot&quot;).withPayload(body); // optional</span>
+<span class="nc" id="L126">                AWSLambda client = createLambda();</span>
+<span class="nc" id="L127">				InvokeResult result = client.invoke(req);</span>
+<span class="nc" id="L128">				String toS = parseResponse(result);</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">				if(toS.contains(&quot;Hi&quot;)){</span>
+<span class="nc" id="L130">					String[] pieces = toS.split(&quot;;&quot;);</span>
+<span class="nc" id="L131">					String output = pieces[0];</span>
+<span class="nc" id="L132">					System.out.println(output);</span>
+<span class="nc" id="L133">				}</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">				else if(!toS.contains(&quot;COMS&quot;)) {</span>
+<span class="nc" id="L135">					System.out.println(toS);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">					if(toS.contains(&quot;;&quot;)){</span>
+<span class="nc" id="L137">						String[] pieces = toS.split(&quot;;&quot;);</span>
+<span class="nc" id="L138">						detect = pieces[pieces.length-1];</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">						if(toS.contains(&quot;I can\'t tell&quot;)){</span>
+<span class="nc" id="L140">							detect = &quot;false&quot;;</span>
 						}
+<span class="nc" id="L142">						String output = pieces[0];</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">						if(pieces.length&gt;2) {</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">							for(int j =1; j &lt; pieces.length-1;j++) {</span>
+<span class="nc" id="L145">								String keyword = pieces[j];</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">								if (allTopics.contains(keyword)) {</span>
+<span class="nc" id="L147">									topic.add(keyword.replace('\'', ' '));</span>
+								}
+<span class="nc bnc" id="L149" title="All 2 branches missed.">								if(keyword.contains(&quot; &quot;))</span>
+								{
+<span class="nc" id="L151">									keyword = keyword.split(&quot; &quot;)[1]+&quot;, &quot;+keyword.split(&quot; &quot;)[0];</span>
+								}
+<span class="nc bnc" id="L153" title="All 2 branches missed.">								if(allInstructors.contains(keyword.toUpperCase())){</span>
+<span class="nc" id="L154">									instructors.add(keyword);</span>
+								}
+							}
+						}
+<span class="nc" id="L158">						System.out.println(output);</span>
+<span class="nc" id="L159">					}</span>
+					else{
+<span class="nc" id="L161">						System.out.println(toS);</span>
 					}
-<span class="nc bnc" id="L115" title="All 2 branches missed.">					if(pieces.length&gt;2)</span>
-					{
-<span class="nc" id="L117">						instructor = pieces[2];</span>
-					}
-<span class="nc" id="L119">					System.out.println(output);</span>
-<span class="nc" id="L120">				}</span>
+				}
 				else{
-<span class="nc" id="L122">					String[] pieces = toS.split(&quot;;&quot;);</span>
-<span class="nc" id="L123">					String output = pieces[0];</span>
-<span class="nc" id="L124">					System.out.println(output);</span>
-<span class="nc bnc" id="L125" title="All 2 branches missed.">					if(pieces.length&gt;1) {</span>
-<span class="nc bnc" id="L126" title="All 2 branches missed.">						for (int i = 0; i &lt; pieces[1].split(&quot; &quot;).length; ++i) {</span>
-<span class="nc" id="L127">							takenCourses.add(pieces[1].split(&quot; &quot;)[i]);</span>
+<span class="nc" id="L165">					String[] pieces = toS.split(&quot;;&quot;);</span>
+<span class="nc" id="L166">					detect = pieces[pieces.length-1];</span>
+<span class="nc" id="L167">					String output = pieces[0];</span>
+<span class="nc" id="L168">					System.out.println(output);</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">					if(pieces.length&gt;1) {</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">						for (int i = 0; i &lt; pieces[1].split(&quot; &quot;).length; ++i) {</span>
+<span class="nc" id="L171">							takenCourses.add(pieces[1].split(&quot; &quot;)[i]);</span>
 						}
 					}
-<span class="nc bnc" id="L130" title="All 2 branches missed.">					if(pieces.length&gt;2){</span>
-<span class="nc" id="L131">						String[] names = pieces[2].split(&quot; &quot;);</span>
-<span class="nc bnc" id="L132" title="All 2 branches missed.">						for(int i=0;i&lt;names.length;i++){</span>
-<span class="nc" id="L133">							takenCourses.add(names[i]);</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">					if(pieces.length&gt;2){</span>
+<span class="nc" id="L175">						String[] names = pieces[2].split(&quot; &quot;);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">						for(int i=0;i&lt;names.length;i++){</span>
+<span class="nc" id="L177">							takenCourses.add(names[i]);</span>
 						}
 					}
 				}
-<span class="nc" id="L137">				meg = br.readLine();</span>
-<span class="nc" id="L138">			}</span>
-<span class="nc" id="L139">			System.out.println(&quot;Here is our recomendation for you!&quot;);</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">			if (!topic.isEmpty()) {</span>
-<span class="nc" id="L141">				List&lt;String&gt; converted = getTakenCourses(takenCourses);</span>
-<span class="nc" id="L142">				List&lt;CourseModel&gt; rest = processTakenCourses(converted);</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">				for(int i=0;i&lt;topic.size();i++) {</span>
-<span class="nc" id="L144">					HashSet&lt;String&gt; res = searchKeywords(topic.get(i), rest);</span>
-<span class="nc" id="L145">					res.forEach(System.out::println);</span>
+<span class="nc" id="L181">				meg = br.readLine();</span>
+<span class="nc" id="L182">			}</span>
+<span class="nc" id="L183">			System.out.println(&quot;Here is our recomendation for you!&quot;);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">			if (!topic.isEmpty()) {</span>
+<span class="nc" id="L185">				List&lt;String&gt; converted = getTakenCourses(takenCourses);</span>
+<span class="nc" id="L186">				List&lt;CourseModel&gt; rest = processTakenCourses(converted);</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">				for(int i=0;i&lt;topic.size();i++) {</span>
+<span class="nc" id="L188">					HashSet&lt;CourseModel&gt; res = searchKeywords(topic.get(i), rest);</span>
+<span class="nc" id="L189">					res.forEach(System.out::println);</span>
 				}
-<span class="nc bnc" id="L147" title="All 2 branches missed.">			}if(instructor!=&quot;&quot;){</span>
-<span class="nc" id="L148">                HashSet&lt;String&gt; res2 = searchKeywords(instructor, masterController.fetchAllCourses());</span>
-<span class="nc bnc" id="L149" title="All 2 branches missed.">                if(instructor!=&quot;&quot;) {</span>
-<span class="nc" id="L150">                    System.out.println(&quot;These courses are delivered by Prof. &quot; + instructor + &quot;:&quot;);</span>
-<span class="nc" id="L151">                    res2.forEach(System.out::println);</span>
-                }
-<span class="nc bnc" id="L153" title="All 4 branches missed.">            }if(topic.isEmpty() &amp;&amp; instructor==&quot;&quot;){</span>
-<span class="nc" id="L154">				List&lt;String&gt; converted = getTakenCourses(takenCourses);</span>
-<span class="nc" id="L155">				List&lt;CourseModel&gt; res = recommendCourses(converted);</span>
-<span class="nc" id="L156">				res.forEach(System.out::println);</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">			}if(!instructors.isEmpty()){</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">				for(int i =0;i&lt;instructors.size();i++) {</span>
+<span class="nc" id="L193">					HashSet&lt;CourseModel&gt; res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());</span>
+<span class="nc" id="L194">					System.out.println(&quot;These courses are delivered by Prof. &quot; + instructors.get(i) + &quot;:&quot;);</span>
+<span class="nc" id="L195">					res2.forEach(System.out::println);</span>
+				}
+<span class="nc bnc" id="L197" title="All 4 branches missed.">            }if(topic.isEmpty() &amp;&amp; instructors.isEmpty()){</span>
+<span class="nc" id="L198">				List&lt;String&gt; converted = getTakenCourses(takenCourses);</span>
+<span class="nc" id="L199">				List&lt;CourseModel&gt; res = recommendCourses(converted);</span>
+<span class="nc" id="L200">				res.forEach(System.out::println);</span>
 			}
 
-<span class="nc" id="L159">		int exitCode = SpringApplication.exit(ctx, () -&gt; 0);</span>
-<span class="nc" id="L160">		System.exit(exitCode);</span>
-<span class="nc" id="L161">		return;</span>
+<span class="nc" id="L203">		int exitCode = SpringApplication.exit(ctx, () -&gt; 0);</span>
+<span class="nc" id="L204">		System.exit(exitCode);</span>
+<span class="nc" id="L205">		return;</span>
 	}
+
 	public List&lt;String&gt; getTakenCourses(List&lt;String&gt; takenCourses){
-<span class="nc" id="L164">		return masterController.convertCourseForm(takenCourses);</span>
+<span class="fc" id="L209">		return masterController.convertCourseForm(takenCourses);</span>
 	}
+
 	public List&lt;String&gt; readTakenCourses() throws FileNotFoundException{
-<span class="fc" id="L167">		InputStream fis = new FileInputStream(JSON_PATH);</span>
-<span class="fc" id="L168">        JsonReader reader = Json.createReader(fis);</span>
+<span class="fc" id="L213">		InputStream fis = new FileInputStream(JSON_PATH);</span>
+<span class="fc" id="L214">        JsonReader reader = Json.createReader(fis);</span>
 
-<span class="fc" id="L170">        JsonObject personObject = reader.readObject();</span>
+<span class="fc" id="L216">        JsonObject personObject = reader.readObject();</span>
 
-<span class="fc" id="L172">        reader.close();</span>
+<span class="fc" id="L218">        reader.close();</span>
 
-<span class="fc" id="L174">        JsonArray takenCoursesArray = personObject.getJsonArray(&quot;takenCourses&quot;);</span>
+<span class="fc" id="L220">        JsonArray takenCoursesArray = personObject.getJsonArray(&quot;takenCourses&quot;);</span>
 
-<span class="fc" id="L176">		List&lt;String&gt; takenCourses = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L222">		List&lt;String&gt; takenCourses = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L178" title="All 2 branches covered.">        for (JsonValue jsonValue : takenCoursesArray) {</span>
-<span class="fc" id="L179">            takenCourses.add(jsonValue.toString().replaceAll(&quot;^\&quot;|\&quot;$&quot;, &quot;&quot;));</span>
-<span class="fc" id="L180">        }</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">        for (JsonValue jsonValue : takenCoursesArray) {</span>
+<span class="fc" id="L225">            takenCourses.add(jsonValue.toString().replaceAll(&quot;^\&quot;|\&quot;$&quot;, &quot;&quot;));</span>
+<span class="fc" id="L226">        }</span>
 
-<span class="fc" id="L182">		return takenCourses;</span>
+<span class="fc" id="L228">		return takenCourses;</span>
 	}
 
 
-	public HashSet&lt;String&gt; searchKeywords(String keyword, List&lt;CourseModel&gt; courses){
-<span class="fc" id="L187">		HashSet&lt;String&gt; matchedCourses = new HashSet&lt;&gt;();</span>
-<span class="fc bfc" id="L188" title="All 2 branches covered.">		for(CourseModel c: courses){</span>
-<span class="pc bpc" id="L189" title="1 of 4 branches missed.">			if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())||c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){</span>
-<span class="fc" id="L190">				matchedCourses.add(c.getCourseTitle()+&quot; &quot;+c.getCourseNumber());</span>
+	public HashSet&lt;CourseModel&gt; searchKeywords(String keyword, List&lt;CourseModel&gt; courses){
+<span class="fc" id="L233">		HashSet&lt;CourseModel&gt; matchedCourses = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L234" title="All 2 branches covered.">		for(CourseModel c: courses){</span>
+<span class="fc bfc" id="L235" title="All 2 branches covered.">			if(c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){</span>
+<span class="fc" id="L236">				matchedCourses.add(c);</span>
 			}
-<span class="fc" id="L192">		}</span>
-<span class="fc" id="L193">		return matchedCourses;</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">			else if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())){</span>
+<span class="fc" id="L239">				matchedCourses.add(c);</span>
+			}
+<span class="fc" id="L241">		}</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">		if(matchedCourses.size()==0) {</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">			for (CourseModel c : courses) {</span>
+<span class="fc bfc" id="L244" title="All 2 branches covered.">				if (c.getInstructor().toUpperCase().contains(keyword.split(&quot; &quot;)[1].toUpperCase())) {</span>
+<span class="fc" id="L245">					matchedCourses.add(c);</span>
+				}
+<span class="fc" id="L247">			}</span>
+		}
+<span class="fc" id="L249">		return matchedCourses;</span>
 	}
 
 	public static void main(String[] args) throws Exception {
-<span class="nc" id="L197">		SpringApplication app = new SpringApplication(Application.class);</span>
-<span class="nc" id="L198">		app.setBannerMode(Banner.Mode.OFF);</span>
-<span class="nc" id="L199">		app.run(args);</span>
-<span class="nc" id="L200">		return;</span>
+<span class="nc" id="L253">		SpringApplication app = new SpringApplication(Application.class);</span>
+<span class="nc" id="L254">		app.setBannerMode(Banner.Mode.OFF);</span>
+<span class="nc" id="L255">		app.run(args);</span>
+<span class="nc" id="L256">		return;</span>
 	}
 
 	public IMasterController getMasterController() {
-<span class="nc" id="L204">		return masterController;</span>
+<span class="fc" id="L260">		return masterController;</span>
 	}
 
 	public void setMasterController(IMasterController masterController) {
-<span class="fc" id="L208">		this.masterController = masterController;</span>
-<span class="fc" id="L209">	}</span>
+<span class="fc" id="L264">		this.masterController = masterController;</span>
+<span class="fc" id="L265">	}</span>
 
 
 	

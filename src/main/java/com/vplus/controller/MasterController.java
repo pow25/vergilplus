@@ -33,7 +33,7 @@ public class MasterController implements IMasterController{
 	public List<CourseModel> recommendCourses(List<String> takenCourses){
 		List<CourseModel> filteredCourses = filterCourses(takenCourses);
 		List<Pair<String, Float>> result = reviewService.sort_base_on_reviews(filteredCourses);
-		result.subList(0, NUM_REC);
+		result = result.subList(0, NUM_REC);
 		List<CourseModel> res = new ArrayList<CourseModel>();
 		for ( int i = 0; i < result.size(); ++i ) {
 			res.add( courseService.search_couse(result.get(i).getKey()) );
