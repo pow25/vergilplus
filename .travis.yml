@@ -36,3 +36,10 @@ after_success:
 #     - "./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt"
 #     - "./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml"
 #   skip_cleanup: true
+deploy:
+  provider: lambda
+  function_name: "Sentiment"
+  region: "us-east-1"
+  role: "arn:aws:iam::267836282592:role/service-role/Chatbot"
+  runtime: "python3.6"
+  handler_name: "lambda_handler"
