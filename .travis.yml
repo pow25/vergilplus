@@ -2,44 +2,28 @@ language: java
 dist: trusty
 addons:
   sonarcloud:
-    organization: "pow25-github" # the key of the org you chose at step #3
-#    token:
-#      secure: sZbJ89c08BsRWUydTYQaEq+rH9ngLfiuMHQ0U4/zbgnyeyS6JnXOcDjL1072pHtZlpFlM/atVAdt4A0WQZ923WseEPPj2oC47dTm/stAcVEpQ4YvmIrlSxxKWQ+MLB734P9n4sZ54YULN1wfvJYUg0NFdWAsLikU+uf2kgGQr+dTXJpxHK1rugxh87FTZhsfxE3adHa+04cR42kDj3AR1zXwKONoSC3SExYrPNj6KpfpAKZbnc6qII6naUIuqxTbYH7r+gvfyqbhvru5Cg0LlxUINyu/eMc4Je9xlyNrEwylPH06kIi2GpMpf9NFAvphRn1aNGKxjxWqKMkbP0Sho8zHGuP1JVzHhWnSlVFf6yknJ/i9pZ4B9AapHADvE6DYQwUewIk+VWUuC3hXCihjy6leyA6CeZ7h4mSYjdW8nqZzkMKhCgX5Ue1zFcd9Xii0DYwsjOzJhuOo5DDPjL4a/G1dUWDTr4SiZm9OIyFgou8c6TfDWNwHl/5jU19vpdVlYwrnpLRrs0Cb0jUy+1AxGjrZ37URJslOO+IaTYzH5cpAwKL5geTVaCXYxGZ1+YAOk83GPUCeDsd2j4tw0/p3rabtGj4ikAAgcIF9YGQ5/adIttwUOctkei8zU/jN76PvnbcqXLmNqtx1b8VIApiaZVhUZ9vPfelCscDHpfaEsSY=
-
+    organization: pow25-github
 script:
-  # other script steps might be done before running the actual analysis
-  #- sonar-scanner
-  #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
-  - mvn clean install sonar:sonar test surefire-report:report
-  
+- mvn clean install sonar:sonar test surefire-report:report
 services:
-  - mysql
+- mysql
 before_install:
-  - mysql -u root --password="" -e "CREATE DATABASE vergilplus;"
-  - mysql -e "CREATE USER 'dbuser'@'localhsot' IDENTIFIED BY 'dbuser';"
-  - mysql -e "GRANT ALL PRIVILEGES ON vergilplus.* TO 'dbuser'@'localhost' IDENTIFIED BY 'dbuser';"
-  - mysql -e "USE vergilplus;SOURCE ./data/vergilplus.sql;"
-  - chmod +x push.sh
-
+- mysql -u root --password="" -e "CREATE DATABASE vergilplus;"
+- mysql -e "CREATE USER 'dbuser'@'localhsot' IDENTIFIED BY 'dbuser';"
+- mysql -e "GRANT ALL PRIVILEGES ON vergilplus.* TO 'dbuser'@'localhost' IDENTIFIED
+  BY 'dbuser';"
+- mysql -e "USE vergilplus;SOURCE ./data/vergilplus.sql;"
+- chmod +x push.sh
 after_success:
-  - ./push.sh
-  - bash <(curl -s https://codecov.io/bash)
-# before_deploy:
-#   # Set up git user name and tag this commit
-#   - git config --local user.name "pow25"
-#   - git config --local user.email "zhangchi8518@gmial.com"
-#   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-# deploy:
-#   provider: releases
-#   api_key: $GITHUB
-#   file: 
-#     - "./target/surefire-reports/com.vplus.maven.vplus.AppTest.txt"
-#     - "./target/surefire-reports/TEST-com.vplus.maven.vplus.AppTest.xml"
-#   skip_cleanup: true
+- "./push.sh"
+- bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: lambda
-  function_name: "Sentiment"
-  region: "us-east-1"
-  role: "arn:aws:iam::267836282592:role/service-role/Chatbot"
-  runtime: "python3.6"
-  handler_name: "lambda_handler"
+  function_name: Sentiment
+  region: us-east-1
+  role: arn:aws:iam::267836282592:role/service-role/Chatbot
+  runtime: python3.6
+  handler_name: lambda_handler
+  access_key_id:AKIAJYLGFI4L6DHVOJZA  
+  secret_access_key:
+    secure: ZnstCqmJaNfcX3EX3jdnQaifXx2HuvPz0fFcAqPjBkWC6ILbVLRvC6S1XcXp8old8ZdFrA5cGOHGfyGIvkrSWeY+gcEduAFTgJi4/GpDvceYaN6fgAukFSh5Ukk9j9WVJ16pRXNlV05So/9ivvvec+7HZ9PlpOCPUdkjBBOGxPdn/5XdJSj4tfXNpXmvVwbzz/y6D7Pns/USpyCqGy6tTXYfXHFHMn0NZPGeq65iex0quCPvJvATJAqYcHP3FroVd063TUfX4YOtyjYsyhKK+nkV6NTxNN1gnIVvBRjLYxGGA5HK/8ji2atFL7fnQC0jRUJTdMUUTjCeRE6mLM90896QuW9wSTiiZkAtOCn6OFU8zrmyr2zZX3OtNH1giv7HsrAH6aXJgnP3/SU99DACdt1RzASLXCD6QjcDHO92c9w2vgn5rmP9w4gXRoKUO7ZC+Q4p9b90Q0On54fOZI3W88ppRnadWYUs9Fn3QHro+w+RMpJwUGe3dDQRfxjjOt+8BoW0ae81AFhGqXKxLff6G993JqE8h3BkXfOlOJeT3AGO5/NHuTxQSx5eucJYwQfd3Tu0JjlcMiZmlmwMsdCt6GLSvp0JVIw1ihp0u3IrtJhdQ1Fp2r98//1ZwNcmZkOLVagnaPquLlkhNejgJH3wVC/jwKe6JIBiHiWMde/6Qk0=
