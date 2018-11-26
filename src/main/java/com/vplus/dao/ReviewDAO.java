@@ -55,10 +55,10 @@ public class ReviewDAO implements IReviewDAO{
 		return reviewList;
 	}	
 	
-	public List<String> getWords( String Professor ) {
+	public List<String> getWords( String professor ) {
 
 		String query = "SELECT words FROM vergilplus.sentiment where professor=\'";
-		query += Professor + "\';";
+		query += professor + "\';";
 		
 		List<String> res = new ArrayList<String>();
 		Connection con = null;

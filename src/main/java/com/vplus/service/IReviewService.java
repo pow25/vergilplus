@@ -13,4 +13,5 @@ public interface IReviewService {
 	public List<Pair<String, Float>> sort_base_on_reviews(List<CourseModel> course_models);
 	public IReviewDAO getReviewDAO();
 	public void setReviewDAO(IReviewDAO ReviewDAO);
+	public String getWords(String profName);
 }

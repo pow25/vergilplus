@@ -41,6 +41,21 @@ public class MasterController implements IMasterController{
 		return res;
 	}
 	
+	public String getWordsProfessor(String profName) {
+		
+		String input = "";
+		String[] buff = profName.split(" ");
+		if (buff.length != 2)
+			return "Error Professor Name!!";
+		
+		input = buff[1] + ", " + buff[0];
+		String output = reviewService.getWords(input);
+		if (output.isEmpty())
+			return "Sorry, it seems like we don't have enough description keys words for this Professor~";
+		else
+			return output;
+	}
+	
 	public List<CourseModel> filterCourses(List<String> takenCourses){
 		List<CourseModel> allCourses = fetchAllCourses();
 		List<CourseModel> filteredCourses = processTakenCourses(takenCourses, allCourses);

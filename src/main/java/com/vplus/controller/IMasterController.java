@@ -24,4 +24,5 @@ public interface IMasterController{
 
 	public List<String> convertCourseForm(List<String> takenCourses);
 
+	public String getWordsProfessor(String profName);
 }
