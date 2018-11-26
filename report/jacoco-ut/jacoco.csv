@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+vplus,com.vplus.controller,MasterController,42,394,7,55,11,81,9,34,2,10
+vplus,com.vplus.models,ReviewModel,60,0,0,0,17,0,12,0,12,0
+vplus,com.vplus.models,CourseModel,144,63,4,0,16,29,13,17,11,17
+vplus,com.vplus.dao,CourseDAO,76,282,3,13,14,73,3,9,0,4
+vplus,com.vplus.dao,ReviewDAO,383,78,21,5,91,26,14,5,3,3
+vplus,com.vplus,Application,379,95,33,7,79,19,25,7,8,4
+vplus,com.vplus.service,ReviewService.new Comparator() {...},0,29,0,4,0,6,0,4,0,2
+vplus,com.vplus.service,ReviewService,7,47,0,2,2,10,2,4,2,3
+vplus,com.vplus.service,CourseService,46,48,7,5,10,10,6,7,2,5

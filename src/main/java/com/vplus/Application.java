@@ -49,10 +49,14 @@ public class Application implements CommandLineRunner {
 	 * sets the application context using xml file
 	 */
 	public void setContext() {
-		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		ctx.getBean("Application", Application.class);
-		ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
-                AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true); 
+		try {
+			ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+				ctx.getBean("Application", Application.class);
+				ctx.getAutowireCapableBeanFactory().autowireBeanProperties(this,
+						AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
+		}catch(Exception e) {
+			System.err.println(e);
+		}
 	}
 
 	public List<CourseModel> processTakenCourses(List<String> takenCourses){
@@ -79,7 +83,7 @@ public class Application implements CommandLineRunner {
 	 */
 	@Override
 	public void run(String... args) throws Exception {
-		setContext();
+		    setContext();
 			Regions region = Regions.fromName("us-east-1");
 			AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()
 					.withRegion(region);
