@@ -79,7 +79,7 @@ public class Application implements CommandLineRunner {
 	 */
 	@Override
 	public void run(String... args) throws Exception {
-		setContext();
+			setContext();
 			Regions region = Regions.fromName("us-east-1");
 			AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()
 					.withRegion(region);
@@ -88,34 +88,69 @@ public class Application implements CommandLineRunner {
 			String meg = br.readLine();
 			List<String> takenCourses = new ArrayList<>();
 			List<String> topic = new ArrayList<>();
-			String instructor = "";
+			List<String> instructors = new ArrayList<>();
+			String detect="false";
+			ArrayList<String> aLLTopics = new ArrayList<>();
+			aLLTopics.add("computer\'vision");
+			aLLTopics.add("operating\'system");
+			aLLTopics.add("machine\'learning");
+			aLLTopics.add("robotics");
+			aLLTopics.add("natural\'language\'processing");
+			aLLTopics.add("graphics");
+			aLLTopics.add("networks");
+			aLLTopics.add("artificial\'intelligence");
+			aLLTopics.add("database");
+			aLLTopics.add("bioinformatics");
+			aLLTopics.add("system");
+			aLLTopics.add("theory");
+			aLLTopics.add("computational\'biology");
+			aLLTopics.add("algorithm");
+			List<String> allInstructors = masterController.findAllInstructors();
 			while(!meg.toUpperCase().equals("OK")) {
-				String body = "{\"userId\": \"dh2914\", \"message\": {\"word\":"+ "\""+meg +"\"" +"}}";
+				String body = "{\"userId\": \"dh2914\", \"message\": {\"word\":"+ "\""+meg +";"+detect+"\"" +"}}";
 				InvokeRequest req = new InvokeRequest().withFunctionName("Chatbot").withPayload(body); // optional
 				InvokeResult result = client.invoke(req);
 				String response = new String(result.getPayload().array());
 				JSONObject jsonObj = new JSONObject(response);
 				String toS = jsonObj.get("greeting").toString();
 				if(toS.contains("Hi")){
-					System.out.println(toS);
-				}
-				else if(!toS.contains("COMS")) {
 					String[] pieces = toS.split(";");
 					String output = pieces[0];
-					if(pieces.length>1) {
-						String[] topics = pieces[1].split(" ");
-						for(int i=0;i<topics.length;i++){
-							topic.add(topics[i].replace('\'', ' '));
-						}
-					}
-					if(pieces.length>2)
-					{
-						instructor = pieces[2];
-					}
 					System.out.println(output);
+				}
+				else if(!toS.contains("COMS")) {
+					System.out.println(toS);
+					if(toS.contains(";")){
+						String[] pieces = toS.split(";");
+						detect = pieces[pieces.length-1];
+						if(toS.contains("I can\'t tell")){
+							detect = "false";
+						}
+						String output = pieces[0];
+						if(pieces.length>2) {
+							for(int j =1; j < pieces.length-1;j++) {
+								String keyword = pieces[j];
+								if (aLLTopics.contains(keyword)) {
+									topic.add(keyword.replace('\'', ' '));
+								}
+								if(keyword.contains(" "))
+								{
+									keyword = keyword.split(" ")[1]+", "+keyword.split(" ")[0];
+								}
+								if(allInstructors.contains(keyword.toUpperCase())){
+									instructors.add(keyword);
+								}
+							}
+						}
+						System.out.println(output);
+					}
+					else{
+						System.out.println(toS);
+					}
 				}
 				else{
 					String[] pieces = toS.split(";");
+					detect = pieces[pieces.length-1];
 					String output = pieces[0];
 					System.out.println(output);
 					if(pieces.length>1) {
@@ -137,16 +172,16 @@ public class Application implements CommandLineRunner {
 				List<String> converted = getTakenCourses(takenCourses);
 				List<CourseModel> rest = processTakenCourses(converted);
 				for(int i=0;i<topic.size();i++) {
-					HashSet<String> res = searchKeywords(topic.get(i), rest);
+					HashSet<CourseModel> res = searchKeywords(topic.get(i), rest);
 					res.forEach(System.out::println);
 				}
-			}if(instructor!=""){
-                HashSet<String> res2 = searchKeywords(instructor, masterController.fetchAllCourses());
-                if(instructor!="") {
-                    System.out.println("These courses are delivered by Prof. " + instructor + ":");
-                    res2.forEach(System.out::println);
-                }
-            }if(topic.isEmpty() && instructor==""){
+			}if(!instructors.isEmpty()){
+				for(int i =0;i<instructors.size();i++) {
+					HashSet<CourseModel> res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());
+					System.out.println("These courses are delivered by Prof. " + instructors.get(i) + ":");
+					res2.forEach(System.out::println);
+				}
+            }if(topic.isEmpty() && instructors.isEmpty()){
 				List<String> converted = getTakenCourses(takenCourses);
 				List<CourseModel> res = recommendCourses(converted);
 				res.forEach(System.out::println);
@@ -179,11 +214,18 @@ public class Application implements CommandLineRunner {
 	}
 
 
-	public HashSet<String> searchKeywords(String keyword, List<CourseModel> courses){
-		HashSet<String> matchedCourses = new HashSet<>();
+	public HashSet<CourseModel> searchKeywords(String keyword, List<CourseModel> courses){
+		HashSet<CourseModel> matchedCourses = new HashSet<>();
 		for(CourseModel c: courses){
 			if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())||c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
-				matchedCourses.add(c.getCourseTitle()+" "+c.getCourseNumber());
+				matchedCourses.add(c);
+			}
+		}
+		if(matchedCourses.size()==0) {
+			for (CourseModel c : courses) {
+				if (c.getInstructor().toUpperCase().contains(keyword.split(" ")[0].toUpperCase())||c.getInstructor().toUpperCase().contains(keyword.split(" ")[1].toUpperCase())) {
+					matchedCourses.add(c);
+				}
 			}
 		}
 		return matchedCourses;

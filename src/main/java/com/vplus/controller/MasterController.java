@@ -91,6 +91,11 @@ public class MasterController implements IMasterController{
 		return converted;
 	}
 
+	public List<String> findAllInstructors(){
+		List<String> instructors = courseService.findInstructors();
+		return instructors;
+	}
+
 	//return courses according to breadth requirements
 	public List<CourseModel> breadthRequirements(){
 		List<CourseModel> filteredBreadthRequirements = new ArrayList<>();

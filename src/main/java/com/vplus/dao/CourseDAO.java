@@ -129,12 +129,44 @@ public class CourseDAO implements ICourseDAO{
 				ps.close();
 				con.close();
 			} catch (Exception e) {
-				System.err.println("An Exception occured in search_course!");
+				System.err.println("An Exception occured in search_course function!");
 			}
 		}
 		return course;
 	}
-	
+
+
+	public ArrayList<String> getInstructors() {
+		CourseModel course = new CourseModel();
+		String query = "SELECT Instructor FROM vergilplus.course;";
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<String> instructors = new ArrayList<>();
+		try{
+			con = dataSource.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs != null) {
+				while(rs.next()){
+					instructors.add(rs.getString("Instructor").toUpperCase());
+				}
+			}
+		}catch(SQLException e){
+			System.err.println(e);
+			System.err.println("An SQLException occured!");
+		}finally{
+			try {
+				rs.close();
+				ps.close();
+				con.close();
+			} catch (Exception e) {
+				System.err.println("An Exception occured in instructor collection!");
+			}
+		}
+		return instructors;
+	}
+
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}

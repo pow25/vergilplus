@@ -20,6 +20,8 @@ public interface IMasterController{
 	
 	public List<CourseModel> breadthRequirements();
 
+	public List<String> findAllInstructors();
+
 	public List<CourseModel> fetchAllCourses();
 
 	public List<String> convertCourseForm(List<String> takenCourses);

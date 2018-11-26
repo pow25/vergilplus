@@ -17,7 +17,12 @@ public class CourseService implements ICourseService{
 	public List<CourseModel> selectAllCourses(){
 		return courseDAO.selectAllCourses();
 	}
-	
+
+	public List<String> findInstructors(){
+		List<String> instructors = courseDAO.getInstructors();
+		return instructors;
+	}
+
 	public CourseModel search_couse(String courseID) {
 		return courseDAO.search_course(courseID);
 	}

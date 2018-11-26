@@ -52,26 +52,28 @@ public class AppTest
 		}
 
 	}
-//
-//	@Test
-//	public void testAppRun() throws Exception {
-//		Application app  = ctx.getBean("Application", Application.class);
-//		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-//		app.run();
-//
-//		assertNotNull(systemOutRule.getLog());
-//	}
 
+	@Test
+	public void testAppRun() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+		app.run();
+		assertNotNull(systemOutRule.getLog());
+	}
 
-//	@Test
-//	public void testAppRun() throws Exception {
-//		Application app  = ctx.getBean("Application", Application.class);	    
-//	    final SystemOutRule systemOutRule = new SystemOutRule().enableLog();    
-//	    app.run();
-//        
-//	    assertNotNull(systemOutRule.getLog());
-//	}
-	
+	@Test
+	public void findAllInstructors(){
+		List<String> instructors = masterController.findAllInstructors();
+		assertTrue(instructors.size()==93);
+	}
+
+	@Test
+	public void run() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+		app.run();
+		assertNotNull(systemOutRule.getLog());
+	}
 
 	@Test
 	public void readCourses() {
@@ -140,8 +142,8 @@ public class AppTest
 
 	@Test
 	public void searchKeywords(){
-		HashSet<String> matchedCourses = app.searchKeywords("machine learning", masterController.fetchAllCourses());
-		assertTrue(matchedCourses.contains("Artificial Intelligence WCOMS4701")&& matchedCourses.size()==6);
+		HashSet<CourseModel> matchedCourses = app.searchKeywords("machine learning", masterController.fetchAllCourses());
+		assertTrue(matchedCourses.size()==6);
 	}
 
 	@Test
@@ -149,12 +151,6 @@ public class AppTest
 		List<CourseModel> filteredBreadthRequirements = masterController.breadthRequirements();
 		assertTrue(filteredBreadthRequirements.size() == 4);
 	}
-//
-//	@Test
-//    public void filterByPrerequisites(){
-//		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
-//	    assertTrue(filteredCourses.size()!=testCoursesModel.size());
-//    }
 
 }
 
