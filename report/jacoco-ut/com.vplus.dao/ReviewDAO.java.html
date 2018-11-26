@@ -55,10 +55,10 @@ import com.vplus.dao.IReviewDAO;
 <span class="fc" id="L55">		return reviewList;</span>
 	}	
 	
-	public List&lt;String&gt; getWords( String Professor ) {
+	public List&lt;String&gt; getWords( String professor ) {
 
 <span class="fc" id="L60">		String query = &quot;SELECT words FROM vergilplus.sentiment where professor=\'&quot;;</span>
-<span class="fc" id="L61">		query += Professor + &quot;\';&quot;;</span>
+<span class="fc" id="L61">		query += professor + &quot;\';&quot;;</span>
 		
 <span class="fc" id="L63">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();</span>
 <span class="fc" id="L64">		Connection con = null;</span>
