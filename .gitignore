@@ -6,6 +6,6 @@ bin/
 /target
 /target/
 .idea
-src/.DS_Store
+**/.DS_Store
 git-hooks/
 data/key.json
