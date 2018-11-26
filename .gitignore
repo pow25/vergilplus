@@ -6,5 +6,7 @@ bin/
 /target
 /target/
 .idea
+**/.DS_Store
 git-hooks/
 data/key.json
+project.iml
