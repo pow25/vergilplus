@@ -133,29 +133,29 @@ import java.util.List;
 	public int compareTo(CourseModel c){
 <span class="nc bnc" id="L134" title="All 2 branches missed.">		return this.courseNumber.equals(c.getCourseNumber()) </span>
 <span class="nc bnc" id="L135" title="All 2 branches missed.">				&amp;&amp; this.sectionId == c.getSectionId()</span>
-				? 0 : -1;
+<span class="nc" id="L136">				? 0 : -1;</span>
 	}
 	
 	@Override
 	public String toString() {
 <span class="nc" id="L141">		String res =  &quot;{&quot;</span>
-					+ &quot; courseNumber = &quot; + courseNumber
-					+ &quot;\nsectionId = &quot; + sectionId
-					+ &quot;\ncourseTitle = &quot; + courseTitle
-					+ &quot;\nweek = &quot; + week
-					+ &quot;\nstartTime = &quot; + startTime
-					+ &quot;\nendTime = &quot; + endTime
-					+ &quot;\ninstructor = &quot; + instructor
-					+ &quot;\nterm = &quot; + term
-					+ &quot;\ndescription = &quot; + description;
+<span class="nc" id="L142">					+ &quot; courseNumber = &quot; + courseNumber</span>
+<span class="nc" id="L143">					+ &quot;\nsectionId = &quot; + sectionId</span>
+<span class="nc" id="L144">					+ &quot;\ncourseTitle = &quot; + courseTitle</span>
+<span class="nc" id="L145">					+ &quot;\nweek = &quot; + week</span>
+<span class="nc" id="L146">					+ &quot;\nstartTime = &quot; + startTime</span>
+<span class="nc" id="L147">					+ &quot;\nendTime = &quot; + endTime</span>
+<span class="nc" id="L148">					+ &quot;\ninstructor = &quot; + instructor</span>
+<span class="nc" id="L149">					+ &quot;\nterm = &quot; + term</span>
+<span class="nc" id="L150">					+ &quot;\ndescription = &quot; + description;</span>
 		
 <span class="nc" id="L152">		List&lt;String&gt; modelStrList = new ArrayList&lt;&gt;();</span>
 <span class="nc" id="L153">		coursePreq.forEach(model -&gt; modelStrList.add(courseNumber + &quot;,&quot; + sectionId));</span>
 <span class="nc" id="L154">		String preqs = String.join(&quot;,&quot;, modelStrList);</span>
 <span class="nc" id="L155">		res += &quot; \ncoursePreq = &quot; + preqs</span>
-				+ &quot;\ninstructorPreq =  &quot; + instructorPreq
-				+ &quot;\nknowledgePreq = &quot; + knowledgePreq
-				+ &quot;}&quot;;
+<span class="nc" id="L156">				+ &quot;\ninstructorPreq =  &quot; + instructorPreq</span>
+<span class="nc" id="L157">				+ &quot;\nknowledgePreq = &quot; + knowledgePreq</span>
+<span class="nc" id="L158">				+ &quot;}&quot;;</span>
 <span class="nc" id="L159">		return res;</span>
 	}
 }

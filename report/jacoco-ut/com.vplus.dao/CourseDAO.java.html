@@ -61,19 +61,19 @@ import com.vplus.models.CourseModel;
 <span class="fc" id="L61">					course.setTerm(rs.getInt(&quot;Term&quot;));</span>
 <span class="fc" id="L62">					course.setDescription(rs.getString(&quot;Description&quot;));</span>
 <span class="fc" id="L63">					courseList.add(course);</span>
-<span class="fc" id="L64">				}</span>
+				}
 			}
-<span class="nc" id="L66">		}catch(SQLException e){</span>
+<span class="pc" id="L66">		}catch(SQLException e){</span>
 <span class="nc" id="L67">			System.err.println(e);</span>
 <span class="nc" id="L68">			System.err.println(&quot;An SQLException occured!&quot;);</span>
-		}finally{
-<span class="nc" id="L70">			try {</span>
+<span class="nc" id="L69">		}finally{</span>
+			try {
 <span class="pc" id="L71">				rs.close();</span>
 <span class="pc" id="L72">				ps.close();</span>
 <span class="pc" id="L73">				con.close();</span>
-<span class="nc" id="L74">			} catch (Exception e) {</span>
+<span class="pc" id="L74">			} catch (Exception e) {</span>
 <span class="nc" id="L75">				System.err.println(&quot;An Exception occured in selectAllCourses!&quot;);</span>
-<span class="pc" id="L76">			}</span>
+			}
 <span class="nc" id="L77">		}</span>
 <span class="fc" id="L78">		return courseList;</span>
 	}	
@@ -117,20 +117,20 @@ import com.vplus.models.CourseModel;
 					
 <span class="fc" id="L118">					course.setTerm(rs.getInt(&quot;Term&quot;));</span>
 <span class="fc" id="L119">					course.setDescription(rs.getString(&quot;Description&quot;));</span>
-<span class="fc" id="L120">					break;</span>
+					break;
 				}
 			}
-<span class="nc" id="L123">		}catch(SQLException e){</span>
+<span class="pc" id="L123">		}catch(SQLException e){</span>
 <span class="nc" id="L124">			System.err.println(e);</span>
 <span class="nc" id="L125">			System.err.println(&quot;An SQLException occured!&quot;);</span>
-		}finally{
-<span class="nc" id="L127">			try {</span>
+<span class="nc" id="L126">		}finally{</span>
+			try {
 <span class="pc" id="L128">				rs.close();</span>
 <span class="pc" id="L129">				ps.close();</span>
 <span class="pc" id="L130">				con.close();</span>
-<span class="nc" id="L131">			} catch (Exception e) {</span>
+<span class="pc" id="L131">			} catch (Exception e) {</span>
 <span class="nc" id="L132">				System.err.println(&quot;An Exception occured in search_course!&quot;);</span>
-<span class="pc" id="L133">			}</span>
+			}
 <span class="nc" id="L134">		}</span>
 <span class="fc" id="L135">		return course;</span>
 	}

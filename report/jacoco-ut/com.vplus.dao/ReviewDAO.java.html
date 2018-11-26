@@ -38,64 +38,108 @@ import com.vplus.dao.IReviewDAO;
 <span class="nc" id="L38">					review.setscore(Float.parseFloat(rs.getString(&quot;score&quot;)));</span>
 <span class="nc" id="L39">					review.setReview(rs.getString(&quot;review&quot;));</span>
 <span class="nc" id="L40">					reviewList.add(review);</span>
-<span class="nc" id="L41">				}</span>
+				}
 			}
 <span class="nc" id="L43">		}catch(SQLException e){</span>
 <span class="nc" id="L44">			System.err.println(e);</span>
 <span class="nc" id="L45">			System.err.println(&quot;An SQLException occured!&quot;);</span>
-		}finally{
-<span class="nc" id="L47">			try {</span>
+<span class="nc" id="L46">		}finally{</span>
+			try {
 <span class="nc" id="L48">				rs.close();</span>
 <span class="nc" id="L49">				ps.close();</span>
 <span class="nc" id="L50">				con.close();</span>
 <span class="nc" id="L51">			} catch (Exception e) {</span>
 <span class="nc" id="L52">				System.err.println(&quot;An Exception occured in selectAllReviews!&quot;);</span>
-<span class="nc" id="L53">			}</span>
+			}
 <span class="nc" id="L54">		}</span>
 <span class="nc" id="L55">		return reviewList;</span>
 	}	
 	
+	public List&lt;String&gt; getReview(String courseID, String Prof) {
+		
+<span class="nc bnc" id="L60" title="All 4 branches missed.">		if ( Prof.isEmpty() &amp;&amp; courseID.isEmpty() )</span>
+<span class="nc" id="L61">			return null;</span>
+		
+<span class="nc" id="L63">		String query = &quot;SELECT review FROM vergilplus.sentiment where &quot;;</span>
+		
+<span class="nc bnc" id="L65" title="All 2 branches missed.">		if ( Prof.isEmpty() )</span>
+<span class="nc" id="L66">			query += &quot;number= \'&quot; + courseID + &quot;\';&quot; ;</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">		else if ( courseID.isEmpty() )</span>
+<span class="nc" id="L68">			query += &quot;professor= \'&quot; + Prof + &quot;\';&quot; ;</span>
+		else
+<span class="nc" id="L70">			query += &quot;number= \'&quot; + courseID + &quot;\' AND professor= \'&quot; + Prof + &quot;\';&quot; ;</span>
+		
+<span class="nc" id="L72">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();		</span>
+<span class="nc" id="L73">		Connection con = null;</span>
+<span class="nc" id="L74">		PreparedStatement ps = null;</span>
+<span class="nc" id="L75">		ResultSet rs = null;</span>
+		try{
+<span class="nc" id="L77">			con = dataSource.getConnection();</span>
+<span class="nc" id="L78">			ps = con.prepareStatement(query);</span>
+<span class="nc" id="L79">			rs = ps.executeQuery();</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">			if(rs != null) {</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">				while(rs.next()){</span>
+<span class="nc" id="L82">					res.add(rs.getString(&quot;review&quot;));</span>
+				}
+			}
+<span class="nc" id="L85">		}catch(Exception e){</span>
+<span class="nc" id="L86">			System.err.println(e);</span>
+<span class="nc" id="L87">			System.err.println(&quot;An SQLException occured!&quot;);</span>
+<span class="nc" id="L88">		}finally{</span>
+			try {
+<span class="nc" id="L90">				rs.close();</span>
+<span class="nc" id="L91">				ps.close();</span>
+<span class="nc" id="L92">				con.close();</span>
+<span class="nc" id="L93">			} catch (Exception e) {</span>
+<span class="nc" id="L94">				System.err.println(&quot;An Exception occured in getReview!&quot;);</span>
+			}
+<span class="nc" id="L96">		}</span>
+		
+<span class="nc" id="L98">		return res;</span>
+	}
+	
+	
 	@Override
 	public float get_course_rating( String courseID ){
-<span class="fc" id="L60">		float res = 0f;</span>
-<span class="fc" id="L61">		String query = &quot;SELECT * FROM vergilplus.sentiment where number=\'&quot;</span>
-					   +courseID+&quot;';&quot;;
-<span class="fc" id="L63">		int count = 0;</span>
-<span class="fc" id="L64">		Connection con = null;</span>
-<span class="fc" id="L65">		PreparedStatement ps = null;</span>
-<span class="fc" id="L66">		ResultSet rs = null;</span>
+<span class="fc" id="L104">		float res = 0f;</span>
+<span class="fc" id="L105">		String query = &quot;SELECT * FROM vergilplus.sentiment where number=\'&quot;</span>
+<span class="fc" id="L106">					   +courseID+&quot;';&quot;;</span>
+<span class="fc" id="L107">		int count = 0;</span>
+<span class="fc" id="L108">		Connection con = null;</span>
+<span class="fc" id="L109">		PreparedStatement ps = null;</span>
+<span class="fc" id="L110">		ResultSet rs = null;</span>
 		try{
-<span class="fc" id="L68">			con = dataSource.getConnection();</span>
-<span class="fc" id="L69">			ps = con.prepareStatement(query);</span>
-<span class="fc" id="L70">			rs = ps.executeQuery();</span>
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">			if(rs != null) {</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">				while(rs.next()){</span>
-<span class="fc" id="L73">					++count;</span>
-<span class="fc" id="L74">					float magnitude = Float.parseFloat(rs.getString(&quot;magnitude&quot;));</span>
-<span class="fc" id="L75">					float score = Float.parseFloat(rs.getString(&quot;score&quot;));</span>
-<span class="fc" id="L76">					res += magnitude * score;</span>
-<span class="fc" id="L77">				}</span>
+<span class="fc" id="L112">			con = dataSource.getConnection();</span>
+<span class="fc" id="L113">			ps = con.prepareStatement(query);</span>
+<span class="fc" id="L114">			rs = ps.executeQuery();</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">			if(rs != null) {</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">				while(rs.next()){</span>
+<span class="fc" id="L117">					++count;</span>
+<span class="fc" id="L118">					float magnitude = Float.parseFloat(rs.getString(&quot;magnitude&quot;));</span>
+<span class="fc" id="L119">					float score = Float.parseFloat(rs.getString(&quot;score&quot;));</span>
+<span class="fc" id="L120">					res += magnitude * score;</span>
+				}
 			}
-<span class="nc" id="L79">		}catch(Exception e){</span>
-<span class="nc" id="L80">			System.err.println(e);</span>
-<span class="nc" id="L81">			System.err.println(&quot;An SQLException occured!&quot;);</span>
-		}finally{
-<span class="nc" id="L83">			try {</span>
-<span class="pc" id="L84">				rs.close();</span>
-<span class="pc" id="L85">				ps.close();</span>
-<span class="pc" id="L86">				con.close();</span>
-<span class="nc" id="L87">			} catch (Exception e) {</span>
-<span class="nc" id="L88">				System.err.println(&quot;An Exception occured in get_course_rating!&quot;);</span>
-<span class="pc" id="L89">			}</span>
-<span class="nc" id="L90">		}</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">		if ( count != 0 )</span>
-<span class="fc" id="L92">			return res/count;</span>
+<span class="pc" id="L123">		}catch(Exception e){</span>
+<span class="nc" id="L124">			System.err.println(e);</span>
+<span class="nc" id="L125">			System.err.println(&quot;An SQLException occured!&quot;);</span>
+<span class="nc" id="L126">		}finally{</span>
+			try {
+<span class="pc" id="L128">				rs.close();</span>
+<span class="pc" id="L129">				ps.close();</span>
+<span class="pc" id="L130">				con.close();</span>
+<span class="pc" id="L131">			} catch (Exception e) {</span>
+<span class="nc" id="L132">				System.err.println(&quot;An Exception occured in get_course_rating!&quot;);</span>
+			}
+<span class="nc" id="L134">		}</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">		if ( count != 0 )</span>
+<span class="fc" id="L136">			return res/count;</span>
 		else
-<span class="fc" id="L94">			return 0f;</span>
+<span class="fc" id="L138">			return 0f;</span>
 	}
 	
 	public void setDataSource(DataSource dataSource) {
-<span class="fc" id="L98">		this.dataSource = dataSource;</span>
-<span class="fc" id="L99">	}</span>
+<span class="fc" id="L142">		this.dataSource = dataSource;</span>
+<span class="fc" id="L143">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
