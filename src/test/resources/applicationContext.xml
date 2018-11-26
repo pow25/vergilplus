@@ -19,6 +19,7 @@
 		<property name="courseDAO" ref="courseDAO" /><!-- 
         <property name="CourseDAO" ref="CourseDAO" /> -->
 	</bean>
+
 	<bean id="reviewService" class="com.vplus.service.ReviewService">
 		<property name="reviewDAO" ref="reviewDAO" />
 	</bean>
