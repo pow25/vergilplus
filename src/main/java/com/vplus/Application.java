@@ -117,6 +117,7 @@ public class Application implements CommandLineRunner {
 			String detect="false";
 			allTopics = getAllTopics();
 			List<String> allInstructors = masterController.findAllInstructors();
+//			System.out.println(masterController.getWordsProfessor(meg));
 			while(!meg.toUpperCase().equals("OK")) {
 				String body = "{\"userId\": \"dh2914\", \"message\": {\"word\":"+ "\""+meg +";"+detect+"\"" +"}}";
 				InvokeRequest req = new InvokeRequest().withFunctionName("Chatbot").withPayload(body); // optional
