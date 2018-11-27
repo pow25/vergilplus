@@ -11,5 +11,5 @@ public interface IReviewDAO {
 	public void setDataSource(DataSource dataSource);
 	public float get_course_rating( String courseID);
 	public List<String> getReview(String courseID, String Prof);
-	public List<String> getWords(String Professor);
+	public List<String> getWords(String professor);
 }

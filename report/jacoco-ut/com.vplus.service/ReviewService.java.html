@@ -2,7 +2,9 @@
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,47 +15,80 @@ import com.vplus.models.ReviewModel;
 
 
 @Service(&quot;reviewService&quot;)
-<span class="fc" id="L16">public class ReviewService implements IReviewService {</span>
+<span class="fc" id="L18">public class ReviewService implements IReviewService {</span>
 	@Autowired
 	private IReviewDAO ReviewDAO;
 	
 	
 	public List&lt;ReviewModel&gt; selectAllReviews(){
-<span class="fc" id="L22">		return ReviewDAO.selectAllReviews();</span>
+<span class="fc" id="L24">		return ReviewDAO.selectAllReviews();</span>
 	}
 	
 	public List&lt;Pair&lt;String, Float&gt;&gt; sort_base_on_reviews(List&lt;CourseModel&gt; course_models) {
 		
-<span class="fc" id="L27">		List&lt;Pair&lt;String, Float&gt;&gt; res = new ArrayList&lt;Pair&lt;String,Float&gt;&gt;();</span>
+<span class="fc" id="L29">		List&lt;Pair&lt;String, Float&gt;&gt; res = new ArrayList&lt;Pair&lt;String,Float&gt;&gt;();</span>
 		
-<span class="fc bfc" id="L29" title="All 2 branches covered.">		for ( int i = 0; i &lt; course_models.size(); ++i  ) {</span>
-<span class="fc" id="L30">			String courseID = course_models.get(i).getCourseNumber();</span>
-<span class="fc" id="L31">			float score = ReviewDAO.get_course_rating(courseID);</span>
-<span class="fc" id="L32">			res.add(new Pair&lt;String, Float&gt;(courseID,score));</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">		for ( int i = 0; i &lt; course_models.size(); ++i  ) {</span>
+<span class="fc" id="L32">			String courseID = course_models.get(i).getCourseNumber();</span>
+<span class="fc" id="L33">			float score = ReviewDAO.get_course_rating(courseID);</span>
+<span class="fc" id="L34">			res.add(new Pair&lt;String, Float&gt;(courseID,score));</span>
 		}
 		
-<span class="fc" id="L35">		res.sort(new Comparator&lt;Pair&lt;String,Float&gt;&gt;(){</span>
+<span class="fc" id="L37">		res.sort(new Comparator&lt;Pair&lt;String,Float&gt;&gt;(){</span>
 	        @Override
 	        public int compare(Pair&lt;String, Float&gt; o1, Pair&lt;String, Float&gt; o2) {
-<span class="fc bfc" id="L38" title="All 2 branches covered.">	            if (o1.getValue() &gt; o2.getValue()) {</span>
-<span class="fc" id="L39">	                return -1;</span>
-<span class="fc bfc" id="L40" title="All 2 branches covered.">	            } else if (o1.getValue().equals(o2.getValue())) {</span>
-<span class="fc" id="L41">	                return 0;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">	            if (o1.getValue() &gt; o2.getValue()) {</span>
+<span class="fc" id="L41">	                return -1;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">	            } else if (o1.getValue().equals(o2.getValue())) {</span>
+<span class="fc" id="L43">	                return 0;</span>
 	            } else {
-<span class="fc" id="L43">	                return 1;</span>
+<span class="fc" id="L45">	                return 1;</span>
 	            }
 	        }
 		});
 		
-<span class="fc" id="L48">		return res;</span>
+<span class="fc" id="L50">		return res;</span>
+	}
+	
+	public String getWords(String profName) {
+<span class="nc" id="L54">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L55">		String temp_name[] = profName.split(&quot;,&quot;);</span>
+<span class="nc" id="L56">		temp_name[0] = temp_name[0].toLowerCase();</span>
+<span class="nc" id="L57">		temp_name[1] = temp_name[1].replaceAll(&quot;\\s&quot;,&quot;&quot;);</span>
+<span class="nc" id="L58">		temp_name[1] = temp_name[1].toLowerCase();</span>
+
+<span class="nc" id="L60">		res = ReviewDAO.getWords(profName);</span>
+<span class="nc" id="L61">		String result = &quot;&quot;;</span>
+<span class="nc" id="L62">		HashSet&lt;String&gt; hashset = new HashSet&lt;String&gt;();</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">		for ( int i = 0; i &lt; res.size(); ++i ) {</span>
+<span class="nc" id="L64">			String temp = res.get(i);</span>
+<span class="nc" id="L65">			temp = temp.replaceAll(&quot;\\s&quot;,&quot;&quot;);</span>
+<span class="nc" id="L66">			String[] words = temp.split(&quot;,&quot;);</span>
+			
+<span class="nc bnc" id="L68" title="All 2 branches missed.">			for ( int j = 0; j &lt; words.length; ++j ) {</span>
+<span class="nc bnc" id="L69" title="All 4 branches missed.">				if ( words[j].equals(temp_name[0]) || words[j].equals(temp_name[1]) )</span>
+<span class="nc" id="L70">					continue;</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">				if ( words[j].isEmpty() )</span>
+<span class="nc" id="L72">					continue;</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">				if ( hashset.contains(words[j]) )</span>
+<span class="nc" id="L74">					continue;</span>
+				else {
+<span class="nc" id="L76">					hashset.add(words[j]);</span>
+<span class="nc" id="L77">					result += words[j];</span>
+<span class="nc" id="L78">					result += &quot;||&quot;;</span>
+				}
+			}
+		}
+			
+<span class="nc" id="L83">		return result;</span>
 	}
 	
 	public IReviewDAO getReviewDAO() {
-<span class="fc" id="L52">		return ReviewDAO;</span>
+<span class="fc" id="L87">		return ReviewDAO;</span>
 	}
 
 	public void setReviewDAO(IReviewDAO ReviewDAO) {
-<span class="fc" id="L56">		this.ReviewDAO = ReviewDAO;</span>
-<span class="fc" id="L57">	}</span>
+<span class="fc" id="L91">		this.ReviewDAO = ReviewDAO;</span>
+<span class="fc" id="L92">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
