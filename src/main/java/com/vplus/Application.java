@@ -32,6 +32,7 @@ import com.amazonaws.services.lambda.AWSLambda;
 import com.amazonaws.services.lambda.model.InvokeRequest;
 import com.amazonaws.services.lambda.model.InvokeResult;
 import com.amazonaws.regions.Regions;
+import java.util.Random;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
@@ -61,19 +62,19 @@ public class Application implements CommandLineRunner {
 	//set up the topic set
     public List<String> getAllTopics(){
         ArrayList<String> aLLTopics = new ArrayList<>();
-        aLLTopics.add("computer\'vision");
-        aLLTopics.add("operating\'system");
-        aLLTopics.add("machine\'learning");
+        aLLTopics.add("computer vision");
+        aLLTopics.add("operating system");
+        aLLTopics.add("machine learning");
         aLLTopics.add("robotics");
-        aLLTopics.add("natural\'language\'processing");
+        aLLTopics.add("natural language processing");
         aLLTopics.add("graphics");
         aLLTopics.add("networks");
-        aLLTopics.add("artificial\'intelligence");
+        aLLTopics.add("artificial intelligence");
         aLLTopics.add("database");
         aLLTopics.add("bioinformatics");
         aLLTopics.add("system");
         aLLTopics.add("theory");
-        aLLTopics.add("computational\'biology");
+        aLLTopics.add("computational biology");
         aLLTopics.add("algorithm");
         return aLLTopics;
     }
@@ -116,9 +117,11 @@ public class Application implements CommandLineRunner {
 			List<String> instructors = new ArrayList<>();
 			String detect="false";
 			allTopics = getAllTopics();
+			Random r = new Random();
+			String user = String.valueOf(r.nextInt());
 			List<String> allInstructors = masterController.findAllInstructors();
 			while(!meg.toUpperCase().equals("OK")) {
-				String body = "{\"userId\": \"dh2914\", \"message\": {\"word\":"+ "\""+meg +";"+detect+"\"" +"}}";
+				String body = "{\"userId\": \""+ user + "\", \"message\": {\"word\":"+ "\""+meg +";"+detect+"\"" +"}}";
 				InvokeRequest req = new InvokeRequest().withFunctionName("Chatbot").withPayload(body); // optional
                 AWSLambda client = createLambda();
 				InvokeResult result = client.invoke(req);
@@ -129,7 +132,6 @@ public class Application implements CommandLineRunner {
 					System.out.println(output);
 				}
 				else if(!toS.contains("COMS")) {
-					System.out.println(toS);
 					if(toS.contains(";")){
 						String[] pieces = toS.split(";");
 						detect = pieces[pieces.length-1];
@@ -141,7 +143,7 @@ public class Application implements CommandLineRunner {
 							for(int j =1; j < pieces.length-1;j++) {
 								String keyword = pieces[j];
 								if (allTopics.contains(keyword)) {
-									topic.add(keyword.replace('\'', ' '));
+									topic.add(keyword);
 								}
 								if(keyword.contains(" "))
 								{
@@ -189,6 +191,7 @@ public class Application implements CommandLineRunner {
 					System.out.println("These courses are delivered by Prof. " + instructors.get(i) + ":");
 					res2.forEach(System.out::println);
 				}
+
             }if(topic.isEmpty() && instructors.isEmpty()){
 				List<String> converted = getTakenCourses(takenCourses);
 				List<CourseModel> res = recommendCourses(converted);
