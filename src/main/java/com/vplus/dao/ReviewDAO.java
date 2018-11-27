@@ -167,7 +167,7 @@ public class ReviewDAO implements IReviewDAO{
 		if ( count != 0 )
 			return res/count;
 		else
-			return 0f;
+			return Float.MIN_VALUE;
 	}
 	
 	public void setDataSource(DataSource dataSource) {
