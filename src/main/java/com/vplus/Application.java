@@ -130,7 +130,7 @@ public class Application implements CommandLineRunner {
 					String output = pieces[0];
 					System.out.println(output);
 				}
-				else if(!toS.contains("COMS")) {
+				else if(!toS.contains("COMS") && !toS.contains("coms")) {
 					if(toS.contains(";")){
 						String[] pieces = toS.split(";");
 						detect = pieces[pieces.length-1];
@@ -165,9 +165,9 @@ public class Application implements CommandLineRunner {
 						output = output.replace('\'', ' ');
 					}
 					System.out.println(output);
-					if(pieces.length>1) {
-						for (int i = 0; i < pieces[1].split(" ").length; ++i) {
-							takenCourses.add(pieces[1].split(", ")[i]);
+					if(toS.contains("We are searching for results for you!")) {
+						for (int i = 0; i < pieces[1].split(", ").length; ++i) {
+							takenCourses.add("W"+ pieces[1].split(", ")[i].toUpperCase());
 						}
 					}
 
