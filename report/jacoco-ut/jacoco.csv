@@ -2,7 +2,7 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 vplus,com.vplus.controller,MasterController,2,326,1,39,1,70,1,31,0,12
 vplus,com.vplus.models,ReviewModel,0,60,0,0,0,17,0,12,0,12
 vplus,com.vplus.models,CourseModel,0,207,1,3,0,45,1,29,0,28
-vplus,com.vplus.dao,CourseDAO,83,362,3,17,5,106,3,12,0,5
+vplus,com.vplus.dao,CourseDAO,85,360,5,15,6,105,5,10,0,5
 vplus,com.vplus.dao,ReviewDAO,104,357,4,22,4,113,4,15,0,6
 vplus,com.vplus,Application,31,601,6,44,5,130,5,33,0,13
 vplus,com.vplus.service,ReviewService.new Comparator() {...},0,29,0,4,0,6,0,4,0,2
