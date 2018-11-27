@@ -22,7 +22,7 @@ public interface IMasterController{
 
 	public List<CourseModel> fetchAllCourses();
 
-	public List<String> convertCourseForm(List<String> takenCourses);
+//	public List<String> convertCourseForm(List<String> takenCourses);
 
 	public String getWordsProfessor(String profName);
 }

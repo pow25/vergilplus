@@ -3,6 +3,7 @@ import com.amazonaws.services.lambda.AWSLambda;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.vplus.dao.*;
 import com.vplus.service.*;
@@ -29,7 +30,11 @@ import com.amazonaws.services.lambda.model.InvokeRequest;
 import com.amazonaws.services.lambda.model.InvokeResult;
 
 import java.io.ByteArrayInputStream;
-import java.io.PrintStream;
+import java.io.BufferedReader;
+
+import org.mockito.Mockito.*;
+import sun.applet.Main;
+
 /**
  * Unit test for simple App.
  */
@@ -145,14 +150,14 @@ public class AppTest
 		assertTrue(totalcourseModel.size()==93);
 	}
 
-	@Test
-	public void getTakenCourses() {
-		List<String> testCourses = new ArrayList<>();
-		testCourses.add("WCOMS4771");
-		testCourses.add("WCOMS4111");
-		List<String> courses = app.getTakenCourses(testCourses);
-		assertTrue(courses.size()==2);
-	}
+//	@Test
+//	public void getTakenCourses() {
+//		List<String> testCourses = new ArrayList<>();
+//		testCourses.add("WCOMS4771");
+//		testCourses.add("WCOMS4111");
+//		List<String> courses = app.getTakenCourses(testCourses);
+//		assertTrue(courses.size()==2);
+//	}
 
 	@Test
 	public void processTakenCourses() {
@@ -272,6 +277,29 @@ public class AppTest
 		String professor = "Yemini, Yechiam";
 		List<String> words = reviewDAO.getWords(professor);
 		assertTrue(words.size() > 0);
+	}
+
+
+	@Test
+	public void getWordsService() {
+		String professor = "Kaiser, Gail";
+		String words = reviewservice.getWords(professor);
+		assertTrue(words.contains("||"));
+	}
+
+	@Test
+	public void getWordsProfessor() {
+		String professor = "Kaiser, Gail";
+		String word = masterController.getWordsProfessor(professor);
+		assertTrue(word !="");
+	}
+
+
+	@Test
+	public void getWordsProfessorNull() {
+		String professor = "Verma,  Nakul";
+		String word = masterController.getWordsProfessor(professor);
+		assertTrue(!word.equals("Oh this professor seems quiet. We don't have any review records for him :D"));
 	}
 
 	@Test
@@ -510,27 +538,53 @@ public class AppTest
 		String output = app.parseResponse(result);
 		assertTrue(!output.isEmpty());
 	}
-//
-//	@Test
-//	public void testAppRun() throws Exception {
-//		Application app  = ctx.getBean("Application", Application.class);
-//		ByteArrayInputStream in = new ByteArrayInputStream("Hi".getBytes());
-//		PrintStream out = new PrintStream(System.out);
-//		System.setIn(in);
-//
-//		in = new ByteArrayInputStream("yea I am interested in machine learning".getBytes());
-//		System.setIn(in);
-//
-//		in = new ByteArrayInputStream("COMS4771".getBytes());
-//		System.setIn(in);
-//
-//		in = new ByteArrayInputStream("yea".getBytes());
-//		System.setIn(in);
-//
-//		in = new ByteArrayInputStream("ok".getBytes());
-//		System.setIn(in);
-//		app.run();
-//		assertTrue(true);
-//	}
+
+	@Test
+	public void testTopic() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyea I am interested in machine learning\nCOMS4771\nyea\nok\n".getBytes());
+		System.setIn(in);
+		app.run();
+		assertTrue(true);
+	}
+
+	@Test
+	public void testInstructor() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111\nyea\nok\n".getBytes());
+		System.setIn(in);
+		app.run();
+		assertTrue(true);
+	}
+
+
+	@Test
+	public void testTakenCourses() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111 and machine learning\ncoms4771\nyea\nok\n".getBytes());
+		System.setIn(in);
+		app.run();
+		assertTrue(true);
+	}
+
+
+
+	@Test
+	public void testNotInterested() throws Exception {
+		Application app  = ctx.getBean("Application", Application.class);
+		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nno just recommend some\nCOMS4111 and machine learning\ncoms4771\nyea\nok\n".getBytes());
+		System.setIn(in);
+		app.run();
+		assertTrue(true);
+	}
+
+
+	@Test
+    public void testMain() throws Exception {
+        ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111\nyea\nok\n".getBytes());
+        System.setIn(in);
+        Application.main(new String[] {"arg1", "arg2", "arg3"});
+        assertTrue(true);
+    }
 }
 

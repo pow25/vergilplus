@@ -51,7 +51,7 @@ public class MasterController implements IMasterController{
 		input = buff[1] + ", " + buff[0];
 		String output = reviewService.getWords(input);
 		if (output.isEmpty())
-			return "Sorry, it seems like we don't have enough description keys words for this Professor~";
+			return "Oh this professor seems quiet. We don't have any review records for him :D";
 		else
 			return output;
 	}
@@ -65,7 +65,7 @@ public class MasterController implements IMasterController{
 	
 	// acknowledge taken courses, e.g, make courses available, remove taken courses
 	public List<CourseModel> processTakenCourses(List<String> takenCourses, List<CourseModel> allCourses){
-		takenCourses = convertCourseForm(takenCourses);
+//		takenCourses = convertCourseForm(takenCourses);
 		List<CourseModel> filteredCourses=new ArrayList<>();
 		if (takenCourses.isEmpty()) return allCourses;
 		for(CourseModel course : allCourses){
@@ -101,10 +101,10 @@ public class MasterController implements IMasterController{
 	}
 
 	//convert course name to course number
-	public List<String> convertCourseForm(List<String> takenCourses){
-		List<String> converted = courseService.findCourseNumber(takenCourses);
-		return converted;
-	}
+//	public List<String> convertCourseForm(List<String> takenCourses){
+//		List<String> converted = courseService.findCourseNumber(takenCourses);
+//		return converted;
+//	}
 
 	public List<String> findAllInstructors(){
 		List<String> instructors = courseService.findInstructors();
@@ -129,18 +129,18 @@ public class MasterController implements IMasterController{
 			//belongs to systems
 			else if((course.getCourseNumber().contains("COMS41") && !course.getCourseNumber().contains("COMS4121") &&
 					!course.getCourseNumber().contains("COMS416") && !course.getCourseNumber().contains("COMS417")) ||
-					course.getCourseNumber().contains("COMS48") || course.getCourseNumber().contains("COMS4444") ||
-					course.getCourseNumber().contains("CSEE4119") || course.getCourseNumber().contains("EECS4340") ||
-					course.getCourseNumber().contains("CSEE4823") || course.getCourseNumber().contains("CSEE4824") ||
-					course.getCourseNumber().contains("CSEE4840") || course.getCourseNumber().contains("CSEE4868")) {
+//					course.getCourseNumber().contains("COMS48") || course.getCourseNumber().contains("COMS4444") ||
+//					course.getCourseNumber().contains("CSEE4119") || course.getCourseNumber().contains("EECS4340") ||
+					course.getCourseNumber().contains("CSEE4823") || course.getCourseNumber().contains("CSEE4824") ){
+//					course.getCourseNumber().contains("CSEE4840") || course.getCourseNumber().contains("CSEE4868")) {
 				breadthSystems.add(course);
 			}
 			//if COMS 47xx courses except COMS 4721 and COMS 4776
 			//All COMS 416x and COMS 417x; CBMF 4761
 			//belongs to AI & Applications
-			else if((course.getCourseNumber().contains("COMS47") && !course.getCourseNumber().contains("COMS4721") &&
-					!course.getCourseNumber().contains("COMS4776")) || course.getCourseNumber().contains("COMS416") ||
-					course.getCourseNumber().contains("COMS417") || course.getCourseNumber().contains("COMS4761")) {
+			else if((course.getCourseNumber().contains("COMS47") && !course.getCourseNumber().contains("COMS4721"))){
+//					!course.getCourseNumber().contains("COMS4776")) || course.getCourseNumber().contains("COMS416") ||
+//					course.getCourseNumber().contains("COMS417") || course.getCourseNumber().contains("COMS4761")) {
 				breadthAI.add(course);
 			}
 		}

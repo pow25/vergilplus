@@ -43,15 +43,15 @@ import javafx.util.Pair;
 	
 	public String getWordsProfessor(String profName) {
 		
-<span class="nc" id="L46">		String input = &quot;&quot;;</span>
-<span class="nc" id="L47">		String[] buff = profName.split(&quot; &quot;);</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">		if (buff.length != 2)</span>
-<span class="nc" id="L49">			return &quot;Error Professor Name!!&quot;;</span>
+<span class="fc" id="L46">		String input = &quot;&quot;;</span>
+<span class="fc" id="L47">		String[] buff = profName.split(&quot; &quot;);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">		if (buff.length != 2)</span>
+<span class="fc" id="L49">			return &quot;Error Professor Name!!&quot;;</span>
 		
-<span class="nc" id="L51">		input = buff[1] + &quot;, &quot; + buff[0];</span>
-<span class="nc" id="L52">		String output = reviewService.getWords(input);</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">		if (output.isEmpty())</span>
-<span class="nc" id="L54">			return &quot;Sorry, it seems like we don't have enough description keys words for this Professor~&quot;;</span>
+<span class="fc" id="L51">		input = buff[1] + &quot;, &quot; + buff[0];</span>
+<span class="fc" id="L52">		String output = reviewService.getWords(input);</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">		if (output.isEmpty())</span>
+<span class="fc" id="L54">			return &quot;Oh this professor seems quiet. We don't have any review records for him :D&quot;;</span>
 		else
 <span class="nc" id="L56">			return output;</span>
 	}
@@ -65,7 +65,7 @@ import javafx.util.Pair;
 	
 	// acknowledge taken courses, e.g, make courses available, remove taken courses
 	public List&lt;CourseModel&gt; processTakenCourses(List&lt;String&gt; takenCourses, List&lt;CourseModel&gt; allCourses){
-<span class="fc" id="L68">		takenCourses = convertCourseForm(takenCourses);</span>
+//		takenCourses = convertCourseForm(takenCourses);
 <span class="fc" id="L69">		List&lt;CourseModel&gt; filteredCourses=new ArrayList&lt;&gt;();</span>
 <span class="fc bfc" id="L70" title="All 2 branches covered.">		if (takenCourses.isEmpty()) return allCourses;</span>
 <span class="fc bfc" id="L71" title="All 2 branches covered.">		for(CourseModel course : allCourses){</span>
@@ -101,10 +101,10 @@ import javafx.util.Pair;
 	}
 
 	//convert course name to course number
-	public List&lt;String&gt; convertCourseForm(List&lt;String&gt; takenCourses){
-<span class="fc" id="L105">		List&lt;String&gt; converted = courseService.findCourseNumber(takenCourses);</span>
-<span class="fc" id="L106">		return converted;</span>
-	}
+//	public List&lt;String&gt; convertCourseForm(List&lt;String&gt; takenCourses){
+//		List&lt;String&gt; converted = courseService.findCourseNumber(takenCourses);
+//		return converted;
+//	}
 
 	public List&lt;String&gt; findAllInstructors(){
 <span class="fc" id="L110">		List&lt;String&gt; instructors = courseService.findInstructors();</span>
@@ -129,18 +129,18 @@ import javafx.util.Pair;
 			//belongs to systems
 <span class="fc bfc" id="L130" title="All 4 branches covered.">			else if((course.getCourseNumber().contains(&quot;COMS41&quot;) &amp;&amp; !course.getCourseNumber().contains(&quot;COMS4121&quot;) &amp;&amp;</span>
 <span class="fc bfc" id="L131" title="All 4 branches covered.">					!course.getCourseNumber().contains(&quot;COMS416&quot;) &amp;&amp; !course.getCourseNumber().contains(&quot;COMS417&quot;)) ||</span>
-<span class="pc bpc" id="L132" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;COMS48&quot;) || course.getCourseNumber().contains(&quot;COMS4444&quot;) ||</span>
-<span class="pc bpc" id="L133" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;CSEE4119&quot;) || course.getCourseNumber().contains(&quot;EECS4340&quot;) ||</span>
-<span class="fc bfc" id="L134" title="All 4 branches covered.">					course.getCourseNumber().contains(&quot;CSEE4823&quot;) || course.getCourseNumber().contains(&quot;CSEE4824&quot;) ||</span>
-<span class="pc bpc" id="L135" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;CSEE4840&quot;) || course.getCourseNumber().contains(&quot;CSEE4868&quot;)) {</span>
+//					course.getCourseNumber().contains(&quot;COMS48&quot;) || course.getCourseNumber().contains(&quot;COMS4444&quot;) ||
+//					course.getCourseNumber().contains(&quot;CSEE4119&quot;) || course.getCourseNumber().contains(&quot;EECS4340&quot;) ||
+<span class="fc bfc" id="L134" title="All 4 branches covered.">					course.getCourseNumber().contains(&quot;CSEE4823&quot;) || course.getCourseNumber().contains(&quot;CSEE4824&quot;) ){</span>
+//					course.getCourseNumber().contains(&quot;CSEE4840&quot;) || course.getCourseNumber().contains(&quot;CSEE4868&quot;)) {
 <span class="fc" id="L136">				breadthSystems.add(course);</span>
 			}
 			//if COMS 47xx courses except COMS 4721 and COMS 4776
 			//All COMS 416x and COMS 417x; CBMF 4761
 			//belongs to AI &amp; Applications
-<span class="fc bfc" id="L141" title="All 4 branches covered.">			else if((course.getCourseNumber().contains(&quot;COMS47&quot;) &amp;&amp; !course.getCourseNumber().contains(&quot;COMS4721&quot;) &amp;&amp;</span>
-<span class="pc bpc" id="L142" title="1 of 4 branches missed.">					!course.getCourseNumber().contains(&quot;COMS4776&quot;)) || course.getCourseNumber().contains(&quot;COMS416&quot;) ||</span>
-<span class="pc bpc" id="L143" title="1 of 4 branches missed.">					course.getCourseNumber().contains(&quot;COMS417&quot;) || course.getCourseNumber().contains(&quot;COMS4761&quot;)) {</span>
+<span class="fc bfc" id="L141" title="All 4 branches covered.">			else if((course.getCourseNumber().contains(&quot;COMS47&quot;) &amp;&amp; !course.getCourseNumber().contains(&quot;COMS4721&quot;))){</span>
+//					!course.getCourseNumber().contains(&quot;COMS4776&quot;)) || course.getCourseNumber().contains(&quot;COMS416&quot;) ||
+//					course.getCourseNumber().contains(&quot;COMS417&quot;) || course.getCourseNumber().contains(&quot;COMS4761&quot;)) {
 <span class="fc" id="L144">				breadthAI.add(course);</span>
 			}
 <span class="fc" id="L146">		}</span>

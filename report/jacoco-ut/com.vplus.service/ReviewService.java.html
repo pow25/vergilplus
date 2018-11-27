@@ -51,36 +51,36 @@ import com.vplus.models.ReviewModel;
 	}
 	
 	public String getWords(String profName) {
-<span class="nc" id="L54">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();</span>
-<span class="nc" id="L55">		String temp_name[] = profName.split(&quot;,&quot;);</span>
-<span class="nc" id="L56">		temp_name[0] = temp_name[0].toLowerCase();</span>
-<span class="nc" id="L57">		temp_name[1] = temp_name[1].replaceAll(&quot;\\s&quot;,&quot;&quot;);</span>
-<span class="nc" id="L58">		temp_name[1] = temp_name[1].toLowerCase();</span>
+<span class="fc" id="L54">		List&lt;String&gt; res = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L55">		String temp_name[] = profName.split(&quot;,&quot;);</span>
+<span class="fc" id="L56">		temp_name[0] = temp_name[0].toLowerCase();</span>
+<span class="fc" id="L57">		temp_name[1] = temp_name[1].replaceAll(&quot;\\s&quot;,&quot;&quot;);</span>
+<span class="fc" id="L58">		temp_name[1] = temp_name[1].toLowerCase();</span>
 
-<span class="nc" id="L60">		res = ReviewDAO.getWords(profName);</span>
-<span class="nc" id="L61">		String result = &quot;&quot;;</span>
-<span class="nc" id="L62">		HashSet&lt;String&gt; hashset = new HashSet&lt;String&gt;();</span>
-<span class="nc bnc" id="L63" title="All 2 branches missed.">		for ( int i = 0; i &lt; res.size(); ++i ) {</span>
-<span class="nc" id="L64">			String temp = res.get(i);</span>
-<span class="nc" id="L65">			temp = temp.replaceAll(&quot;\\s&quot;,&quot;&quot;);</span>
-<span class="nc" id="L66">			String[] words = temp.split(&quot;,&quot;);</span>
+<span class="fc" id="L60">		res = ReviewDAO.getWords(profName);</span>
+<span class="fc" id="L61">		String result = &quot;&quot;;</span>
+<span class="fc" id="L62">		HashSet&lt;String&gt; hashset = new HashSet&lt;String&gt;();</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">		for ( int i = 0; i &lt; res.size(); ++i ) {</span>
+<span class="fc" id="L64">			String temp = res.get(i);</span>
+<span class="fc" id="L65">			temp = temp.replaceAll(&quot;\\s&quot;,&quot;&quot;);</span>
+<span class="fc" id="L66">			String[] words = temp.split(&quot;,&quot;);</span>
 			
-<span class="nc bnc" id="L68" title="All 2 branches missed.">			for ( int j = 0; j &lt; words.length; ++j ) {</span>
-<span class="nc bnc" id="L69" title="All 4 branches missed.">				if ( words[j].equals(temp_name[0]) || words[j].equals(temp_name[1]) )</span>
-<span class="nc" id="L70">					continue;</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">				if ( words[j].isEmpty() )</span>
-<span class="nc" id="L72">					continue;</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">				if ( hashset.contains(words[j]) )</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">			for ( int j = 0; j &lt; words.length; ++j ) {</span>
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">				if ( words[j].equals(temp_name[0]) || words[j].equals(temp_name[1]) )</span>
+<span class="fc" id="L70">					continue;</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">				if ( words[j].isEmpty() )</span>
+<span class="fc" id="L72">					continue;</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">				if ( hashset.contains(words[j]) )</span>
 <span class="nc" id="L74">					continue;</span>
 				else {
-<span class="nc" id="L76">					hashset.add(words[j]);</span>
-<span class="nc" id="L77">					result += words[j];</span>
-<span class="nc" id="L78">					result += &quot;||&quot;;</span>
+<span class="fc" id="L76">					hashset.add(words[j]);</span>
+<span class="fc" id="L77">					result += words[j];</span>
+<span class="fc" id="L78">					result += &quot;||&quot;;</span>
 				}
 			}
 		}
 			
-<span class="nc" id="L83">		return result;</span>
+<span class="fc" id="L83">		return result;</span>
 	}
 	
 	public IReviewDAO getReviewDAO() {

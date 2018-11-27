@@ -40,18 +40,18 @@ import com.vplus.models.CourseModel;
 		
 <span class="fc" id="L41">		return res;</span>
 	}
-
-	public List&lt;String&gt; findCourseNumber(List&lt;String&gt; takenCourses){
-<span class="fc" id="L45">		List&lt;CourseModel&gt; allCourses = courseDAO.selectAllCourses();</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">		for(int i =0 ; i&lt; takenCourses.size() ; i++){</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">			for(int j =0; j&lt;takenCourses.size();j++){</span>
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">				if(allCourses.get(j).getCourseTitle().equals(takenCourses.get(i))){</span>
-<span class="nc" id="L49">					takenCourses.set(i, allCourses.get(j).getCourseNumber());</span>
-				}
-			}
-		}
-<span class="fc" id="L53">		return takenCourses;</span>
-	}
+//
+//	public List&lt;String&gt; findCourseNumber(List&lt;String&gt; takenCourses){
+//		List&lt;CourseModel&gt; allCourses = courseDAO.selectAllCourses();
+//		for(int i =0 ; i&lt; takenCourses.size() ; i++){
+//			for(int j =0; j&lt;takenCourses.size();j++){
+//				if(allCourses.get(j).getCourseTitle().equals(takenCourses.get(i))){
+//					takenCourses.set(i, allCourses.get(j).getCourseNumber());
+//				}
+//			}
+//		}
+//		return takenCourses;
+//	}
 
 	public ICourseDAO getCourseDAO() {
 <span class="fc" id="L57">		return courseDAO;</span>

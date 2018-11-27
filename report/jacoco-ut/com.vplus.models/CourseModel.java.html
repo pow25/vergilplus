@@ -150,7 +150,7 @@ import java.util.List;
 					+ &quot;\ndescription = &quot; + description;
 		
 <span class="fc" id="L152">		List&lt;String&gt; modelStrList = new ArrayList&lt;&gt;();</span>
-<span class="pc" id="L153">		coursePreq.forEach(model -&gt; modelStrList.add(courseNumber + &quot;,&quot; + sectionId));</span>
+<span class="fc" id="L153">		coursePreq.forEach(model -&gt; modelStrList.add(courseNumber + &quot;,&quot; + sectionId));</span>
 <span class="fc" id="L154">		String preqs = String.join(&quot;,&quot;, modelStrList);</span>
 <span class="fc" id="L155">		res += &quot; \ncoursePreq = &quot; + preqs</span>
 				+ &quot;\ninstructorPreq =  &quot; + instructorPreq

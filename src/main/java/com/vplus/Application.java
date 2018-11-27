@@ -120,7 +120,6 @@ public class Application implements CommandLineRunner {
 			Random r = new Random();
 			String user = String.valueOf(r.nextInt());
 			List<String> allInstructors = masterController.findAllInstructors();
-//			System.out.println(masterController.getWordsProfessor(meg));
 			while(!meg.toUpperCase().equals("OK")) {
 				String body = "{\"userId\": \""+ user + "\", \"message\": {\"word\":"+ "\""+meg +";"+detect+"\"" +"}}";
 				InvokeRequest req = new InvokeRequest().withFunctionName("Chatbot").withPayload(body); // optional
@@ -136,9 +135,9 @@ public class Application implements CommandLineRunner {
 					if(toS.contains(";")){
 						String[] pieces = toS.split(";");
 						detect = pieces[pieces.length-1];
-						if(toS.contains("I can\'t tell")){
-							detect = "false";
-						}
+//						if(toS.contains("I can\'t tell")){
+//							detect = "false";
+//						}
 						String output = pieces[0];
 						if(pieces.length>2) {
 							for(int j =1; j < pieces.length-1;j++) {
@@ -152,6 +151,7 @@ public class Application implements CommandLineRunner {
 								}
 								if(allInstructors.contains(keyword.toUpperCase())){
 									instructors.add(keyword);
+									System.out.println(masterController.getWordsProfessor(keyword));
 								}
 							}
 						}
@@ -180,8 +180,8 @@ public class Application implements CommandLineRunner {
 			}
 			System.out.println("Here is our recomendation for you!");
 			if (!topic.isEmpty()) {
-				List<String> converted = getTakenCourses(takenCourses);
-				List<CourseModel> rest = processTakenCourses(converted);
+//				List<String> converted = getTakenCourses(takenCourses);
+				List<CourseModel> rest = processTakenCourses(takenCourses);
 				for(int i=0;i<topic.size();i++) {
 					HashSet<CourseModel> res = searchKeywords(topic.get(i), rest);
 					res.forEach(System.out::println);
@@ -194,19 +194,18 @@ public class Application implements CommandLineRunner {
 				}
 
             }if(topic.isEmpty() && instructors.isEmpty()){
-				List<String> converted = getTakenCourses(takenCourses);
-				List<CourseModel> res = recommendCourses(converted);
+//				List<String> converted = getTakenCourses(takenCourses);
+				List<CourseModel> res = recommendCourses(takenCourses);
 				res.forEach(System.out::println);
 			}
-
-		int exitCode = SpringApplication.exit(ctx, () -> 0);
-		System.exit(exitCode);
+//		int exitCode = SpringApplication.exit(ctx, () -> 0);
+//		System.exit(exitCode);
 		return;
 	}
 
-	public List<String> getTakenCourses(List<String> takenCourses){
-		return masterController.convertCourseForm(takenCourses);
-	}
+//	public List<String> getTakenCourses(List<String> takenCourses){
+//		return masterController.convertCourseForm(takenCourses);
+//	}
 
 	public List<String> readTakenCourses() throws FileNotFoundException{
 		InputStream fis = new FileInputStream(JSON_PATH);
@@ -263,9 +262,6 @@ public class Application implements CommandLineRunner {
 		this.masterController = masterController;
 	}
 
-
-	
-	
 //	public ITrackService getTrackService() {
 //		return this.trackService;
 //	}
