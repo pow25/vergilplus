@@ -1,4 +1,4 @@
-# VergilPlus ![Travis status](https://travis-ci.com/pow25/vergilplus.svg?branch=master) [![codecov](https://codecov.io/gh/pow25/vergilplus/branch/master/graph/badge.svg)](https://codecov.io/gh/pow25/vergilplus) ![version](https://img.shields.io/badge/version-1.0.9-blue.svg?maxAge=2592000)
+# VergilPlus ![Travis status](https://travis-ci.org/pow25/vergilplus.svg?branch=master) [![codecov](https://codecov.io/gh/pow25/vergilplus/branch/master/graph/badge.svg)](https://codecov.io/gh/pow25/vergilplus) ![version](https://img.shields.io/badge/version-1.0.9-blue.svg?maxAge=2592000)
 
 Advanced Software Engineering Team Project
 
