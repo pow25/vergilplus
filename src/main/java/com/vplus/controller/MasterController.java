@@ -31,6 +31,7 @@ public class MasterController implements IMasterController{
 
 	public List<CourseModel> recommendCourses(List<String> takenCourses){
 		List<CourseModel> filteredCourses = filterCourses(takenCourses);
+		
 		List<Pair<String, Float>> result = reviewService.sort_base_on_reviews(filteredCourses);
 		result = result.subList(0, NUM_REC);
 		List<CourseModel> res = new ArrayList<CourseModel>();
