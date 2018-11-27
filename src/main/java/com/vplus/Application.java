@@ -119,7 +119,6 @@ public class Application implements CommandLineRunner {
 			Random r = new Random();
 			String user = String.valueOf(r.nextInt());
 			List<String> allInstructors = masterController.findAllInstructors();
-			List<String> input = new ArrayList<String>();
 			while(!meg.toUpperCase().equals("OK")) {
 				String body = "{\"userId\": \""+ user + "\", \"message\": {\"word\":"+ "\""+meg +";"+detect+"\"" +"}}";
 				InvokeRequest req = new InvokeRequest().withFunctionName("Chatbot").withPayload(body); // optional
