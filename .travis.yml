@@ -17,13 +17,3 @@ before_install:
 after_success:
 - "./push.sh"
 - bash <(curl -s https://codecov.io/bash)
-# deploy:
-#   provider: lambda
-#   function_name: Sentiment
-#   region: us-east-1
-#   role: arn:aws:iam::267836282592:role/service-role/Chatbot
-#   runtime: python3.6
-#   handler_name: lambda_handler
-#   access_key_id: AKIAJYLGFI4L6DHVOJZA  
-#   secret_access_key:
-#     secure: ZnstCqmJaNfcX3EX3jdnQaifXx2HuvPz0fFcAqPjBkWC6ILbVLRvC6S1XcXp8old8ZdFrA5cGOHGfyGIvkrSWeY+gcEduAFTgJi4/GpDvceYaN6fgAukFSh5Ukk9j9WVJ16pRXNlV05So/9ivvvec+7HZ9PlpOCPUdkjBBOGxPdn/5XdJSj4tfXNpXmvVwbzz/y6D7Pns/USpyCqGy6tTXYfXHFHMn0NZPGeq65iex0quCPvJvATJAqYcHP3FroVd063TUfX4YOtyjYsyhKK+nkV6NTxNN1gnIVvBRjLYxGGA5HK/8ji2atFL7fnQC0jRUJTdMUUTjCeRE6mLM90896QuW9wSTiiZkAtOCn6OFU8zrmyr2zZX3OtNH1giv7HsrAH6aXJgnP3/SU99DACdt1RzASLXCD6QjcDHO92c9w2vgn5rmP9w4gXRoKUO7ZC+Q4p9b90Q0On54fOZI3W88ppRnadWYUs9Fn3QHro+w+RMpJwUGe3dDQRfxjjOt+8BoW0ae81AFhGqXKxLff6G993JqE8h3BkXfOlOJeT3AGO5/NHuTxQSx5eucJYwQfd3Tu0JjlcMiZmlmwMsdCt6GLSvp0JVIw1ihp0u3IrtJhdQ1Fp2r98//1ZwNcmZkOLVagnaPquLlkhNejgJH3wVC/jwKe6JIBiHiWMde/6Qk0=

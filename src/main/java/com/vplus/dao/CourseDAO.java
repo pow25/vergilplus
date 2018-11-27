@@ -137,7 +137,6 @@ public class CourseDAO implements ICourseDAO{
 
 
 	public ArrayList<String> getInstructors() {
-		CourseModel course = new CourseModel();
 		String query = "SELECT Instructor FROM vergilplus.course;";
 		Connection con = null;
 		PreparedStatement ps = null;

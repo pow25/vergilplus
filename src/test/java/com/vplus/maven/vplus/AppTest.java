@@ -32,7 +32,6 @@ import com.amazonaws.services.lambda.model.InvokeResult;
 import java.io.ByteArrayInputStream;
 import java.io.BufferedReader;
 
-import org.mockito.Mockito.*;
 import sun.applet.Main;
 
 /**
