@@ -52,12 +52,11 @@ public class MasterController implements IMasterController{
 			return "No Professor Name!";
 		}
 
-		String[] buff = profName.split(" ");
+		String[] buff = profName.split(", ");
 
 		if (buff.length != 2) {
 			return "Error Professor Name!!";
 		}
-		profName = buff[1] + ", " + buff[0];
 
 		String output = reviewService.getWords(profName);
 		if (output.isEmpty())
