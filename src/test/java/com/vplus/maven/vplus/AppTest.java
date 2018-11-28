@@ -434,7 +434,7 @@ public class AppTest
 	public void getWordsProfessorValidEqNoRecord() {
 		String professor = "Verma,  Nakul";
 		String word = masterController.getWordsProfessor(professor);
-		assertTrue(!word.equals("Oh this professor seems quiet. We don't have any review records for him :D"));
+		assertTrue(word.equals("Oh this professor seems quiet. We don't have any review records for him :D"));
 	}
 
 	@Test
