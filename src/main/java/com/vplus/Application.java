@@ -44,7 +44,6 @@ public class Application implements CommandLineRunner {
 	public static final String JSON_PATH = "./data/user_input.json";
 	private String[] args;
 	public List<String> allTopics = new ArrayList<>();
-
 	/**
 	 * sets the application context using xml file
 	 */
@@ -78,6 +77,7 @@ public class Application implements CommandLineRunner {
         aLLTopics.add("algorithm");
         return aLLTopics;
     }
+
     public AWSLambda createLambda(){
         Regions region = Regions.fromName("us-east-1");
         AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()
@@ -98,11 +98,52 @@ public class Application implements CommandLineRunner {
 		List<CourseModel> takencourse = masterController.processTakenCourses(takenCourses, allCourses);
 		return takencourse;
 	}
+
 	//recommend courses based on taken course
 	public List<CourseModel> recommendCourses(List<String> takenCourses ) {
 		List<CourseModel> recommended = masterController.recommendCourses(takenCourses);
 		return recommended;
 	}
+
+	public List<String> readTakenCourses() throws FileNotFoundException{
+		InputStream fis = new FileInputStream(JSON_PATH);
+		JsonReader reader = Json.createReader(fis);
+
+		JsonObject personObject = reader.readObject();
+
+		reader.close();
+
+		JsonArray takenCoursesArray = personObject.getJsonArray("takenCourses");
+
+		List<String> takenCourses = new ArrayList<>();
+
+		for (JsonValue jsonValue : takenCoursesArray) {
+			takenCourses.add(jsonValue.toString().replaceAll("^\"|\"$", ""));
+		}
+
+		return takenCourses;
+	}
+
+	public HashSet<CourseModel> searchKeywords(String keyword, List<CourseModel> courses){
+		HashSet<CourseModel> matchedCourses = new HashSet<>();
+		for(CourseModel c: courses){
+			if(c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
+				matchedCourses.add(c);
+			}
+			else if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())){
+				matchedCourses.add(c);
+			}
+		}
+		if(matchedCourses.size()==0) {
+			for (CourseModel c : courses) {
+				if (c.getInstructor().toUpperCase().contains(keyword.split(" ")[1].toUpperCase())) {
+					matchedCourses.add(c);
+				}
+			}
+		}
+		return matchedCourses;
+	}
+
 	/**
 	 * Run the application
 	 */
@@ -191,56 +232,21 @@ public class Application implements CommandLineRunner {
 
             }if(topic.isEmpty() && instructors.isEmpty()){
 				List<CourseModel> res = recommendCourses(takenCourses);
-				res.forEach(System.out::println);
+				if(res.isEmpty()){
+						System.out.println("We don't have any recommendation for you. ");
+				}
+				else{
+					res.forEach(System.out::println);
+				}
 			}
-////		int exitCode = SpringApplication.exit(ctx, () -> 0);
-////		System.exit(exitCode);
+//			int exitCode = SpringApplication.exit(ctx, () -> 0);
+//			System.exit(exitCode);
 		return;
 	}
 
 //	public List<String> getTakenCourses(List<String> takenCourses){
 //		return masterController.convertCourseForm(takenCourses);
 //	}
-
-	public List<String> readTakenCourses() throws FileNotFoundException{
-		InputStream fis = new FileInputStream(JSON_PATH);
-        JsonReader reader = Json.createReader(fis);
-
-        JsonObject personObject = reader.readObject();
-
-        reader.close();
-
-        JsonArray takenCoursesArray = personObject.getJsonArray("takenCourses");
-
-		List<String> takenCourses = new ArrayList<>();
-
-        for (JsonValue jsonValue : takenCoursesArray) {
-            takenCourses.add(jsonValue.toString().replaceAll("^\"|\"$", ""));
-        }
-
-		return takenCourses;
-	}
-
-
-	public HashSet<CourseModel> searchKeywords(String keyword, List<CourseModel> courses){
-		HashSet<CourseModel> matchedCourses = new HashSet<>();
-		for(CourseModel c: courses){
-			if(c.getCourseTitle().toUpperCase().contains(keyword.toUpperCase())){
-				matchedCourses.add(c);
-			}
-			else if (c.getDescription().toUpperCase().contains(keyword.toUpperCase())){
-				matchedCourses.add(c);
-			}
-		}
-		if(matchedCourses.size()==0) {
-			for (CourseModel c : courses) {
-				if (c.getInstructor().toUpperCase().contains(keyword.split(" ")[1].toUpperCase())) {
-					matchedCourses.add(c);
-				}
-			}
-		}
-		return matchedCourses;
-	}
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication app = new SpringApplication(Application.class);

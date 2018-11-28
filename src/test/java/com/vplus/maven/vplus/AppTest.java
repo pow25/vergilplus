@@ -114,15 +114,83 @@ public class AppTest
 	}
 
 	@Test
-	public void recommendCourses() {
+	public void recommendCoursesValidEq() {
 		List<String> testCourses = new ArrayList<>();
 		testCourses.add("WCOMS4771");
 		testCourses.add("WCOMS4111");
 		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
 		assertTrue(recommended != null);
-		testCourses=new ArrayList<>();
-		recommended=masterController.recommendCourses(testCourses);
+	}
+
+	@Test
+	public void recommendCoursesValidEqTestBoundaryMin(){
+		List<String> testCourses = new ArrayList<>();
+		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
 		assertTrue(recommended != null);
+	}
+
+	@Test
+	public void recommendCoursesValidEqTestBoundaryMax(){
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4111");
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4156");
+		testCourses.add("WCOMS4995");
+		testCourses.add("WCOMS4731");
+		testCourses.add("WCOMS4701");
+		testCourses.add("WCOMS4167");
+		testCourses.add("WCOMS4733");
+		testCourses.add("WCOMS4119");
+		testCourses.add("WCOMS4113");
+		testCourses.add("WCOMS4236");
+		testCourses.add("WCOMS4170");
+		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
+		assertTrue(recommended != null);
+	}
+
+	@Test
+	public void recommendCoursesValidEqTestBoundaryBelowMax(){
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4111");
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4156");
+		testCourses.add("WCOMS4995");
+		testCourses.add("WCOMS4731");
+		testCourses.add("WCOMS4701");
+		testCourses.add("WCOMS4167");
+		testCourses.add("WCOMS4733");
+		testCourses.add("WCOMS4119");
+		testCourses.add("WCOMS4113");
+		testCourses.add("WCOMS4236");
+		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
+		assertTrue(recommended != null);
+	}
+
+	@Test
+	public void recommendCoursesInValidEqTestBoundaryAboveMax(){
+		List<String> testCourses = new ArrayList<>();
+		testCourses.add("WCOMS4111");
+		testCourses.add("WCOMS4771");
+		testCourses.add("WCOMS4156");
+		testCourses.add("WCOMS4995");
+		testCourses.add("WCOMS4731");
+		testCourses.add("WCOMS4701");
+		testCourses.add("WCOMS4167");
+		testCourses.add("WCOMS4733");
+		testCourses.add("WCOMS4119");
+		testCourses.add("WCOMS4113");
+		testCourses.add("WCOMS4236");
+		testCourses.add("WCOMS4170");
+		testCourses.add("WCOMS4170");
+		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
+		assertTrue(recommended != null);
+	}
+
+	@Test
+	public void recommendCoursesInValidEqTestBoundaryNull(){
+		List<String> testCourses = null;
+		List<CourseModel> recommended =  masterController.recommendCourses(testCourses);
+		assertTrue(recommended.isEmpty());
 	}
 
 	@Test
@@ -159,7 +227,7 @@ public class AppTest
 //	}
 
 	@Test
-	public void processTakenCourses() {
+	public void processTakenCoursesValidEq() {
 		List<CourseModel> totalCourse = courseService.selectAllCourses();
 		List<String> testCourses = new ArrayList<>();
 		testCourses.add("WCOMS4771");
@@ -170,9 +238,23 @@ public class AppTest
 				assertTrue(false);
 			}
 		});
-		List<String> nullCourses=new ArrayList<>();
-		filteredCourses=masterController.processTakenCourses(nullCourses,totalCourse);
-		assertTrue(filteredCourses.size()==totalCourse.size());
+
+	}
+
+	@Test
+	public void processTakenCoursesInValidEqTestBoundaryNull() {
+		List<CourseModel> totalCourse = courseService.selectAllCourses();
+		List<String> nullCourses = null;
+		List<CourseModel>filteredCourses = masterController.processTakenCourses(nullCourses, totalCourse);
+		assertTrue(filteredCourses.size() == totalCourse.size());
+	}
+
+	@Test
+	public void processTakenCoursesValidEqTestBoundaryMin() {
+		List<CourseModel> totalCourse = courseService.selectAllCourses();
+		List<String> nullCourses = new ArrayList<>();
+		List<CourseModel>filteredCourses = masterController.processTakenCourses(nullCourses, totalCourse);
+		assertTrue(filteredCourses.size() == totalCourse.size());
 	}
 
 	@Test
@@ -192,18 +274,47 @@ public class AppTest
 	}
 
 	@Test
-	public void filterByPrerequisites(){
-		List<CourseModel>testCoursesModel=new ArrayList<>();
-		CourseModel c= new CourseModel();
+	public void filterByPrerequisitesInvalidEqTestBoundaryNull(){
+		List<CourseModel>testCoursesModel = null;
+		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+		assertTrue(filteredCourses.isEmpty());
+	}
+
+	@Test
+	public void filterByPrerequisitesInvalidEqTestBoundaryMin(){
+		List<CourseModel>testCoursesModel = new ArrayList<>();
+		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+		assertTrue(filteredCourses.isEmpty());
+	}
+
+	@Test
+	public void filterByPrerequisitesValidEqHasPreq(){
+		List<CourseModel>testCoursesModel = new ArrayList<>();
+		CourseModel c = new CourseModel();
 		c.setCoursePreq(new ArrayList<>());
 		testCoursesModel.add(c);
-		c= new CourseModel();
-		List<String> clist=new ArrayList<>();
-		clist.add("WCOMS4111");
+		c = new CourseModel();
+		List<String> clist = new ArrayList<>();
+		clist.add("WCOMS4156");
 		c.setCoursePreq(clist);
 		testCoursesModel.add(c);
 		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
 		assertTrue(filteredCourses.size()!=testCoursesModel.size());
+	}
+
+	@Test
+	public void filterByPrerequisitesValidEqNoPreq(){
+		List<CourseModel>testCoursesModel=new ArrayList<>();
+		CourseModel c= new CourseModel();
+		c.setCoursePreq(new ArrayList<>());
+		testCoursesModel.add(c);
+		c = new CourseModel();
+		List<String> clist=new ArrayList<>();
+		clist.add("WCOMS4111");
+		c.setCoursePreq(new ArrayList<>());
+		testCoursesModel.add(c);
+		List<CourseModel> filteredCourses=masterController.filterByPrerequisites(testCoursesModel);
+		assertTrue(!filteredCourses.isEmpty());
 	}
 
 	@Test
@@ -250,7 +361,6 @@ public class AppTest
 		});
 	}
 
-
 	@Test
 	public void selectByNumSec() {
 		List<CourseModel> allMatchingCourses = courseService.selectCoursesByNumAndSection("WCOMS4771",1);
@@ -278,7 +388,6 @@ public class AppTest
 		assertTrue(words.size() > 0);
 	}
 
-
 	@Test
 	public void getWordsService() {
 		String professor = "Kaiser, Gail";
@@ -287,15 +396,42 @@ public class AppTest
 	}
 
 	@Test
-	public void getWordsProfessor() {
-		String professor = "Kaiser, Gail";
+	public void getWordsProfessorInvalidEqInvalidNameLengthOne() {
+		String professor = "Gail";
 		String word = masterController.getWordsProfessor(professor);
-		assertTrue(word !="");
+		assertTrue(word =="Error Professor Name!!");
 	}
 
+	@Test
+	public void getWordsProfessorInvalidEqInvalidNameLengthThree() {
+		String professor = "Gail E Kaiser";
+		String word = masterController.getWordsProfessor(professor);
+		assertTrue(word =="Error Professor Name!!");
+	}
 
 	@Test
-	public void getWordsProfessorNull() {
+	public void getWordsProfessorInvalidEqNullString() {
+		String professor = null;
+		String word = masterController.getWordsProfessor(professor);
+		assertTrue(word == "No Professor Name!");
+	}
+
+	@Test
+	public void getWordsProfessorInvalidEqEmptyString() {
+		String professor = "";
+		String word = masterController.getWordsProfessor(professor);
+		assertTrue(word == "No Professor Name!");
+	}
+
+	@Test
+	public void getWordsProfessorValidEqHasRecord() {
+		String professor = "Kaiser, Gail";
+		String word = masterController.getWordsProfessor(professor);
+		assertTrue(!word.equals(""));
+	}
+
+	@Test
+	public void getWordsProfessorValidEqNoRecord() {
 		String professor = "Verma,  Nakul";
 		String word = masterController.getWordsProfessor(professor);
 		assertTrue(!word.equals("Oh this professor seems quiet. We don't have any review records for him :D"));

@@ -30,11 +30,17 @@ public class MasterController implements IMasterController{
 	public static final Random rnd = new Random(SEED);
 
 	public List<CourseModel> recommendCourses(List<String> takenCourses){
+		List<CourseModel> res = new ArrayList<CourseModel>();
+		if(takenCourses == null){
+			System.out.println("Taken courses null!");
+			return res;
+		}
+		if(takenCourses.size() >= 12){
+			return res;
+		}
 		List<CourseModel> filteredCourses = filterCourses(takenCourses);
-		
 		List<Pair<String, Float>> result = reviewService.sort_base_on_reviews(filteredCourses);
 		result = result.subList(0, NUM_REC);
-		List<CourseModel> res = new ArrayList<CourseModel>();
 		for ( int i = 0; i < result.size(); ++i ) {
 			res.add( courseService.search_couse(result.get(i).getKey()) );
 		}
@@ -42,14 +48,18 @@ public class MasterController implements IMasterController{
 	}
 	
 	public String getWordsProfessor(String profName) {
-		
-		String input = "";
+		if(profName == null || profName.equals("")){
+			return "No Professor Name!";
+		}
+
 		String[] buff = profName.split(" ");
-		if (buff.length != 2)
+
+		if (buff.length != 2) {
 			return "Error Professor Name!!";
-		
-		input = buff[1] + ", " + buff[0];
-		String output = reviewService.getWords(input);
+		}
+		profName = buff[1] + ", " + buff[0];
+
+		String output = reviewService.getWords(profName);
 		if (output.isEmpty())
 			return "Oh this professor seems quiet. We don't have any review records for him :D";
 		else
@@ -66,8 +76,9 @@ public class MasterController implements IMasterController{
 	// acknowledge taken courses, e.g, make courses available, remove taken courses
 	public List<CourseModel> processTakenCourses(List<String> takenCourses, List<CourseModel> allCourses){
 //		takenCourses = convertCourseForm(takenCourses);
+
 		List<CourseModel> filteredCourses=new ArrayList<>();
-		if (takenCourses.isEmpty()) return allCourses;
+		if (takenCourses == null || takenCourses.isEmpty()) return allCourses;
 		for(CourseModel course : allCourses){
 			// if takenCourses and prereqs are not disjoint (i.e., there is overlap),
 			// prereq becomes empty, because all prereqs are joined by OR.
@@ -86,6 +97,9 @@ public class MasterController implements IMasterController{
 	// remove courses for which prerequisites are not fulfilled
 	public List<CourseModel> filterByPrerequisites(List<CourseModel> courses){
 			List<CourseModel> filteredCourses = new ArrayList<>();
+			if(courses == null || courses.isEmpty()){
+				return filteredCourses;
+			}
 			for (CourseModel course : courses) {
 				if (course.getCoursePreq().isEmpty()) {
 					filteredCourses.add(course);
@@ -129,18 +143,18 @@ public class MasterController implements IMasterController{
 			//belongs to systems
 			else if((course.getCourseNumber().contains("COMS41") && !course.getCourseNumber().contains("COMS4121") &&
 					!course.getCourseNumber().contains("COMS416") && !course.getCourseNumber().contains("COMS417")) ||
-//					course.getCourseNumber().contains("COMS48") || course.getCourseNumber().contains("COMS4444") ||
-//					course.getCourseNumber().contains("CSEE4119") || course.getCourseNumber().contains("EECS4340") ||
-					course.getCourseNumber().contains("CSEE4823") || course.getCourseNumber().contains("CSEE4824") ){
-//					course.getCourseNumber().contains("CSEE4840") || course.getCourseNumber().contains("CSEE4868")) {
+					course.getCourseNumber().contains("COMS48") || course.getCourseNumber().contains("COMS4444") ||
+					course.getCourseNumber().contains("CSEE4119") || course.getCourseNumber().contains("EECS4340") ||
+					course.getCourseNumber().contains("CSEE4823") || course.getCourseNumber().contains("CSEE4824") ||
+					course.getCourseNumber().contains("CSEE4840") || course.getCourseNumber().contains("CSEE4868")) {
 				breadthSystems.add(course);
 			}
 			//if COMS 47xx courses except COMS 4721 and COMS 4776
 			//All COMS 416x and COMS 417x; CBMF 4761
 			//belongs to AI & Applications
-			else if((course.getCourseNumber().contains("COMS47") && !course.getCourseNumber().contains("COMS4721"))){
-//					!course.getCourseNumber().contains("COMS4776")) || course.getCourseNumber().contains("COMS416") ||
-//					course.getCourseNumber().contains("COMS417") || course.getCourseNumber().contains("COMS4761")) {
+			else if((course.getCourseNumber().contains("COMS47") && !course.getCourseNumber().contains("COMS4721"))||
+					!course.getCourseNumber().contains("COMS4776") || course.getCourseNumber().contains("COMS416") ||
+					course.getCourseNumber().contains("COMS417") || course.getCourseNumber().contains("COMS4761")) {
 				breadthAI.add(course);
 			}
 		}
