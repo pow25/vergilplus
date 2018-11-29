@@ -28,6 +28,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.boot.ExitCodeGenerator;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import com.amazonaws.services.lambda.AWSLambda;
 import com.amazonaws.services.lambda.model.InvokeRequest;
@@ -238,14 +239,18 @@ public class Application implements CommandLineRunner {
 				List<CourseModel> rest = processTakenCourses(takenCourses);
 				for(int i=0;i<topic.size();i++) {
 					HashSet<CourseModel> res = searchKeywords(topic.get(i), rest);
+					System.out.println("----------------------------------------------------------------------");
 					System.out.println("Theses courses are related to topic: "+ topic.get(i));
+					System.out.println("----------------------------------------------------------------------");
 					res.forEach(System.out::println);
 					System.out.println("======================================================================");
 				}
 			}if(!instructors.isEmpty()){
 				for(int i =0;i<instructors.size();i++) {
 					HashSet<CourseModel> res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());
+					System.out.println("----------------------------------------------------------------------");
 					System.out.println("These courses are delivered by Prof. " + instructors.get(i) + ":");
+					System.out.println("----------------------------------------------------------------------");
 					res2.forEach(System.out::println);
 					System.out.println("======================================================================");
 				}
@@ -259,28 +264,13 @@ public class Application implements CommandLineRunner {
 					res.forEach(System.out::println);
 				}
 			}
-			try {
-				int exitCode = SpringApplication.exit(ctx, new ExitCodeGenerator() {
-					@Override
-					public int getExitCode() {
-						// no errors
-						return 0;
-					}
-				});
-			}catch (Exception e){
-				System.out.println(e.getCause());
-			}
-//		System.exit(exitCode);
 	}
-
-//	public List<String> getTakenCourses(List<String> takenCourses){
-//		return masterController.convertCourseForm(takenCourses);
-//	}
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication app = new SpringApplication(Application.class);
 		app.setBannerMode(Banner.Mode.OFF);
-		app.run(args);
+		ConfigurableApplicationContext ctx = app.run(args);
+		SpringApplication.exit(ctx, ()-> 0);
 		return;
 	}
 
