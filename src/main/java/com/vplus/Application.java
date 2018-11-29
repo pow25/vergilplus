@@ -238,8 +238,8 @@ public class Application implements CommandLineRunner {
 					res.forEach(System.out::println);
 				}
 			}
-//			int exitCode = SpringApplication.exit(ctx, () -> 0);
-//			System.exit(exitCode);
+			int exitCode = SpringApplication.exit(ctx, () -> 0);
+//		System.exit(exitCode);
 		return;
 	}
 

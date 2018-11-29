@@ -673,53 +673,53 @@ public class AppTest
 		String output = app.parseResponse(result);
 		assertTrue(!output.isEmpty());
 	}
-
-	@Test
-	public void testTopic() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);
-		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyea I am interested in machine learning\nCOMS4771\nyea\nok\n".getBytes());
-		System.setIn(in);
-		app.run();
-		assertTrue(true);
-	}
-
-	@Test
-	public void testInstructor() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);
-		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111\nyea\nok\n".getBytes());
-		System.setIn(in);
-		app.run();
-		assertTrue(true);
-	}
-
-
-	@Test
-	public void testTakenCourses() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);
-		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111 and machine learning\ncoms4771\nyea\nok\n".getBytes());
-		System.setIn(in);
-		app.run();
-		assertTrue(true);
-	}
-
-
-
-	@Test
-	public void testNotInterested() throws Exception {
-		Application app  = ctx.getBean("Application", Application.class);
-		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nno just recommend some\nCOMS4111 and machine learning\ncoms4771\nyea\nok\n".getBytes());
-		System.setIn(in);
-		app.run();
-		assertTrue(true);
-	}
-
-
-	@Test
-    public void testMain() throws Exception {
-        ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111\nyea\nok\n".getBytes());
-        System.setIn(in);
-        Application.main(new String[] {"arg1", "arg2", "arg3"});
-        assertTrue(true);
-    }
+//
+//	@Test
+//	public void testTopic() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);
+//		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyea I am interested in machine learning\nCOMS4771\nyea\nok\n".getBytes());
+//		System.setIn(in);
+//		app.run();
+//		assertTrue(true);
+//	}
+//
+//	@Test
+//	public void testInstructor() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);
+//		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111\nyea\nok\n".getBytes());
+//		System.setIn(in);
+//		app.run();
+//		assertTrue(true);
+//	}
+//
+//
+//	@Test
+//	public void testTakenCourses() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);
+//		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111 and machine learning\ncoms4771\nyea\nok\n".getBytes());
+//		System.setIn(in);
+//		app.run();
+//		assertTrue(true);
+//	}
+//
+//
+//
+//	@Test
+//	public void testNotInterested() throws Exception {
+//		Application app  = ctx.getBean("Application", Application.class);
+//		ByteArrayInputStream in = new ByteArrayInputStream("Hi\nno just recommend some\nCOMS4111 and machine learning\ncoms4771\nyea\nok\n".getBytes());
+//		System.setIn(in);
+//		app.run();
+//		assertTrue(true);
+//	}
+//
+//
+//	@Test
+//    public void testMain() throws Exception {
+//        ByteArrayInputStream in = new ByteArrayInputStream("Hi\nyeah I am interested in prof nakul verma\nCOMS4111\nyea\nok\n".getBytes());
+//        System.setIn(in);
+//        Application.main(new String[] {"arg1", "arg2", "arg3"});
+//        assertTrue(true);
+//    }
 }
 
