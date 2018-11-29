@@ -27,6 +27,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.ExitCodeGenerator;
 
 import com.amazonaws.services.lambda.AWSLambda;
 import com.amazonaws.services.lambda.model.InvokeRequest;
@@ -43,7 +44,6 @@ public class Application implements CommandLineRunner {
 
 	public static final String JSON_PATH = "./data/user_input.json";
 	private String[] args;
-	public List<String> allTopics = new ArrayList<>();
 	/**
 	 * sets the application context using xml file
 	 */
@@ -156,7 +156,7 @@ public class Application implements CommandLineRunner {
 			List<String> topic = new ArrayList<>();
 			List<String> instructors = new ArrayList<>();
 			String detect="false";
-			allTopics = getAllTopics();
+			List<String> allTopics = getAllTopics();
 			Random r = new Random();
 			String user = String.valueOf(r.nextInt());
 			List<String> allInstructors = masterController.findAllInstructors();
@@ -179,16 +179,34 @@ public class Application implements CommandLineRunner {
 						if(pieces.length>2) {
 							for(int j =1; j < pieces.length-1;j++) {
 								String keyword = pieces[j];
-								if (allTopics.contains(keyword)) {
-									topic.add(keyword);
+								ArrayList<String> keywords = new ArrayList<>();
+								if(keyword.contains(", ")){
+									String[] k = keyword.split(", ");
+									for(int i =0;i<k.length;i++){
+										keywords.add(k[i]);
+									}
 								}
-								if(keyword.contains(" "))
-								{
-									keyword = keyword.split(" ")[1]+", "+keyword.split(" ")[0];
+								if(keyword.contains(" and ")){
+									String[] k = keyword.split(" and ");
+									for(int i =0;i<k.length;i++){
+										keywords.add(k[i]);
+									}
 								}
-								if(allInstructors.contains(keyword.toUpperCase())){
-									instructors.add(keyword);
-									System.out.println(masterController.getWordsProfessor(keyword));
+								if(!keyword.contains(", ") && !keyword.contains(" and ")){
+									keywords.add(keyword);
+								}
+								for(int i=0;i < keywords.size(); i++) {
+									keyword = keywords.get(i);
+									if (allTopics.contains(keyword)) {
+										topic.add(keyword);
+									}
+									if (keyword.contains(" ")) {
+										keyword = keyword.split(" ")[1] + ", " + keyword.split(" ")[0];
+									}
+									if (allInstructors.contains(keyword.toUpperCase())) {
+										instructors.add(keyword);
+										System.out.println(masterController.getWordsProfessor(keyword));
+									}
 								}
 							}
 						}
@@ -220,13 +238,16 @@ public class Application implements CommandLineRunner {
 				List<CourseModel> rest = processTakenCourses(takenCourses);
 				for(int i=0;i<topic.size();i++) {
 					HashSet<CourseModel> res = searchKeywords(topic.get(i), rest);
+					System.out.println("Theses courses are related to topic: "+ topic.get(i));
 					res.forEach(System.out::println);
+					System.out.println("======================================================================");
 				}
 			}if(!instructors.isEmpty()){
 				for(int i =0;i<instructors.size();i++) {
 					HashSet<CourseModel> res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());
 					System.out.println("These courses are delivered by Prof. " + instructors.get(i) + ":");
 					res2.forEach(System.out::println);
+					System.out.println("======================================================================");
 				}
 
             }if(topic.isEmpty() && instructors.isEmpty()){
@@ -238,9 +259,18 @@ public class Application implements CommandLineRunner {
 					res.forEach(System.out::println);
 				}
 			}
-			int exitCode = SpringApplication.exit(ctx, () -> 0);
+			try {
+				int exitCode = SpringApplication.exit(ctx, new ExitCodeGenerator() {
+					@Override
+					public int getExitCode() {
+						// no errors
+						return 0;
+					}
+				});
+			}catch (Exception e){
+				System.out.println(e.getCause());
+			}
 //		System.exit(exitCode);
-		return;
 	}
 
 //	public List<String> getTakenCourses(List<String> takenCourses){
