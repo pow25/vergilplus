@@ -206,6 +206,7 @@ public class Application implements CommandLineRunner {
 									}
 									if (allInstructors.contains(keyword.toUpperCase())) {
 										instructors.add(keyword);
+										System.out.println(keyword+":");
 										System.out.println(masterController.getWordsProfessor(keyword));
 									}
 								}
@@ -241,8 +242,10 @@ public class Application implements CommandLineRunner {
 					HashSet<CourseModel> res = searchKeywords(topic.get(i), rest);
 					System.out.println("----------------------------------------------------------------------");
 					System.out.println("Theses courses are related to topic: "+ topic.get(i));
-					System.out.println("----------------------------------------------------------------------");
-					res.forEach(System.out::println);
+					for ( CourseModel m : res) {
+						System.out.println("----------------------------------------------------------------------");
+						System.out.println(m);
+					}
 					System.out.println("======================================================================");
 				}
 			}if(!instructors.isEmpty()){
@@ -250,8 +253,10 @@ public class Application implements CommandLineRunner {
 					HashSet<CourseModel> res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());
 					System.out.println("----------------------------------------------------------------------");
 					System.out.println("These courses are delivered by Prof. " + instructors.get(i) + ":");
-					System.out.println("----------------------------------------------------------------------");
-					res2.forEach(System.out::println);
+					for ( CourseModel m : res2) {
+						System.out.println("----------------------------------------------------------------------");
+						System.out.println(m);
+					}
 					System.out.println("======================================================================");
 				}
 
@@ -261,7 +266,10 @@ public class Application implements CommandLineRunner {
 						System.out.println("We don't have any recommendation for you. ");
 				}
 				else{
-					res.forEach(System.out::println);
+					for ( CourseModel m : res) {
+						System.out.println("----------------------------------------------------------------------");
+						System.out.println(m);
+					}
 				}
 			}
 	}
