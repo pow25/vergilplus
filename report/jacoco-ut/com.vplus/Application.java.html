@@ -177,7 +177,7 @@ import java.util.Random;
 <span class="fc" id="L177">						String[] pieces = toS.split(&quot;;&quot;);</span>
 <span class="fc" id="L178">						detect = pieces[pieces.length-1];</span>
 <span class="fc" id="L179">						String output = pieces[0];</span>
-<span class="pc bpc" id="L180" title="1 of 2 branches missed.">						if(pieces.length&gt;2) {</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">						if(pieces.length&gt;2) {</span>
 <span class="fc bfc" id="L181" title="All 2 branches covered.">							for(int j =1; j &lt; pieces.length-1;j++) {</span>
 <span class="fc" id="L182">								String keyword = pieces[j];</span>
 <span class="fc" id="L183">								ArrayList&lt;String&gt; keywords = new ArrayList&lt;&gt;();</span>
@@ -206,81 +206,89 @@ import java.util.Random;
 									}
 <span class="fc bfc" id="L207" title="All 2 branches covered.">									if (allInstructors.contains(keyword.toUpperCase())) {</span>
 <span class="fc" id="L208">										instructors.add(keyword);</span>
-<span class="fc" id="L209">										System.out.println(masterController.getWordsProfessor(keyword));</span>
+<span class="fc" id="L209">										System.out.println(keyword+&quot;:&quot;);</span>
+<span class="fc" id="L210">										System.out.println(masterController.getWordsProfessor(keyword));</span>
 									}
 								}
 							}
 						}
-<span class="fc" id="L214">						System.out.println(output);</span>
-<span class="fc" id="L215">					}</span>
+<span class="fc" id="L215">						System.out.println(output);</span>
+<span class="fc" id="L216">					}</span>
 					else{
-<span class="fc" id="L217">						System.out.println(toS);</span>
+<span class="fc" id="L218">						System.out.println(toS);</span>
 					}
 				}
 				else{
-<span class="fc" id="L221">					String[] pieces = toS.split(&quot;;&quot;);</span>
-<span class="fc" id="L222">					detect = pieces[pieces.length-1];</span>
-<span class="fc" id="L223">					String output = pieces[0];</span>
-<span class="pc bpc" id="L224" title="1 of 2 branches missed.">					if(toS.contains(&quot;What is the exact&quot;)){</span>
-<span class="nc" id="L225">						output = output.replace('\'', ' ');</span>
+<span class="fc" id="L222">					String[] pieces = toS.split(&quot;;&quot;);</span>
+<span class="fc" id="L223">					detect = pieces[pieces.length-1];</span>
+<span class="fc" id="L224">					String output = pieces[0];</span>
+<span class="pc bpc" id="L225" title="1 of 2 branches missed.">					if(toS.contains(&quot;What is the exact&quot;)){</span>
+<span class="nc" id="L226">						output = output.replace('\'', ' ');</span>
 					}
-<span class="fc" id="L227">					System.out.println(output);</span>
-<span class="fc bfc" id="L228" title="All 2 branches covered.">					if(toS.contains(&quot;We are searching for results for you!&quot;)) {</span>
-<span class="fc bfc" id="L229" title="All 2 branches covered.">						for (int i = 0; i &lt; pieces[1].split(&quot;, &quot;).length; ++i) {</span>
-<span class="fc" id="L230">							takenCourses.add(&quot;W&quot;+ pieces[1].split(&quot;, &quot;)[i].toUpperCase());</span>
+<span class="fc" id="L228">					System.out.println(output);</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">					if(toS.contains(&quot;We are searching for results for you!&quot;)) {</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">						for (int i = 0; i &lt; pieces[1].split(&quot;, &quot;).length; ++i) {</span>
+<span class="fc" id="L231">							takenCourses.add(&quot;W&quot;+ pieces[1].split(&quot;, &quot;)[i].toUpperCase());</span>
 						}
 					}
 
 				}
-<span class="fc" id="L235">				meg = br.readLine();</span>
-<span class="fc" id="L236">			}</span>
-<span class="fc" id="L237">			System.out.println(&quot;Here is our recomendation for you!&quot;);</span>
-<span class="fc bfc" id="L238" title="All 2 branches covered.">			if (!topic.isEmpty()) {</span>
-<span class="fc" id="L239">				List&lt;CourseModel&gt; rest = processTakenCourses(takenCourses);</span>
-<span class="fc bfc" id="L240" title="All 2 branches covered.">				for(int i=0;i&lt;topic.size();i++) {</span>
-<span class="fc" id="L241">					HashSet&lt;CourseModel&gt; res = searchKeywords(topic.get(i), rest);</span>
-<span class="fc" id="L242">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L243">					System.out.println(&quot;Theses courses are related to topic: &quot;+ topic.get(i));</span>
-<span class="fc" id="L244">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L245">					res.forEach(System.out::println);</span>
-<span class="fc" id="L246">					System.out.println(&quot;======================================================================&quot;);</span>
+<span class="fc" id="L236">				meg = br.readLine();</span>
+<span class="fc" id="L237">			}</span>
+<span class="fc" id="L238">			System.out.println(&quot;Here is our recomendation for you!&quot;);</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">			if (!topic.isEmpty()) {</span>
+<span class="fc" id="L240">				List&lt;CourseModel&gt; rest = processTakenCourses(takenCourses);</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">				for(int i=0;i&lt;topic.size();i++) {</span>
+<span class="fc" id="L242">					HashSet&lt;CourseModel&gt; res = searchKeywords(topic.get(i), rest);</span>
+<span class="fc" id="L243">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="fc" id="L244">					System.out.println(&quot;Theses courses are related to topic: &quot;+ topic.get(i));</span>
+<span class="fc bfc" id="L245" title="All 2 branches covered.">					for ( CourseModel m : res) {</span>
+<span class="fc" id="L246">						System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="fc" id="L247">						System.out.println(m);</span>
+<span class="fc" id="L248">					}</span>
+<span class="fc" id="L249">					System.out.println(&quot;======================================================================&quot;);</span>
 				}
-<span class="fc bfc" id="L248" title="All 2 branches covered.">			}if(!instructors.isEmpty()){</span>
-<span class="fc bfc" id="L249" title="All 2 branches covered.">				for(int i =0;i&lt;instructors.size();i++) {</span>
-<span class="fc" id="L250">					HashSet&lt;CourseModel&gt; res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());</span>
-<span class="fc" id="L251">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L252">					System.out.println(&quot;These courses are delivered by Prof. &quot; + instructors.get(i) + &quot;:&quot;);</span>
-<span class="fc" id="L253">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L254">					res2.forEach(System.out::println);</span>
-<span class="fc" id="L255">					System.out.println(&quot;======================================================================&quot;);</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">			}if(!instructors.isEmpty()){</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">				for(int i =0;i&lt;instructors.size();i++) {</span>
+<span class="fc" id="L253">					HashSet&lt;CourseModel&gt; res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());</span>
+<span class="fc" id="L254">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="fc" id="L255">					System.out.println(&quot;These courses are delivered by Prof. &quot; + instructors.get(i) + &quot;:&quot;);</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">					for ( CourseModel m : res2) {</span>
+<span class="fc" id="L257">						System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="fc" id="L258">						System.out.println(m);</span>
+<span class="fc" id="L259">					}</span>
+<span class="fc" id="L260">					System.out.println(&quot;======================================================================&quot;);</span>
 				}
 
-<span class="fc bfc" id="L258" title="All 4 branches covered.">            }if(topic.isEmpty() &amp;&amp; instructors.isEmpty()){</span>
-<span class="fc" id="L259">				List&lt;CourseModel&gt; res = recommendCourses(takenCourses);</span>
-<span class="pc bpc" id="L260" title="1 of 2 branches missed.">				if(res.isEmpty()){</span>
-<span class="nc" id="L261">						System.out.println(&quot;We don't have any recommendation for you. &quot;);</span>
+<span class="fc bfc" id="L263" title="All 4 branches covered.">            }if(topic.isEmpty() &amp;&amp; instructors.isEmpty()){</span>
+<span class="fc" id="L264">				List&lt;CourseModel&gt; res = recommendCourses(takenCourses);</span>
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">				if(res.isEmpty()){</span>
+<span class="nc" id="L266">						System.out.println(&quot;We don't have any recommendation for you. &quot;);</span>
 				}
 				else{
-<span class="fc" id="L264">					res.forEach(System.out::println);</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">					for ( CourseModel m : res) {</span>
+<span class="fc" id="L270">						System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="fc" id="L271">						System.out.println(m);</span>
+<span class="fc" id="L272">					}</span>
 				}
 			}
-<span class="fc" id="L267">	}</span>
+<span class="fc" id="L275">	}</span>
 
 	public static void main(String[] args) throws Exception {
-<span class="fc" id="L270">		SpringApplication app = new SpringApplication(Application.class);</span>
-<span class="fc" id="L271">		app.setBannerMode(Banner.Mode.OFF);</span>
-<span class="fc" id="L272">		ConfigurableApplicationContext ctx = app.run(args);</span>
-<span class="fc" id="L273">		SpringApplication.exit(ctx, ()-&gt; 0);</span>
-<span class="fc" id="L274">		return;</span>
+<span class="fc" id="L278">		SpringApplication app = new SpringApplication(Application.class);</span>
+<span class="fc" id="L279">		app.setBannerMode(Banner.Mode.OFF);</span>
+<span class="fc" id="L280">		ConfigurableApplicationContext ctx = app.run(args);</span>
+<span class="fc" id="L281">		SpringApplication.exit(ctx, ()-&gt; 0);</span>
+<span class="fc" id="L282">		return;</span>
 	}
 
 	public IMasterController getMasterController() {
-<span class="fc" id="L278">		return masterController;</span>
+<span class="fc" id="L286">		return masterController;</span>
 	}
 
 	public void setMasterController(IMasterController masterController) {
-<span class="fc" id="L282">		this.masterController = masterController;</span>
-<span class="fc" id="L283">	}</span>
+<span class="fc" id="L290">		this.masterController = masterController;</span>
+<span class="fc" id="L291">	}</span>
 
 //	public ITrackService getTrackService() {
 //		return this.trackService;
