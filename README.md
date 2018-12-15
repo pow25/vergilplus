@@ -1,6 +1,6 @@
 # VergilPlus ![Travis status](https://travis-ci.org/pow25/vergilplus.svg?branch=master) [![codecov](https://codecov.io/gh/pow25/vergilplus/branch/master/graph/badge.svg)](https://codecov.io/gh/pow25/vergilplus) ![version](https://img.shields.io/badge/version-2.0.0-blue.svg?maxAge=2592000)
 
-### Advanced Software Engineering Team Project
+### Advanced Software Engineering Team Project[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)]
 
 VirgilPlus is a software that makes course planning effortless for students. Whereas currently students have to browse through an entire catalog that contains mostly irrelevant or unavailable courses, VirgilPlus lets students bypass the frustration of picking out the courses right for them. In particular, given a set of courses that a student has already taken and a topic that student has interest in, VirgilPlus outputs the courses that fit these constraints up to a threshold, and eases the process of choosing desired courses. The course recommending system is based on sentimental analysis of previous students' reviews. It will find the course and professor that suit you the most. 
 
