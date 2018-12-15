@@ -31,7 +31,7 @@ Download the source code and use mvn install to install our project, like stated
 3. Vergilplus then will perform correlated functionalities<br />
     &nbsp;&nbsp;&nbsp;&nbsp;a. It will search description words of the professor in our database and tell the user correlated courses taught by him/her.<br />
     &nbsp;&nbsp;&nbsp;&nbsp;b. It will search all courses in our database that are related to specified topics<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;c. It will recommend 4 courses(usually) based on previous students' reviews of those courses. The recommendation is also based on the user's previous taken courses.<br />  
+    &nbsp;&nbsp;&nbsp;&nbsp;c. It will recommend 4 courses(usually) based on previous students' reviews of those courses. The recommendation is also based on user's previous taken courses.<br />  
 <br />
 
 ***Technology used: Java, Travis CI, Maven, Spring, Junit, Mysql, python, sonarclound, PMD, Jacoco+Codecov, AWS Lex, Google Cloud Natural Language API***
