@@ -8,9 +8,9 @@ Build/Test: The Vergilpls is managed by maven, including Junit test. To build ou
 
 Install:download the source code and use mvn install to install our project
 
-Operation:
-1, Vergilplus will greet user by welcom message
-2, user will type which functionalities he/she want to user
+Operation:<br />
+1, Vergilplus will greet user by welcom message<br />
+2, user will type which functionalities he/she want to user<br />
     a, Tell me about Professor + "Professor name" / I am interested in professor + "Professor name"
     b, I am interested in + "course topics, like machine learning"
     c, I want course recommendation
