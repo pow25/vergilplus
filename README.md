@@ -1,14 +1,20 @@
-# VergilPlus ![Travis status](https://travis-ci.org/pow25/vergilplus.svg?branch=master) [![codecov](https://codecov.io/gh/pow25/vergilplus/branch/master/graph/badge.svg)](https://codecov.io/gh/pow25/vergilplus) ![version](https://img.shields.io/badge/version-2.0.0-blue.svg?maxAge=2592000)
+### VergilPlus ![Travis status](https://travis-ci.org/pow25/vergilplus.svg?branch=master) [![codecov](https://codecov.io/gh/pow25/vergilplus/branch/master/graph/badge.svg)](https://codecov.io/gh/pow25/vergilplus) ![version](https://img.shields.io/badge/version-2.0.0-blue.svg?maxAge=2592000)
 
-Advanced Software Engineering Team Project
+# Advanced Software Engineering Team Project
 
 VirgilPlus is a software that makes course planning effortless for students. Whereas currently students have to browse through an entire catalog that contains mostly irrelevant or unavailable courses, VirgilPlus lets students bypass the frustration of picking out the courses right for them. In particular, given a set of courses that a student has already taken and a topic that student has interest in, VirgilPlus outputs the courses that fit these constraints up to a threshold, and eases the process of choosing desired courses. The course recommending system is based on sentimental analysis of previous students' reviews. It will find the course and professor that suit you the most. 
 
-Build/Test: The Vergilpls is managed by maven, including Junit test. To build our project simply run mvn build, same for testing
+## Build/Test: <br />
+'''
+The Vergilpls is managed by maven, including Junit test. To build our project simply run mvn build, same for testing
+'''
 
-Install: Download the source code and use mvn install to install our project
+## Install: <br />
+'''
+Download the source code and use mvn install to install our project
+'''
 
-Operation:<br />
+## Operation:<br />
 1. Vergilplus will greet user by welcome message<br />
 2. user will type which functionalities he/she want to use<br />
     &nbsp;&nbsp;&nbsp;&nbsp;a. Tell me about Professor + "Professor name" / I am interested in professor + "Professor name"<br />
