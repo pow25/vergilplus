@@ -15,7 +15,7 @@ Operation:<br />
     &nbsp;&nbsp;&nbsp;&nbsp;b, I am interested in + "course topics, like machine learning"<br />
     &nbsp;&nbsp;&nbsp;&nbsp;c, I want course recommendation<br />
 3, Vergilplus then will perform correlated functionalities<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;a, It will search description words of this professor in our database and tell the user correlated courses taught by that professor.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;a, It will search description words of the professor in our database and tell the user correlated courses taught by him/her.<br />
     &nbsp;&nbsp;&nbsp;&nbsp;b, It will search all courses in our database that are related to specified topics<br />
     &nbsp;&nbsp;&nbsp;&nbsp;c, It will recommend 4 courses(usually) based on previous students' reviews of those courses. The recommendation is also based on              user's previous taken courses.<br />  
 
