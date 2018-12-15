@@ -6,7 +6,7 @@ VirgilPlus is a software that makes course planning effortless for students. Whe
 
 ## Build/Test: <br />
 ```
-The Vergilpls is managed by maven, including Junit test. To build our project simply run mvn build, same for testing
+Vergilpls is managed by maven, including Junit test. To build our project simply run mvn build, same for testing
 ```
 
 ## Install: <br />
