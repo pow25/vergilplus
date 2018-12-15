@@ -6,7 +6,7 @@ VergilPlus is a software that makes course planning effortless for students. Whe
 
 ## Build: <br />
 ```
-Vergilplus is managed by maven and Junit test. To build our project:
+Vergilplus is managed by maven. To build our project:
 1. Open terminal enter project directory.
 2. run "mvn install". All the unit test cases will run automatically and if all use cases passed, the project is built successfully.
 ```
@@ -14,7 +14,7 @@ Vergilplus is managed by maven and Junit test. To build our project:
 ## Install: <br />
 ```
 Download the source code and use mvn install to install our project, like stated before.
-Load Mysql database using sql file in data/vergilplus.sql.  We assume your database username is dbuser, and password is also dbuser.
+Load Mysql database using sql file in data/vergilplus.sql.  We assume your database username is "dbuser", and password is also "dbuser".
 Our software uses Amazon AWS Lex, which requires a private key.  Please contact us if you want to obtain our key.
 ```
 
