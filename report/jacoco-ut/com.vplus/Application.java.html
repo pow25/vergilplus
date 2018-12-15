@@ -198,16 +198,16 @@ import java.util.Random;
 								}
 <span class="fc bfc" id="L199" title="All 2 branches covered.">								for(int i=0;i &lt; keywords.size(); i++) {</span>
 <span class="fc" id="L200">									keyword = keywords.get(i);</span>
-<span class="fc bfc" id="L201" title="All 2 branches covered.">									if (allTopics.contains(keyword)) {</span>
-<span class="fc" id="L202">										topic.add(keyword);</span>
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">									if (allTopics.contains(keyword)) {</span>
+<span class="nc" id="L202">										topic.add(keyword);</span>
 									}
 <span class="pc bpc" id="L204" title="1 of 2 branches missed.">									if (keyword.contains(&quot; &quot;)) {</span>
-<span class="fc" id="L205">										keyword = keyword.split(&quot; &quot;)[1] + &quot;, &quot; + keyword.split(&quot; &quot;)[0];</span>
+<span class="nc" id="L205">										keyword = keyword.split(&quot; &quot;)[1] + &quot;, &quot; + keyword.split(&quot; &quot;)[0];</span>
 									}
-<span class="fc bfc" id="L207" title="All 2 branches covered.">									if (allInstructors.contains(keyword.toUpperCase())) {</span>
-<span class="fc" id="L208">										instructors.add(keyword);</span>
-<span class="fc" id="L209">										System.out.println(keyword+&quot;:&quot;);</span>
-<span class="fc" id="L210">										System.out.println(masterController.getWordsProfessor(keyword));</span>
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">									if (allInstructors.contains(keyword.toUpperCase())) {</span>
+<span class="nc" id="L208">										instructors.add(keyword);</span>
+<span class="nc" id="L209">										System.out.println(keyword+&quot;:&quot;);</span>
+<span class="nc" id="L210">										System.out.println(masterController.getWordsProfessor(keyword));</span>
 									}
 								}
 							}
@@ -236,31 +236,31 @@ import java.util.Random;
 <span class="fc" id="L236">				meg = br.readLine();</span>
 <span class="fc" id="L237">			}</span>
 <span class="fc" id="L238">			System.out.println(&quot;Here is our recomendation for you!&quot;);</span>
-<span class="fc bfc" id="L239" title="All 2 branches covered.">			if (!topic.isEmpty()) {</span>
-<span class="fc" id="L240">				List&lt;CourseModel&gt; rest = processTakenCourses(takenCourses);</span>
-<span class="fc bfc" id="L241" title="All 2 branches covered.">				for(int i=0;i&lt;topic.size();i++) {</span>
-<span class="fc" id="L242">					HashSet&lt;CourseModel&gt; res = searchKeywords(topic.get(i), rest);</span>
-<span class="fc" id="L243">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L244">					System.out.println(&quot;Theses courses are related to topic: &quot;+ topic.get(i));</span>
-<span class="fc bfc" id="L245" title="All 2 branches covered.">					for ( CourseModel m : res) {</span>
-<span class="fc" id="L246">						System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L247">						System.out.println(m);</span>
-<span class="fc" id="L248">					}</span>
-<span class="fc" id="L249">					System.out.println(&quot;======================================================================&quot;);</span>
+<span class="pc bpc" id="L239" title="1 of 2 branches missed.">			if (!topic.isEmpty()) {</span>
+<span class="nc" id="L240">				List&lt;CourseModel&gt; rest = processTakenCourses(takenCourses);</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">				for(int i=0;i&lt;topic.size();i++) {</span>
+<span class="nc" id="L242">					HashSet&lt;CourseModel&gt; res = searchKeywords(topic.get(i), rest);</span>
+<span class="nc" id="L243">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L244">					System.out.println(&quot;Theses courses are related to topic: &quot;+ topic.get(i));</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">					for ( CourseModel m : res) {</span>
+<span class="nc" id="L246">						System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L247">						System.out.println(m);</span>
+<span class="nc" id="L248">					}</span>
+<span class="nc" id="L249">					System.out.println(&quot;======================================================================&quot;);</span>
 				}
-<span class="fc bfc" id="L251" title="All 2 branches covered.">			}if(!instructors.isEmpty()){</span>
-<span class="fc bfc" id="L252" title="All 2 branches covered.">				for(int i =0;i&lt;instructors.size();i++) {</span>
-<span class="fc" id="L253">					HashSet&lt;CourseModel&gt; res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());</span>
-<span class="fc" id="L254">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L255">					System.out.println(&quot;These courses are delivered by Prof. &quot; + instructors.get(i) + &quot;:&quot;);</span>
-<span class="fc bfc" id="L256" title="All 2 branches covered.">					for ( CourseModel m : res2) {</span>
-<span class="fc" id="L257">						System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
-<span class="fc" id="L258">						System.out.println(m);</span>
-<span class="fc" id="L259">					}</span>
-<span class="fc" id="L260">					System.out.println(&quot;======================================================================&quot;);</span>
+<span class="pc bpc" id="L251" title="1 of 2 branches missed.">			}if(!instructors.isEmpty()){</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">				for(int i =0;i&lt;instructors.size();i++) {</span>
+<span class="nc" id="L253">					HashSet&lt;CourseModel&gt; res2 = searchKeywords(instructors.get(i), masterController.fetchAllCourses());</span>
+<span class="nc" id="L254">					System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L255">					System.out.println(&quot;These courses are delivered by Prof. &quot; + instructors.get(i) + &quot;:&quot;);</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">					for ( CourseModel m : res2) {</span>
+<span class="nc" id="L257">						System.out.println(&quot;----------------------------------------------------------------------&quot;);</span>
+<span class="nc" id="L258">						System.out.println(m);</span>
+<span class="nc" id="L259">					}</span>
+<span class="nc" id="L260">					System.out.println(&quot;======================================================================&quot;);</span>
 				}
 
-<span class="fc bfc" id="L263" title="All 4 branches covered.">            }if(topic.isEmpty() &amp;&amp; instructors.isEmpty()){</span>
+<span class="pc bpc" id="L263" title="2 of 4 branches missed.">            }if(topic.isEmpty() &amp;&amp; instructors.isEmpty()){</span>
 <span class="fc" id="L264">				List&lt;CourseModel&gt; res = recommendCourses(takenCourses);</span>
 <span class="pc bpc" id="L265" title="1 of 2 branches missed.">				if(res.isEmpty()){</span>
 <span class="nc" id="L266">						System.out.println(&quot;We don't have any recommendation for you. &quot;);</span>
