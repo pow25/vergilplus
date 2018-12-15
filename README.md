@@ -1,30 +1,30 @@
 # VergilPlus ![Travis status](https://travis-ci.org/pow25/vergilplus.svg?branch=master) [![codecov](https://codecov.io/gh/pow25/vergilplus/branch/master/graph/badge.svg)](https://codecov.io/gh/pow25/vergilplus) ![version](https://img.shields.io/badge/version-2.0.0-blue.svg?maxAge=2592000)
 
-### Advanced Software Engineering Team Project ![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)
+### Advanced Software Engineering Team Project
 
-VirgilPlus is a software that makes course planning effortless for students. Whereas currently students have to browse through an entire catalog that contains mostly irrelevant or unavailable courses, VirgilPlus lets students bypass the frustration of picking out the courses right for them. In particular, given a set of courses that a student has already taken and a topic that student has interest in, VirgilPlus outputs the courses that fit these constraints up to a threshold, and eases the process of choosing desired courses. The course recommending system is based on sentimental analysis of previous students' reviews. It will find the course and professor that suit you the most. 
+VergilPlus is a software that makes course planning effortless for students. Whereas currently students have to browse through an entire catalog that contains mostly irrelevant or unavailable courses, VergilPlus lets students bypass the frustration of picking out the courses right for them. In particular, given a set of courses that a student has already taken, a professor that the student would like to work with and a topic that student has interest in, VergilPlus outputs the courses that fit these constraints up to a threshold, and eases the process of choosing desired courses. The course recommending system is based on sentimental analysis of previous students' reviews. It will find the courses that suit you the most. 
 
 ## Build/Test: <br />
 ```
-Vergilpls is managed by maven, including Junit test. To build our project simply run mvn build, same for testing
+Vergilpls is managed by maven and Junit test. To build our project:
+1. Open terminal enter project directory.
+2. run "mvn install" or "mvn test". All the unit test cases will run automatically and if all use cases passed, the project is built successfully.
 ```
 
 ## Install: <br />
 ```
-Download the source code and use mvn install to install our project
+Download the source code and use mvn install to install our project, like stated before.
 ```
 
 ## Operation:<br />
-1. Vergilplus will greet user by welcome message<br />
-2. user will type which functionalities he/she want to use<br />
+1. Vergilplus will greet user by welcome message.<br />
+2. User can type the following sentences to start searching<br />
     &nbsp;&nbsp;&nbsp;&nbsp;a. Tell me about Professor + "Professor name" / I am interested in professor + "Professor name"<br />
     &nbsp;&nbsp;&nbsp;&nbsp;b. I am interested in + "course topics, like machine learning"<br />
     &nbsp;&nbsp;&nbsp;&nbsp;c. I want course recommendation<br />
 3. Vergilplus then will perform correlated functionalities<br />
     &nbsp;&nbsp;&nbsp;&nbsp;a. It will search description words of the professor in our database and tell the user correlated courses taught by him/her.<br />
     &nbsp;&nbsp;&nbsp;&nbsp;b. It will search all courses in our database that are related to specified topics<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;c. It will recommend 4 courses(usually) based on previous students' reviews of those courses. The recommendation is also based on user's previous taken courses.<br />  
+    &nbsp;&nbsp;&nbsp;&nbsp;c. It will recommend 4 courses(usually) based on previous students' reviews of those courses. The recommendation is also based on the user's previous taken courses.<br />  
 
-<br />
-
-***Technology used: Java, Travis CI, Maven, Spring, Junit, Mysql, python, sonarclound, PMD, Jacoco+Codecov, AWS Lex, Google Cloud Natural Language API***
+Technology used: Java, Travis CI, Maven, Spring, Junit, Mysql, python, sonarclound, PMD, Jacoco+Codecov, AWS Lex, Google Cloud Natural Language
