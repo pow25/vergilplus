@@ -8,4 +8,15 @@ Build/Test: The Vergilpls is managed by maven, including Junit test. To build ou
 
 Install:download the source code and use mvn install to install our project
 
+Operation:
+1, Vergilplus will greet user by welcom message
+2, user will type which functionalities he/she want to user
+    a, Tell me about Professor + "Professor name" / I am interested in professor + "Professor name"
+    b, I am interested in + "course topics, like machine learning"
+    c, I want course recommendation
+3, Vergilplus then will perform correlated functionalities
+    a, It will search description words of this professor in our database and tell the user correlated courses taught by that professor.
+    b, It will search all courses in our database that are related to specified topics
+    c, It will recommend 4 courses(usually) based on previous students' reviews of those courses. The recommendation is also based on              user's previous taken courses.  
+
 Technology used: Java, Travis CI, Maven, Spring, Junit, Mysql, python, sonarclound, PMD, Jacoco+Codecov, AWS Lex, Google Cloud Natural Language
