@@ -14,6 +14,7 @@ Vergilplus is managed by maven and Junit test. To build our project:
 ## Install: <br />
 ```
 Download the source code and use mvn install to install our project, like stated before.
+Load Mysql database using sql file in data/vergilplus.sql
 ```
 
 ## Test: <br />
