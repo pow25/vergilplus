@@ -25,4 +25,4 @@ Download the source code and use mvn install to install our project
     &nbsp;&nbsp;&nbsp;&nbsp;b. It will search all courses in our database that are related to specified topics<br />
     &nbsp;&nbsp;&nbsp;&nbsp;c. It will recommend 4 courses(usually) based on previous students' reviews of those courses. The recommendation is also based on user's previous taken courses.<br />  
 
-Technology used: Java, Travis CI, Maven, Spring, Junit, Mysql, python, sonarclound, PMD, Jacoco+Codecov, AWS Lex, Google Cloud Natural Language
+***Technology used: Java, Travis CI, Maven, Spring, Junit, Mysql, python, sonarclound, PMD, Jacoco+Codecov, AWS Lex, Google Cloud Natural Language API***
