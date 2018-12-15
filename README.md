@@ -31,7 +31,7 @@ Our project uses JUnit test tool and Jacoco for testing. To test our project sim
 4. VergilPlus asks for previous taken courses, which users may input using course number, preferably in the format of "COMSW4111".
 5. Vergilplus then will perform correlated functionalities<br />
     &nbsp;&nbsp;&nbsp;&nbsp;a. It will search sentimental words of the professor in our database and tell the user what courses th professor teaches.
-    &nbsp;&nbsp;b. It will search all courses in our database that are related to the specified topic.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;b. It will search all courses in our database that are related to the specified topic.<br />
     &nbsp;&nbsp;&nbsp;&nbsp;c. It will recommend courses based on our sentiment analysis of previous course reviews.<br />
     All course recommendations take into account the student's previous courses.
 <br />
