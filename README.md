@@ -11,7 +11,7 @@ Install:download the source code and use mvn install to install our project
 Operation:<br />
 1, Vergilplus will greet user by welcom message<br />
 2, user will type which functionalities he/she want to user<br />
-    a, Tell me about Professor + "Professor name" / I am interested in professor + "Professor name"<br />
+    &nbsp a, Tell me about Professor + "Professor name" / I am interested in professor + "Professor name"<br />
     b, I am interested in + "course topics, like machine learning"<br />
     c, I want course recommendation<br />
 3, Vergilplus then will perform correlated functionalities<br />
