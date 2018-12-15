@@ -15,7 +15,7 @@ Vergilplus is managed by maven. To build our project:
 ```
 Download the source code and use mvn install to install our project, like stated before.
 Load Mysql database using sql file in data/vergilplus.sql.  We assume your database username is "dbuser", and password is also "dbuser".
-Our software uses Amazon AWS Lex, which requires a private key.  Please contact us if you want to obtain our key.
+Our software uses Amazon AWS Lex, which requires a private key. Please contact us if you want to obtain our key.
 ```
 
 ## Test: <br />
