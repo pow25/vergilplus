@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReviewModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">vplus</a> &gt; <a href="index.source.html" class="el_package">com.vplus.models</a> &gt; <span class="el_source">ReviewModel.java</span></div><h1>ReviewModel.java</h1><pre class="source lang-java linenums">package com.vplus.models;
 
 <span class="fc" id="L3">public class ReviewModel {</span>
-	private String Professor_name;
-	private String courseID;
-	private String Review;
-	private float score;
-	private float magnitude;
+	private String profName;
+	private String courseNumber;
+	private String review;
+	private double score;
+	private double magnitude;
 	
-	public String getProf() {
-<span class="fc" id="L11">		return Professor_name;</span>
+	public String getProfName() {
+<span class="fc" id="L11">		return profName;</span>
 	}
 
-	public void setProf(String Professor_name) {
-<span class="fc" id="L15">		this.Professor_name = Professor_name;</span>
+	public void setProfName(String profName) {
+<span class="fc" id="L15">		this.profName = profName;</span>
 <span class="fc" id="L16">	}</span>
 
-	public String getCourseID() {
-<span class="fc" id="L19">		return courseID;</span>
+	public String getCourseNumber() {
+<span class="fc" id="L19">		return courseNumber;</span>
 	}
 
-	public void setCourseID(String courseID) {
-<span class="fc" id="L23">		this.courseID = courseID;</span>
+	public void setCourseNumber(String courseNumber) {
+<span class="fc" id="L23">		this.courseNumber = courseNumber;</span>
 <span class="fc" id="L24">	}</span>
 
 	public String getReview() {
-<span class="fc" id="L27">		return Review;</span>
+<span class="fc" id="L27">		return review;</span>
 	}
 
-	public void setReview(String Review) {
-<span class="fc" id="L31">		this.Review = Review;</span>
+	public void setReview(String review) {
+<span class="fc" id="L31">		this.review = review;</span>
 <span class="fc" id="L32">	}</span>
-	
-	public float getscore() {
+
+	public double getScore() {
 <span class="fc" id="L35">		return score;</span>
 	}
 
-	public void setscore(float score) {
+	public void setScore(double score) {
 <span class="fc" id="L39">		this.score = score;</span>
 <span class="fc" id="L40">	}</span>
-	
-	public float getmagnitude() {
+
+	public double getMagnitude() {
 <span class="fc" id="L43">		return magnitude;</span>
 	}
 
-	public void setmagnitude(float magnitude) {
+	public void setMagnitude(double magnitude){
 <span class="fc" id="L47">		this.magnitude = magnitude;</span>
 <span class="fc" id="L48">	}</span>
-	
+
 	@Override
 	public String toString(){
-<span class="fc" id="L52">		return &quot;{courseID=&quot;+courseID+&quot;,Professor=&quot;+Professor_name+&quot;,Score:&quot;+score+&quot;}&quot;;</span>
+<span class="fc" id="L52">		return &quot;{courseNumber=&quot;+courseNumber+&quot;,profName=&quot;+profName+&quot;,score=&quot;+score+&quot;}&quot;;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

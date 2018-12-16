@@ -31,10 +31,10 @@ public class ReviewDAO implements IReviewDAO{
 				while(rs.next()){
 					ReviewModel review = new ReviewModel();
 					
-					review.setCourseID(rs.getString("number"));
-					review.setProf(rs.getString("professor"));
-					review.setmagnitude(Float.parseFloat(rs.getString("magnitude")));
-					review.setscore(Float.parseFloat(rs.getString("score")));
+					review.setCourseNumber(rs.getString("number"));
+					review.setProfName(rs.getString("professor"));
+					review.setMagnitude(Float.parseFloat(rs.getString("magnitude")));
+					review.setScore(Float.parseFloat(rs.getString("score")));
 					review.setReview(rs.getString("review"));
 					reviewList.add(review);
 				}
@@ -54,7 +54,7 @@ public class ReviewDAO implements IReviewDAO{
 		return reviewList;
 	}	
 	
-	public List<String> getWords( String professor ) {
+	public List<String> getWords(String professor){
 
 		String query = "SELECT words FROM vergilplus.sentiment where professor=\'";
 		query += professor + "\';";
@@ -84,23 +84,21 @@ public class ReviewDAO implements IReviewDAO{
 				System.err.println("An Exception occured in getAdj!");
 			}
 		}
-		
 		return res;
 	}
 	
-	public List<String> getReview(String courseID, String Prof) {
-		
-		if ( Prof.isEmpty() && courseID.isEmpty() )
+	public List<String> getReview(String courseNumber, String profName){
+		if(profName.isEmpty() && courseNumber.isEmpty() )
 			return null;
 		
 		String query = "SELECT review FROM vergilplus.sentiment where ";
 		
-		if ( Prof.isEmpty() )
-			query += "number= \'" + courseID + "\';" ;
-		else if ( courseID.isEmpty() )
-			query += "professor= \'" + Prof + "\';" ;
+		if (profName.isEmpty())
+			query += "number= \'" + courseNumber + "\';" ;
+		else if (courseNumber.isEmpty() )
+			query += "professor= \'" + profName + "\';" ;
 		else
-			query += "number= \'" + courseID + "\' AND professor= \'" + Prof + "\';" ;
+			query += "number= \'" + courseNumber + "\' AND professor= \'" + profName + "\';" ;
 		
 		List<String> res = new ArrayList<String>();		
 		Connection con = null;
@@ -132,10 +130,10 @@ public class ReviewDAO implements IReviewDAO{
 	}
 	
 	@Override
-	public float get_course_rating( String courseID ){
-		float res = 0f;
+	public double getCourseRating(String courseNumber){
+		double res = 0;
 		String query = "SELECT * FROM vergilplus.sentiment where number=\'"
-					   +courseID+"';";
+					   +courseNumber+"';";
 		int count = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -147,8 +145,8 @@ public class ReviewDAO implements IReviewDAO{
 			if(rs != null) {
 				while(rs.next()){
 					++count;
-					float magnitude = Float.parseFloat(rs.getString("magnitude"));
-					float score = Float.parseFloat(rs.getString("score"));
+					double magnitude = Double.parseDouble(rs.getString("magnitude"));
+					double score = Double.parseDouble(rs.getString("score"));
 					res += magnitude * score;
 				}
 			}
@@ -167,7 +165,7 @@ public class ReviewDAO implements IReviewDAO{
 		if ( count != 0 )
 			return res/count;
 		else
-			return Float.MIN_VALUE;
+			return Double.MIN_VALUE;
 	}
 	
 	public void setDataSource(DataSource dataSource) {

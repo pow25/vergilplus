@@ -135,7 +135,7 @@ public class CourseModel implements Comparable<CourseModel>{
 				&& this.sectionId == c.getSectionId()
 				? 0 : -1;
 	}
-	
+
 	@Override
 	public String toString() {
 		String res =  "{"

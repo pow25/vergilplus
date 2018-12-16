@@ -78,9 +78,9 @@ public class CourseDAO implements ICourseDAO{
 		return courseList;
 	}	
 	
-	public CourseModel search_course(String courseID) {
+	public CourseModel searchCourse(String courseNumber) {
 		CourseModel course = new CourseModel();
-		String query = "SELECT * FROM vergilplus.course where CourseNumber=\'" + courseID + "';";
+		String query = "SELECT * FROM vergilplus.course where CourseNumber=\'" + courseNumber + "';";
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -136,7 +136,7 @@ public class CourseDAO implements ICourseDAO{
 	}
 
 
-	public ArrayList<String> getInstructors() {
+	public List<String> getInstructors() {
 		String query = "SELECT Instructor FROM vergilplus.course;";
 		Connection con = null;
 		PreparedStatement ps = null;

@@ -8,8 +8,8 @@ import com.vplus.models.ReviewModel;
 
 public interface IReviewDAO {
 	public List<ReviewModel> selectAllReviews();
+	public double getCourseRating(String courseNumber);
+	public List<String> getReview(String courseNumber, String profName);
+	public List<String> getWords(String profName);
 	public void setDataSource(DataSource dataSource);
-	public float get_course_rating( String courseID);
-	public List<String> getReview(String courseID, String Prof);
-	public List<String> getWords(String professor);
 }

@@ -78,9 +78,9 @@ import com.vplus.models.CourseModel;
 <span class="fc" id="L78">		return courseList;</span>
 	}	
 	
-	public CourseModel search_course(String courseID) {
+	public CourseModel searchCourse(String courseNumber) {
 <span class="fc" id="L82">		CourseModel course = new CourseModel();</span>
-<span class="fc" id="L83">		String query = &quot;SELECT * FROM vergilplus.course where CourseNumber=\'&quot; + courseID + &quot;';&quot;;</span>
+<span class="fc" id="L83">		String query = &quot;SELECT * FROM vergilplus.course where CourseNumber=\'&quot; + courseNumber + &quot;';&quot;;</span>
 <span class="fc" id="L84">		Connection con = null;</span>
 <span class="fc" id="L85">		PreparedStatement ps = null;</span>
 <span class="fc" id="L86">		ResultSet rs = null;</span>
@@ -89,35 +89,35 @@ import com.vplus.models.CourseModel;
 <span class="fc" id="L89">			ps = con.prepareStatement(query);</span>
 <span class="fc" id="L90">			rs = ps.executeQuery();</span>
 <span class="pc bpc" id="L91" title="1 of 2 branches missed.">			if(rs != null) {</span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">				while(rs.next()){</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">				while(rs.next()){</span>
 					
-<span class="fc" id="L94">					course.setCourseNumber(rs.getString(&quot;CourseNumber&quot;));</span>
-<span class="fc" id="L95">					course.setSectionId(rs.getInt(&quot;Section&quot;));</span>
-<span class="fc" id="L96">					course.setCourseTitle(rs.getString(&quot;CourseTitle&quot;));</span>
-<span class="fc" id="L97">					course.setWeek(rs.getString(&quot;Week&quot;));</span>
-<span class="fc" id="L98">					course.setStartTime(rs.getString(&quot;Start_Time&quot;));</span>
-<span class="fc" id="L99">					course.setEndTime(rs.getString(&quot;End_Time&quot;));</span>
-<span class="fc" id="L100">					course.setInstructor(rs.getString(&quot;Instructor&quot;));</span>
+<span class="nc" id="L94">					course.setCourseNumber(rs.getString(&quot;CourseNumber&quot;));</span>
+<span class="nc" id="L95">					course.setSectionId(rs.getInt(&quot;Section&quot;));</span>
+<span class="nc" id="L96">					course.setCourseTitle(rs.getString(&quot;CourseTitle&quot;));</span>
+<span class="nc" id="L97">					course.setWeek(rs.getString(&quot;Week&quot;));</span>
+<span class="nc" id="L98">					course.setStartTime(rs.getString(&quot;Start_Time&quot;));</span>
+<span class="nc" id="L99">					course.setEndTime(rs.getString(&quot;End_Time&quot;));</span>
+<span class="nc" id="L100">					course.setInstructor(rs.getString(&quot;Instructor&quot;));</span>
 					
 					// set the three prerequisites
-<span class="fc" id="L103">					String[] preqs = rs.getString(&quot;Prerequisite&quot;).split(&quot;;&quot;,-1);</span>
-<span class="fc" id="L104">					List&lt;String&gt; coursePreq = Arrays.asList(preqs[0].split(&quot; &quot;));</span>
+<span class="nc" id="L103">					String[] preqs = rs.getString(&quot;Prerequisite&quot;).split(&quot;;&quot;,-1);</span>
+<span class="nc" id="L104">					List&lt;String&gt; coursePreq = Arrays.asList(preqs[0].split(&quot; &quot;));</span>
 
-<span class="fc bfc" id="L106" title="All 2 branches covered.">					if (coursePreq.get(0).length()==0){</span>
-<span class="fc" id="L107">						coursePreq = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">					if (coursePreq.get(0).length()==0){</span>
+<span class="nc" id="L107">						coursePreq = new ArrayList&lt;&gt;();</span>
 					}
 
-<span class="fc" id="L110">					String knowledgePreq = preqs[1];</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">					boolean instructorPreq = preqs[2].length() &gt; 0;</span>
+<span class="nc" id="L110">					String knowledgePreq = preqs[1];</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">					boolean instructorPreq = preqs[2].length() &gt; 0;</span>
 					
-<span class="fc" id="L113">					course.setCoursePreq(coursePreq);</span>
-<span class="fc" id="L114">					course.setKnowledgePreq(knowledgePreq);</span>
-<span class="fc" id="L115">					course.setInstructorPreq(instructorPreq);</span>
+<span class="nc" id="L113">					course.setCoursePreq(coursePreq);</span>
+<span class="nc" id="L114">					course.setKnowledgePreq(knowledgePreq);</span>
+<span class="nc" id="L115">					course.setInstructorPreq(instructorPreq);</span>
 					
 					
-<span class="fc" id="L118">					course.setTerm(rs.getInt(&quot;Term&quot;));</span>
-<span class="fc" id="L119">					course.setDescription(rs.getString(&quot;Description&quot;));</span>
-<span class="fc" id="L120">					break;</span>
+<span class="nc" id="L118">					course.setTerm(rs.getInt(&quot;Term&quot;));</span>
+<span class="nc" id="L119">					course.setDescription(rs.getString(&quot;Description&quot;));</span>
+<span class="nc" id="L120">					break;</span>
 				}
 			}
 <span class="fc" id="L123">		}catch(Exception e){</span>
@@ -136,7 +136,7 @@ import com.vplus.models.CourseModel;
 	}
 
 
-	public ArrayList&lt;String&gt; getInstructors() {
+	public List&lt;String&gt; getInstructors() {
 <span class="fc" id="L140">		String query = &quot;SELECT Instructor FROM vergilplus.course;&quot;;</span>
 <span class="fc" id="L141">		Connection con = null;</span>
 <span class="fc" id="L142">		PreparedStatement ps = null;</span>

@@ -16,13 +16,13 @@ public interface IMasterController{
 	
 	public List<CourseModel> recommendCourses(List<String> takenCourses);
 	
-	public List<CourseModel> breadthRequirements();
-
 	public List<String> findAllInstructors();
 
 	public List<CourseModel> fetchAllCourses();
-
-//	public List<String> convertCourseForm(List<String> takenCourses);
+	
+	public boolean isValidCourse(String courseNumber);
+	
+	public boolean isValidProfessor(String profName);
 
 	public String getWordsProfessor(String profName);
 }
