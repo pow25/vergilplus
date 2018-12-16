@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MasterController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">vplus</a> &gt; <a href="index.source.html" class="el_package">com.vplus.controller</a> &gt; <span class="el_source">MasterController.java</span></div><h1>MasterController.java</h1><pre class="source lang-java linenums">package com.vplus.controller;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.vplus.models.CourseModel;
+import com.vplus.service.ICourseService;
+import com.vplus.service.IReviewService;
+
+@Controller(&quot;masterController&quot;)
+<span class="fc" id="L16">public class MasterController implements IMasterController{</span>
+	@Autowired
+	private ICourseService courseService;
+
+    @Autowired
+	private IReviewService reviewService;
+
+	public static final int NUM_REC = 4;
+	public static final int SEED = 1;
+<span class="fc" id="L25">	public static final Random rnd = new Random(SEED);</span>
+
+	public List&lt;CourseModel&gt; recommendCourses(List&lt;String&gt; takenCourses){
+<span class="fc" id="L28">		List&lt;CourseModel&gt; res = new ArrayList&lt;CourseModel&gt;();</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">		if(takenCourses == null){</span>
+<span class="fc" id="L30">			System.out.println(&quot;Taken courses null!&quot;);</span>
+<span class="fc" id="L31">			return res;</span>
+		}
+<span class="fc bfc" id="L33" title="All 2 branches covered.">		if(takenCourses.size() &gt;= 12){</span>
+<span class="fc" id="L34">			return res;</span>
+		}
+<span class="fc" id="L36">		List&lt;CourseModel&gt; filteredCourses = filterCourses(takenCourses);</span>
+<span class="fc" id="L37">		List&lt;CourseModel&gt; result = reviewService.sortCoursesByReviewScores(filteredCourses);</span>
+<span class="fc" id="L38">		res = result.subList(0, NUM_REC);</span>
+<span class="fc" id="L39">		return res;</span>
+	}
+	
+	public String getWordsProfessor(String profName) {
+<span class="fc bfc" id="L43" title="All 4 branches covered.">		if(profName == null || profName.equals(&quot;&quot;)){</span>
+<span class="fc" id="L44">			return &quot;No Professor Name!&quot;;</span>
+		}
+
+<span class="fc" id="L47">		String[] buff = profName.split(&quot;, &quot;);</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">		if (buff.length != 2) {</span>
+<span class="fc" id="L50">			return &quot;Error Professor Name!!&quot;;</span>
+		}
+
+<span class="fc" id="L53">		String output = reviewService.getWords(profName);</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		if (output.isEmpty())</span>
+<span class="fc" id="L55">			return &quot;Oh this professor seems quiet. We don't have any review records for him :D&quot;;</span>
+		else
+<span class="fc" id="L57">			return output;</span>
+	}
+	
+	public List&lt;CourseModel&gt; filterCourses(List&lt;String&gt; takenCourses){
+<span class="fc" id="L61">		List&lt;CourseModel&gt; allCourses = fetchAllCourses();</span>
+<span class="fc" id="L62">		List&lt;CourseModel&gt; filteredCourses = processTakenCourses(takenCourses, allCourses);</span>
+<span class="fc" id="L63">		filteredCourses = filterByPrerequisites(filteredCourses);</span>
+<span class="fc" id="L64">		return filteredCourses;</span>
+	}
+	
+	// acknowledge taken courses, e.g, make courses available, remove taken courses
+	public List&lt;CourseModel&gt; processTakenCourses(List&lt;String&gt; takenCourses, List&lt;CourseModel&gt; allCourses){
+
+<span class="fc" id="L70">		List&lt;CourseModel&gt; filteredCourses=new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L71" title="All 4 branches covered.">		if (takenCourses == null || takenCourses.isEmpty()) return allCourses;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">		for(CourseModel course : allCourses){</span>
+			// if takenCourses and prereqs are not disjoint (i.e., there is overlap),
+			// prereq becomes empty, because all prereqs are joined by OR.
+<span class="fc bfc" id="L75" title="All 2 branches covered.">			if(!Collections.disjoint(takenCourses, course.getCoursePreq())){</span>
+<span class="fc" id="L76">				course.setCoursePreq(new ArrayList&lt;&gt;());</span>
+			}
+
+			// remove course from all courses if that course is already taken.
+<span class="fc bfc" id="L80" title="All 2 branches covered.">			if(!takenCourses.contains(course.getCourseNumber())) {</span>
+<span class="fc" id="L81">				filteredCourses.add(course);</span>
+			}
+<span class="fc" id="L83">		}</span>
+<span class="fc" id="L84">		return filteredCourses;</span>
+	}
+
+	// remove courses for which prerequisites are not fulfilled
+	public List&lt;CourseModel&gt; filterByPrerequisites(List&lt;CourseModel&gt; courses){
+<span class="fc" id="L89">			List&lt;CourseModel&gt; filteredCourses = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L90" title="All 4 branches covered.">			if(courses == null || courses.isEmpty()){</span>
+<span class="fc" id="L91">				return filteredCourses;</span>
+			}
+<span class="fc bfc" id="L93" title="All 2 branches covered.">			for (CourseModel course : courses) {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">				if (course.getCoursePreq().isEmpty()) {</span>
+<span class="fc" id="L95">					filteredCourses.add(course);</span>
+				}
+<span class="fc" id="L97">			}</span>
+<span class="fc" id="L98">			return filteredCourses;</span>
+	}
+
+    //return courses according to breadth requirements
+	public List&lt;CourseModel&gt; fetchAllCourses(){
+<span class="fc" id="L103">		List&lt;CourseModel&gt; allCourses = courseService.selectAllCourses();</span>
+<span class="fc" id="L104">		return allCourses;</span>
+	}
+
+	public List&lt;String&gt; findAllInstructors(){
+<span class="fc" id="L108">		List&lt;String&gt; instructors = courseService.findInstructors();</span>
+<span class="fc" id="L109">		return instructors;</span>
+	}
+	
+	public boolean isValidCourse(String courseNumber){
+<span class="nc bnc" id="L113" title="All 2 branches missed.">		for(CourseModel c : fetchAllCourses()){</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">			if(c.getCourseNumber().equals(courseNumber)){</span>
+<span class="nc" id="L115">				return true;</span>
+			}
+<span class="nc" id="L117">		}</span>
+<span class="nc" id="L118">		return false;</span>
+	}
+	
+	public boolean isValidProfessor(String profName){
+<span class="nc bnc" id="L122" title="All 2 branches missed.">		for(String inst : findAllInstructors()){</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">			if(inst.equals(profName)){</span>
+<span class="nc" id="L124">				return true;</span>
+			}
+<span class="nc" id="L126">		}</span>
+<span class="nc" id="L127">		return false;</span>
+	}
+
+	public ICourseService getCourseService() {
+<span class="fc" id="L131">		return courseService;</span>
+	}
+
+	public void setCourseService(ICourseService courseService) {
+<span class="fc" id="L135">		this.courseService = courseService;</span>
+<span class="fc" id="L136">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
