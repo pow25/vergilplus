@@ -38,7 +38,7 @@ Our project uses JUnit test tool and Jacoco for testing. To test our project sim
     All course recommendations take into account the student's previous courses.
 <br />
 
-***Technologies and tools used: Java, Google NLP, Amazon AWS Lex, Mysql, Travis CI, Maven, Spring, JUnit, Python, SonarClound, PMD, Jacoco+Codecov.***
+***Technologies and tools used: Java, Google NLP, Amazon AWS Lex, Mysql, Travis CI, Maven, Spring, JUnit, Python, SonarClound, PMD, Jacoco&Codecov.***
 
 ## Interesting Stats: <br />
 ![stats](stats.png)
