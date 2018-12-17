@@ -1,54 +1,54 @@
 package com.vplus.models;
 
 public class ReviewModel {
-	private String Professor_name;
-	private String courseID;
-	private String Review;
-	private float score;
-	private float magnitude;
+	private String profName;
+	private String courseNumber;
+	private String review;
+	private double score;
+	private double magnitude;
 	
-	public String getProf() {
-		return Professor_name;
+	public String getProfName() {
+		return profName;
 	}
 
-	public void setProf(String Professor_name) {
-		this.Professor_name = Professor_name;
+	public void setProfName(String profName) {
+		this.profName = profName;
 	}
 
-	public String getCourseID() {
-		return courseID;
+	public String getCourseNumber() {
+		return courseNumber;
 	}
 
-	public void setCourseID(String courseID) {
-		this.courseID = courseID;
+	public void setCourseNumber(String courseNumber) {
+		this.courseNumber = courseNumber;
 	}
 
 	public String getReview() {
-		return Review;
+		return review;
 	}
 
-	public void setReview(String Review) {
-		this.Review = Review;
+	public void setReview(String review) {
+		this.review = review;
 	}
-	
-	public float getscore() {
+
+	public double getScore() {
 		return score;
 	}
 
-	public void setscore(float score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
-	
-	public float getmagnitude() {
+
+	public double getMagnitude() {
 		return magnitude;
 	}
 
-	public void setmagnitude(float magnitude) {
+	public void setMagnitude(double magnitude){
 		this.magnitude = magnitude;
 	}
-	
+
 	@Override
 	public String toString(){
-		return "{courseID="+courseID+",Professor="+Professor_name+",Score:"+score+"}";
+		return "{courseNumber="+courseNumber+",profName="+profName+",score="+score+"}";
 	}
 }

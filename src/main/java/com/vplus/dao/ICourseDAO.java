@@ -5,10 +5,9 @@ import com.vplus.models.CourseModel;
 
 import javax.sql.DataSource;
 
-
 public interface ICourseDAO {
 	public List<CourseModel> selectAllCourses();
-	public CourseModel search_course(String courseID);
+//	public CourseModel searchCourse(String courseNumber);
 	public List<String> getInstructors();
 	public void setDataSource(DataSource dataSource);
 }

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.vplus.maven.vplus.AppTest
 -------------------------------------------------------------------------------
-Tests run: 63, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 56.227 s - in com.vplus.maven.vplus.AppTest
+Tests run: 57, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 41.298 s - in com.vplus.maven.vplus.AppTest

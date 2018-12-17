@@ -78,65 +78,65 @@ import com.vplus.models.CourseModel;
 <span class="fc" id="L78">		return courseList;</span>
 	}	
 	
-	public CourseModel search_course(String courseID) {
-<span class="fc" id="L82">		CourseModel course = new CourseModel();</span>
-<span class="fc" id="L83">		String query = &quot;SELECT * FROM vergilplus.course where CourseNumber=\'&quot; + courseID + &quot;';&quot;;</span>
-<span class="fc" id="L84">		Connection con = null;</span>
-<span class="fc" id="L85">		PreparedStatement ps = null;</span>
-<span class="fc" id="L86">		ResultSet rs = null;</span>
-		try{
-<span class="fc" id="L88">			con = dataSource.getConnection();</span>
-<span class="fc" id="L89">			ps = con.prepareStatement(query);</span>
-<span class="fc" id="L90">			rs = ps.executeQuery();</span>
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">			if(rs != null) {</span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">				while(rs.next()){</span>
-					
-<span class="fc" id="L94">					course.setCourseNumber(rs.getString(&quot;CourseNumber&quot;));</span>
-<span class="fc" id="L95">					course.setSectionId(rs.getInt(&quot;Section&quot;));</span>
-<span class="fc" id="L96">					course.setCourseTitle(rs.getString(&quot;CourseTitle&quot;));</span>
-<span class="fc" id="L97">					course.setWeek(rs.getString(&quot;Week&quot;));</span>
-<span class="fc" id="L98">					course.setStartTime(rs.getString(&quot;Start_Time&quot;));</span>
-<span class="fc" id="L99">					course.setEndTime(rs.getString(&quot;End_Time&quot;));</span>
-<span class="fc" id="L100">					course.setInstructor(rs.getString(&quot;Instructor&quot;));</span>
-					
-					// set the three prerequisites
-<span class="fc" id="L103">					String[] preqs = rs.getString(&quot;Prerequisite&quot;).split(&quot;;&quot;,-1);</span>
-<span class="fc" id="L104">					List&lt;String&gt; coursePreq = Arrays.asList(preqs[0].split(&quot; &quot;));</span>
+//	public CourseModel searchCourse(String courseNumber) {
+//		CourseModel course = new CourseModel();
+//		String query = &quot;SELECT * FROM vergilplus.course where CourseNumber=\'&quot; + courseNumber + &quot;';&quot;;
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		try{
+//			con = dataSource.getConnection();
+//			ps = con.prepareStatement(query);
+//			rs = ps.executeQuery();
+//			if(rs != null) {
+//				while(rs.next()){
+//
+//					course.setCourseNumber(rs.getString(&quot;CourseNumber&quot;));
+//					course.setSectionId(rs.getInt(&quot;Section&quot;));
+//					course.setCourseTitle(rs.getString(&quot;CourseTitle&quot;));
+//					course.setWeek(rs.getString(&quot;Week&quot;));
+//					course.setStartTime(rs.getString(&quot;Start_Time&quot;));
+//					course.setEndTime(rs.getString(&quot;End_Time&quot;));
+//					course.setInstructor(rs.getString(&quot;Instructor&quot;));
+//
+//					// set the three prerequisites
+//					String[] preqs = rs.getString(&quot;Prerequisite&quot;).split(&quot;;&quot;,-1);
+//					List&lt;String&gt; coursePreq = Arrays.asList(preqs[0].split(&quot; &quot;));
+//
+//					if (coursePreq.get(0).length()==0){
+//						coursePreq = new ArrayList&lt;&gt;();
+//					}
+//
+//					String knowledgePreq = preqs[1];
+//					boolean instructorPreq = preqs[2].length() &gt; 0;
+//
+//					course.setCoursePreq(coursePreq);
+//					course.setKnowledgePreq(knowledgePreq);
+//					course.setInstructorPreq(instructorPreq);
+//
+//
+//					course.setTerm(rs.getInt(&quot;Term&quot;));
+//					course.setDescription(rs.getString(&quot;Description&quot;));
+//					break;
+//				}
+//			}
+//		}catch(Exception e){
+//			System.err.println(e);
+//			System.err.println(&quot;An Exception occured!&quot;);
+//		}finally{
+//			try {
+//				rs.close();
+//				ps.close();
+//				con.close();
+//			} catch (Exception e) {
+//				System.err.println(&quot;An Exception occured in search_course function!&quot;);
+//			}
+//		}
+//		return course;
+//	}
 
-<span class="fc bfc" id="L106" title="All 2 branches covered.">					if (coursePreq.get(0).length()==0){</span>
-<span class="fc" id="L107">						coursePreq = new ArrayList&lt;&gt;();</span>
-					}
 
-<span class="fc" id="L110">					String knowledgePreq = preqs[1];</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">					boolean instructorPreq = preqs[2].length() &gt; 0;</span>
-					
-<span class="fc" id="L113">					course.setCoursePreq(coursePreq);</span>
-<span class="fc" id="L114">					course.setKnowledgePreq(knowledgePreq);</span>
-<span class="fc" id="L115">					course.setInstructorPreq(instructorPreq);</span>
-					
-					
-<span class="fc" id="L118">					course.setTerm(rs.getInt(&quot;Term&quot;));</span>
-<span class="fc" id="L119">					course.setDescription(rs.getString(&quot;Description&quot;));</span>
-<span class="fc" id="L120">					break;</span>
-				}
-			}
-<span class="fc" id="L123">		}catch(Exception e){</span>
-<span class="fc" id="L124">			System.err.println(e);</span>
-<span class="fc" id="L125">			System.err.println(&quot;An Exception occured!&quot;);</span>
-		}finally{
-<span class="nc" id="L127">			try {</span>
-<span class="pc" id="L128">				rs.close();</span>
-<span class="pc" id="L129">				ps.close();</span>
-<span class="pc" id="L130">				con.close();</span>
-<span class="pc" id="L131">			} catch (Exception e) {</span>
-<span class="pc" id="L132">				System.err.println(&quot;An Exception occured in search_course function!&quot;);</span>
-<span class="pc" id="L133">			}</span>
-<span class="pc" id="L134">		}</span>
-<span class="fc" id="L135">		return course;</span>
-	}
-
-
-	public ArrayList&lt;String&gt; getInstructors() {
+	public List&lt;String&gt; getInstructors() {
 <span class="fc" id="L140">		String query = &quot;SELECT Instructor FROM vergilplus.course;&quot;;</span>
 <span class="fc" id="L141">		Connection con = null;</span>
 <span class="fc" id="L142">		PreparedStatement ps = null;</span>
@@ -162,7 +162,7 @@ import com.vplus.models.CourseModel;
 <span class="pc" id="L162">			} catch (Exception e) {</span>
 <span class="pc" id="L163">				System.err.println(&quot;An Exception occured in instructor collection!&quot;);</span>
 <span class="pc" id="L164">			}</span>
-<span class="nc" id="L165">		}</span>
+<span class="pc" id="L165">		}</span>
 <span class="fc" id="L166">		return instructors;</span>
 	}
 
