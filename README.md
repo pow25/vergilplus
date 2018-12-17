@@ -39,3 +39,6 @@ Our project uses JUnit test tool and Jacoco for testing. To test our project sim
 <br />
 
 ***Technologies and tools used: Java, Google NLP, Amazon AWS Lex, Mysql, Travis CI, Maven, Spring, JUnit, Python, SonarClound, PMD, Jacoco+Codecov.***
+
+## Interesting Stats: <br />
+![stats](stats.png)
