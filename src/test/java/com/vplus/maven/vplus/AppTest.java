@@ -631,7 +631,7 @@ public class AppTest
 	public void getAllTopics() throws Exception {
 		Application app  = ctx.getBean("Application", Application.class);
 		List<String> topics = app.getAllTopics();
-		assertTrue(topics.size()==13);
+		assertTrue(topics.size()==14);
 	}
 
 	@Test

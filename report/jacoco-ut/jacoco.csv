@@ -4,6 +4,6 @@ vplus,com.vplus.models,ReviewModel,0,60,0,0,0,17,0,12,0,12
 vplus,com.vplus.models,CourseModel,0,207,1,3,0,45,1,29,0,28
 vplus,com.vplus.dao,CourseDAO,57,208,2,10,4,65,2,8,0,4
 vplus,com.vplus.dao,ReviewDAO,104,359,4,22,4,113,4,15,0,6
-vplus,com.vplus,Application,6,779,5,71,4,200,5,66,0,32
+vplus,com.vplus,Application,6,783,5,71,4,201,5,66,0,32
 vplus,com.vplus.service,ReviewService,1,158,2,10,1,29,2,11,0,7
 vplus,com.vplus.service,CourseService,0,54,0,6,0,15,0,9,0,6

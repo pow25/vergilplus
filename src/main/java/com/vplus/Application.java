@@ -75,6 +75,7 @@ public class Application implements CommandLineRunner {
         allTopics.add("theory");
         allTopics.add("computational biology");
         allTopics.add("algorithm");
+		allTopics.add("security");
         return allTopics;
     }
     
