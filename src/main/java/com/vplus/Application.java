@@ -214,7 +214,7 @@ public class Application implements CommandLineRunner {
 				promptFunctionality();
 			}
 		}
-		System.out.println(awsResp);
+		//System.out.println(awsResp);
 		if(numFails >= 3){
 			promptForceChoiceFunctionality();
 			String forcedChoice = br.readLine();
@@ -390,7 +390,7 @@ public class Application implements CommandLineRunner {
 				System.out.println("Here are our recommendations!");
 				recommendations.forEach(
 						l -> System.out.println(l+ 
-								"-------------------------------------"));
+								"\n-------------------------------------"));
 			}
 
 	}	
